@@ -1,0 +1,7 @@
+{
+  "name": "MiColeccion",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
