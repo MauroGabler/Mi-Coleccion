@@ -1,0 +1,17 @@
+ services:
+
+      # Oracle service (label used to access the service container)
+      oracle:
+
+        # Docker Hub image
+        image: gvenzl/oracle-xe:18.4.0-slim
+
+        # Provide passwords and other environment variables to container
+        environment:
+          ORACLE_PASSWORD: oracle
+          ORACLE_CHARACTERSET: AL32UTF8
+          # ALTER SESSION SET "ORACLE_SCRIPT"=true
+
+        # Forward Oracle port
+        ports: 
+          - 1521:1521
