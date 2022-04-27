@@ -1,0 +1,29 @@
+<ion-content>
+
+  <ion-item class="ion-item-container-logo ion-text-center">
+    <ion-label>
+      <h1>Mi</h1>
+      <h2>Coleccion</h2>
+      <ion-icon name="diamond"></ion-icon>
+    </ion-label>
+    <a routerLink="/recover">recover</a>
+    <a routerLink="/personal">register2</a>
+    <a routerLink="/tabs/iniciar">home</a>
+  </ion-item>
+
+  <ion-toolbar mode="md">
+    <ion-segment value="">
+      <ion-segment-button value="iniciar">
+        INICIAR
+      </ion-segment-button>
+      <ion-segment-button value="registrar">
+        REGISTRAR
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+  <app-login *ngIf="segment.value === 'iniciar'"></app-login>
+  <app-register *ngIf="segment.value === 'registrar'"></app-register>
+
+</ion-content>
+
+

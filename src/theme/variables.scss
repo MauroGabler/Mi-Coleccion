@@ -3,6 +3,59 @@
 
 /** Ionic CSS Variables **/
 :root {
+
+  /** button **/
+  --ion-color-button: #22243D;
+	--ion-color-button-rgb: 34,36,61;
+	--ion-color-button-contrast: #ffffff;
+	--ion-color-button-contrast-rgb: 255,255,255;
+	--ion-color-button-shade: #1e2036;
+	--ion-color-button-tint: #383a50;
+
+  .ion-color-button {
+    --ion-color-base: var(--ion-color-button);
+    --ion-color-base-rgb: var(--ion-color-button-rgb);
+    --ion-color-contrast: var(--ion-color-button-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-button-contrast-rgb);
+    --ion-color-shade: var(--ion-color-button-shade);
+    --ion-color-tint: var(--ion-color-button-tint);
+  }
+  
+  /** icon **/
+  --ion-color-micoleccion: #ffffff;
+	--ion-color-micoleccion-rgb: 92,97,126;
+	--ion-color-micoleccion-contrast: rgb(92, 97, 126);
+	--ion-color-micoleccion-contrast-rgb: 92, 97, 126;
+	--ion-color-micoleccion-shade: #51556f;
+	--ion-color-micoleccion-tint: #6c718b;
+
+  .ion-color-micoleccion {
+    --ion-color-base: var(--ion-color-micoleccion);
+    --ion-color-base-rgb: var(--ion-color-micoleccion-rgb);
+    --ion-color-contrast: var(--ion-color-micoleccion-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-micoleccion-contrast-rgb);
+    --ion-color-shade: var(--ion-color-micoleccion-shade);
+    --ion-color-tint: var(--ion-color-micoleccion-tint);
+  }
+
+  /** micoleccion **/
+  --ion-color-icon: #5c617e;
+	--ion-color-icon-rgb: 92,97,126;
+	--ion-color-icon-contrast: #ffffff;
+	--ion-color-icon-contrast-rgb: 255,255,255;
+	--ion-color-icon-shade: #51556f;
+	--ion-color-icon-tint: #6c718b;
+
+  .ion-color-icon {
+    --ion-color-base: var(--ion-color-icon);
+    --ion-color-base-rgb: var(--ion-color-icon-rgb);
+    --ion-color-contrast: var(--ion-color-icon-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-icon-contrast-rgb);
+    --ion-color-shade: var(--ion-color-icon-shade);
+    --ion-color-tint: var(--ion-color-icon-tint);
+  }
+
+
   /** primary **/
   --ion-color-primary: #3880ff;
   --ion-color-primary-rgb: 56, 128, 255;
@@ -76,7 +129,7 @@
   --ion-color-light-tint: #f5f6f9;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   /*
    * Dark Colors
    * -------------------------------------------

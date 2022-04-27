@@ -1,0 +1,23 @@
+.ion-item-container-logo{
+    --min-height: 32vh;
+    --background: #22243D;
+    --color: #ffffff;
+}
+
+.ion-item-container-logo  ion-label h1,h2,ion-icon{
+    font-size: 40px;	
+}
+
+ion-toolbar{
+    --min-height: 8vh;
+    --background: #22243D;
+}
+
+ion-segment-button{
+    --color: #5C617E;
+    --color-checked: #ffffff;
+}
+
+
+
+
