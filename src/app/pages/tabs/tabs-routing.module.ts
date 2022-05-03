@@ -14,43 +14,26 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'inicio',
+        path: 'home',
         loadChildren: () => import('../home/home.module').then( m => m.HomePageModule)
-      }
-
-    ]
-  },
-  {
-    path: '',
-    component: TabsPage,
-    children: [
+      },
       {
-        path: 'explorar',
+        path: 'search',
         loadChildren: () => import('../search/search.module').then( m => m.SearchPageModule)
-      }
-
-    ]
-  },
-  {
-    path: '',
-    component: TabsPage,
-    children: [
+      },
       {
-        path: 'publicar',
+        path: 'profile',
+        loadChildren: () => import('../profile/profile.module').then( m => m.ProfilePageModule)
+      },
+      {
+        path: 'post',
         loadChildren: () => import('../post/post.module').then( m => m.PostPageModule)
-      }
-
-    ]
-  },
-  {
-    path: '',
-    component: TabsPage,
-    children: [
+      },
       {
         path: 'chat',
         loadChildren: () => import('../chat/chat.module').then( m => m.ChatPageModule)
       }
-
+      
     ]
   }
 ];

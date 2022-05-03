@@ -1,0 +1,12 @@
+<ion-toolbar mode="md">
+  <ion-segment value="">
+    <ion-segment-button value="login">
+      INICIAR
+    </ion-segment-button>
+    <ion-segment-button value="register">
+      REGISTRAR
+    </ion-segment-button>
+  </ion-segment>
+</ion-toolbar>
+<app-login *ngIf="segment.value === 'login'"></app-login>
+<app-register *ngIf="segment.value === 'register'"></app-register>
