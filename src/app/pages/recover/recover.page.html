@@ -1,78 +1,40 @@
 <ion-content>
-
-  <!-- <div id="header" class="header">
-    <div id="container-icon-user" class="container-icon-user">
-      <ion-icon color="micoleccion" name="alert-circle-outline"></ion-icon>
-    </div>
-  </div>
-
-  <div id="contenedor-texto-recovery" class="contenedor-texto-recovery">
-    <p>
-      Te enviaremos un correo al mail asociado a tu cuenta, si los datos ingresados son correctos
-    </p>
-  </div>
-
-  <section id="contenedor-formulario-recovery" class="contenedor-formulario-recovery">
-    <div id="contenedor-user-info" class="contenedor-user-info">
-      <div id="contenedor-user-recovey" class="contenedor-user-recovey">
-        <ion-icon color="icon" class="img-user" name="person"></ion-icon>
-        <ion-item color="micoleccion">
-          <ion-input type="text" name="user" placeholder="Ingresar usuario"></ion-input>
-        </ion-item>
-      </div>
-      <div id="contenedor-pass-recovery" class="contenedor-pass-recovery">
-        <ion-icon color="icon" class="img-rut" name="card"></ion-icon>
-        <ion-item color="micoleccion">
-          <ion-input type="text" name="pass" placeholder="Ingresar RUT"></ion-input>
-        </ion-item>
-      </div>
-      <div id="contenedor-user-recovey" class="contenedor-user-recovey">
-        <ion-icon color="icon" class="img-user" name="mail"></ion-icon>
-        <ion-item color="micoleccion">
-          <ion-input type="mail" name="mail" placeholder="Ingresar correo"></ion-input>
-        </ion-item>
-      </div>
-      <div id="boton-recuperar" class="boton-recuperar">
-        <ion-button  routerLink="/menu" color="button">RECUPERAR</ion-button>
-      </div>
-      
-    </div>
-  </section> -->
-  <ion-item class="ion-item-container-icon">
-    <ion-icon name="refresh-circle-sharp"></ion-icon>
+  <ion-item class="ion-item-container-icon ion-text-center">
+    <ion-label>
+      <ion-icon class="icono" name="refresh-circle"></ion-icon>
+    </ion-label>
   </ion-item>
 
-  <ion-text>
+  <ion-text class="texto ion-text-center">
     <p>
       Te enviaremos un correo al mail asociado a tu cuenta, si es que los datos son correctos
     </p>
   </ion-text>
 
-  <div class="container-form-register">
+  <div class="container-form-recover">
 
-    <form class="form-register">
+    <form class="form-recover">
 
 
-      <ion-item>
+      <ion-item class="inputs">
         <ion-input name="recover-user" type="text" placeholder="Ingrese nuevo usuario"></ion-input>
         <ion-icon name="person-sharp" slot="start"></ion-icon>
       </ion-item>
 
-      <ion-item>
+      <ion-item class="inputs">
         <ion-input name="recover-mail" type="email" placeholder="Ingrese correo electronico"></ion-input>
         <ion-icon name="mail-sharp" slot="start"></ion-icon>
       </ion-item>
   
   
-      <ion-item>
+      <ion-item class="inputs">
         <ion-input name="recover-rut" type="text" placeholder="Ingrese RUT"></ion-input>
         <ion-icon name="id-card-sharp" slot="start"></ion-icon>
       </ion-item>
       
-      <ion-button routerLink="/menu-auth">RECUPERAR</ion-button>
+      <ion-button class="button" routerLink="/menu-auth">RECUPERAR</ion-button>
       
     </form>
-  
   
   </div>
 

@@ -1,0 +1,45 @@
+.container-form-login{
+    width: 100vw;
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.form-login{
+    width: 80vw;
+    background: #FFFFFF;
+    padding: 30px 10px;
+    border-radius: 5px;
+    text-align: center;
+    
+}
+
+
+.inputs{
+    --background: #FFFFFF;
+    padding-right: 30px;
+    font-size: 15px;
+}
+
+.margin-top{ 
+    margin-top: 10px;
+}
+
+.button{
+    --background: #22243D;
+    --border-radius: 5px;
+    margin-top: 30px;
+}
+
+.link{
+    color: #5C617E;
+    text-decoration: none;
+}
+
+
+
+
+
+

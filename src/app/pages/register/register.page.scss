@@ -1,0 +1,43 @@
+.container-form-register{
+    width: 100vw;
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.form-register{
+    width: 80vw;
+    background: #FFFFFF;
+    padding: 30px 10px;
+    border-radius: 5px;
+    text-align: center;
+    
+}
+
+.inputs{
+    --background: #FFFFFF;
+    margin-top: 10px;
+    padding-right: 30px;
+    font-size: 14px;
+}
+
+.button{
+    --background: #22243D;
+    --border-radius: 5px;
+    margin-top: 30px;
+}
+
+.ion-item-terms{
+    --border-style: none;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 10px;
+}
+
+ion-checkbox{
+    margin-right: 5px;
+    --background-checked: #5C617E;
+    --border-color-checked: #5C617E;
+}
