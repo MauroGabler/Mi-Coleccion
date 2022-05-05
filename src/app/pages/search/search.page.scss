@@ -1,9 +1,23 @@
-h1{
-    font-weight: bold;
-    font-size: xx-large;
-    color: #22243D;
+ion-item {
+    --border-style: none;
 }
 
-.container-searchbar > ion-item{
-    --background: #22243D;
+ion-card{
+    border: 1px solid #22243D;
+
 }
+
+// ion-img{
+//     z-index: -1;
+// }
+
+// ion-button{
+//     position: fixed;
+//     left: 0;
+//     top: 0;
+//     margin:10px;
+// }
+
+
+
+

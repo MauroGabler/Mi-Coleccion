@@ -1,10 +1,46 @@
-ion-item:first-child{
-    --background: #22243D;
-    --color: #ffffff;
-    font-size: xx-large;
-    // --min-height: 100px;
+ion-item {
+    --border-style: none;
 }
 
-ion-row{
-    --background: #22243D;
+ion-card{
+    --background: ;
+    border: 1px solid #22243D;
+    background-color: #FFFFFF;
+    margin-bottom: 50px;
 }
+
+.description{
+    display: flex;
+    flex-direction: row;
+}
+
+.description>div{
+    width: 50%;
+}
+
+.title{
+    --color: aquamarine;
+}
+
+ion-card-title{
+    --color: #5C617E;
+}
+
+.container-button{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.button{
+    --background: #FFFFFF;
+    --box-shadow: none;
+}
+
+ion-icon{
+    font-size: 30px;
+    color: #22243D;
+}
+
+
+// 22243D - 5C617E
