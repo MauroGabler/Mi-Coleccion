@@ -1,0 +1,22 @@
+// .button{
+//     --background: none;
+//     --box-shadow: none;
+//     --ripple-color: #5C617E;
+//     --border-radius: 50%;
+// }
+
+ion-button{
+    position: relative;
+    width: 200px;
+    height: 200px;
+}
+
+ion-badge,
+ion-icon{
+    position: absolute;
+}
+
+ion-badge{
+    top: 40%;
+    left: 52%;
+}

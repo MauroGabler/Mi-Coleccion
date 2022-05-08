@@ -21,6 +21,11 @@
     --background: #FFFFFF;
     padding-right: 30px;
     font-size: 15px;
+    --border-style: none;
+}
+
+ion-input{
+    border-bottom: 1px solid #5C617E;
 }
 
 .margin-top{ 

@@ -1,8 +1,15 @@
+h1{
+    margin-bottom: 30px;
+}
+
+
 ion-item {
     --border-style: none;
+    --background: #FFFFFF;
 }
 
 ion-card{
+
     --background: ;
     border: 1px solid #22243D;
     background-color: #FFFFFF;
@@ -18,10 +25,6 @@ ion-card{
     width: 50%;
 }
 
-.title{
-    --color: aquamarine;
-}
-
 ion-card-title{
     --color: #5C617E;
 }
@@ -33,12 +36,14 @@ ion-card-title{
 }
 
 .button{
-    --background: #FFFFFF;
+    --background: none;
     --box-shadow: none;
+    --ripple-color: #5C617E;
+    --border-radius: 100%;
 }
 
 ion-icon{
-    font-size: 30px;
+    // font-size: 30px;
     color: #22243D;
 }
 

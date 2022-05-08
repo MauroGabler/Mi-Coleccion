@@ -21,6 +21,11 @@
     margin-top: 10px;
     padding-right: 30px;
     font-size: 14px;
+    --border-style: none;
+}
+
+ion-input{
+    border-bottom: #5C617E 1px solid;
 }
 
 .button{

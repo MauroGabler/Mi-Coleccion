@@ -50,6 +50,10 @@ const routes: Routes = [
     path: 'profile',
     loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
   },
+  {
+    path: 'view-post',
+    loadChildren: () => import('./pages/view-post/view-post.module').then( m => m.ViewPostPageModule)
+  },
 
 ];
 

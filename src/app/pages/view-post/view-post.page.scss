@@ -1,0 +1,36 @@
+.container-slides{
+    // display: inline-block;
+    // margin: auto;
+    width: 80vw;
+    margin: auto;
+    position: relative;
+}
+
+ion-slides {
+    --bullet-background: #5C617E;
+    --bullet-background-active: #22243D;
+    --scroll-bar-background-active: none;
+    height: 20vh;
+    margin-top: 50px;
+    border: #22243D 1px solid;
+    border-radius: 5px;
+}
+
+ion-button{
+    margin: 0;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 90%;
+    z-index: 2;
+    font-size: 9px;
+}
+
+
+ion-slide {
+    display: block; 
+}
+
+ion-img{
+    width: 100%;
+}

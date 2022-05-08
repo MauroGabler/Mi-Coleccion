@@ -6,7 +6,7 @@
 
 <ion-content>
   <ion-tabs>
-    <ion-tab-bar slot="bottom,top">
+    <ion-tab-bar slot="bottom">
       <ion-tab-button class="color-button" tab="home">
         <ion-icon name="home"></ion-icon>
         <ion-label>Inicio</ion-label>
@@ -24,10 +24,16 @@
         <ion-icon name="add-circle"></ion-icon>
         <ion-label>Publicar</ion-label>
       </ion-tab-button>
-      <ion-tab-button class="color-button" tab="chat">
+
+
+      <ion-tab-button class="chat color-button" tab="chat">
+        <ion-badge>10</ion-badge>
         <ion-icon name="chatbubble-ellipses"></ion-icon>
         <ion-label>Chat</ion-label>
       </ion-tab-button>
+
+
+
     </ion-tab-bar>
   </ion-tabs>
 </ion-content>
