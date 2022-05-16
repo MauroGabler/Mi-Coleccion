@@ -5,7 +5,7 @@ const consultar = async (params) => {
   let respuesta = {}
   respuesta['categoria_coleccion'] = {}
   let where = ''
-  
+
   if (params.int_id_cat_coleccion) {
     let int_id_cat_coleccion = params['int_id_cat_coleccion']
     where += `WHERE int_id_cat_coleccion = ${int_id_cat_coleccion}`
@@ -25,12 +25,12 @@ const guardar = async (params) => {
 
   let respuesta = {}
   respuesta['mensaje'] = 'Se ha guardado una categoria'
-   
+
   let var_nom_cat = params?.var_nom_cat
 
   if (var_nom_cat == undefined) {
     return respuesta['mensaje'] = 'No ha enviado el nombre de categoria'
-  } 
+  }
 
   const sel = `SELECT COUNT(int_id_cat_colecc)
               FROM categoria_coleccion`
