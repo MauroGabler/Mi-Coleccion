@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 const { cargar_consulta } = require('../helpers/funciones')
 
 const consultar = async (params) => {
@@ -50,7 +51,8 @@ const guardar = async (params) => {
     values += `, '${var_desc_user}'`
   }
 
-  if (params.bool_error == 0) {
+  console.log(respuesta.bool_error)
+  if (respuesta.bool_error == 0) {
 
     let sel = `SELECT COUNT(int_id_usu) as ID
              FROM usuario`
@@ -67,7 +69,30 @@ const guardar = async (params) => {
              ${values})`
     const res = await cargar_consulta(ins)
 
+    console.log(res)
     res === 0 ? (respuesta['mensaje'] = 'Se ha guardado un nuevo usuario') : (respuesta['mensaje'] = 'No se han insertado datos')
+  }
+
+  return respuesta
+}
+
+const login = async (params) => {
+
+  let respuesta = {}
+  let bool_error = 0
+  params?.usuario ?? (bool_error = 1)
+  params?.contrasena ?? (bool_error = 1)
+
+  bool_error == 1 && (respuesta.mensaje = 'Usuario y/o contraseñna incorrecto')
+
+  if (!bool_error) {
+    let sel = `SELECT COUNT(*)
+              FROM usuario
+              WHERE var_user = ${params.usuario}
+              AND var_pass = ${params.contrasena}`
+    const res = await cargar_consulta(sel)
+
+    res.length > 0 ? respuesta.logueado = true : respuesta.mensaje = 'El usuario ingresado no existe'
   }
 
   return respuesta
@@ -121,5 +146,6 @@ const modificar = async (params) => {
 module.exports = {
   consultar,
   guardar,
+  login,
   modificar
 }
