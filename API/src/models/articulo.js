@@ -1,5 +1,5 @@
+/* eslint-disable linebreak-style */
 const { cargar_consulta } = require('../helpers/funciones')
-// const { param } = require('../routes/usuario')
 
 const consultar = async (params) => {
 

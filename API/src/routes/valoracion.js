@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 const { Router } = require('express')
 const { consultar, guardar, modificar } = require('../models/valoracion')
 
