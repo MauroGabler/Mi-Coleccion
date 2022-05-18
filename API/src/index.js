@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 const express = require('express')
 const cors = require('cors')
 
@@ -11,10 +12,10 @@ app.use('/API', require('./routes/categoria.js'))
 app.use('/API', require('./routes/comentario.js'))
 app.use('/API', require('./routes/like.js'))
 app.use('/API', require('./routes/publicacion.js'))
-app.use('/API', require('./routes/reporte.js'))
+// app.use('/API', require('./routes/reporte.js'))
 app.use('/API', require('./routes/seguidor.js'))
 app.use('/API', require('./routes/usuario.js'))
 app.use('/API', require('./routes/valoracion.js'))
-app.use('/API', require('./routes/venta.js'))
+// app.use('/API', require('./routes/venta.js'))
 
 app.listen(port, () => console.log('API REST Oracle escuchando en el puerto %s!', port))
