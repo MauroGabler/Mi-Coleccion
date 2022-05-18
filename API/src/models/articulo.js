@@ -1,10 +1,4 @@
-<<<<<<< HEAD
-/* eslint-disable linebreak-style */
 const { cargar_consulta } = require('../helpers/funciones')
-=======
-const { cargar_consulta } = require('../helpers/funciones')
-// const { param } = require('../routes/usuario')
->>>>>>> cf14752f2bf7fb106c58032602d31c06e0f70f61
 
 const consultar = async (params) => {
 
