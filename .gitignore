@@ -30,3 +30,6 @@ npm-debug.log*
 /platforms
 /plugins
 /www
+
+API/build
+API/node_modules
