@@ -1,7 +1,5 @@
-<<<<<<< HEAD
 /* eslint-disable linebreak-style */
-=======
->>>>>>> cf14752f2bf7fb106c58032602d31c06e0f70f61
+
 const { cargar_consulta } = require('../helpers/funciones')
 
 const consultar = async (params) => {
@@ -54,12 +52,7 @@ const guardar = async (params) => {
     values += `, '${var_desc_user}'`
   }
 
-<<<<<<< HEAD
-  console.log(respuesta.bool_error)
   if (respuesta.bool_error == 0) {
-=======
-  if (params.bool_error == 0) {
->>>>>>> cf14752f2bf7fb106c58032602d31c06e0f70f61
 
     let sel = `SELECT COUNT(int_id_usu) as ID
              FROM usuario`
@@ -76,17 +69,12 @@ const guardar = async (params) => {
              ${values})`
     const res = await cargar_consulta(ins)
 
-<<<<<<< HEAD
-    console.log(res)
-=======
->>>>>>> cf14752f2bf7fb106c58032602d31c06e0f70f61
     res === 0 ? (respuesta['mensaje'] = 'Se ha guardado un nuevo usuario') : (respuesta['mensaje'] = 'No se han insertado datos')
   }
 
   return respuesta
 }
 
-<<<<<<< HEAD
 const login = async (params) => {
 
   let respuesta = {}
@@ -94,23 +82,21 @@ const login = async (params) => {
   params?.usuario ?? (bool_error = 1)
   params?.contrasena ?? (bool_error = 1)
 
-  bool_error == 1 && (respuesta.mensaje = 'Usuario y/o contraseñna incorrecto')
+  bool_error == 1 && (respuesta.mensaje = 'Usuario y/o contraseña incorrecto')
 
   if (!bool_error) {
-    let sel = `SELECT COUNT(*)
+    let sel = `SELECT COUNT(*) as u
               FROM usuario
-              WHERE var_user = ${params.usuario}
-              AND var_pass = ${params.contrasena}`
+              WHERE var_user = '${params.usuario}'
+              AND var_pass = '${params.contrasena}'`
     const res = await cargar_consulta(sel)
 
-    res.length > 0 ? respuesta.logueado = true : respuesta.mensaje = 'El usuario ingresado no existe'
+    res[0].U == 1 ? respuesta.logueado = true : respuesta.mensaje = 'El usuario ingresado no existe'
   }
 
   return respuesta
 }
 
-=======
->>>>>>> cf14752f2bf7fb106c58032602d31c06e0f70f61
 const modificar = async (params) => {
 
   let respuesta = {}
@@ -159,9 +145,6 @@ const modificar = async (params) => {
 module.exports = {
   consultar,
   guardar,
-<<<<<<< HEAD
   login,
-=======
->>>>>>> cf14752f2bf7fb106c58032602d31c06e0f70f61
   modificar
 }
