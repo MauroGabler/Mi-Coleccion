@@ -1,37 +1,79 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-title>profile</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content>
-  <ion-item>
-    <ion-button class="button" slot="end">
-      <ion-icon slot="icon-only" name="heart-outline"></ion-icon>
-    </ion-button>
-  </ion-item>
-  <!-- Default -->
-<ion-badge>99</ion-badge>
+  <div class="container-info-profile">
+    <div class="container-profile-img">
+      <img src="https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg">
+    </div>
+    <div class="container-description">
 
-<!-- Colors -->
-<ion-badge color="primary">11</ion-badge>
-<ion-badge color="secondary">22</ion-badge>
-<ion-badge color="tertiary">33</ion-badge>
-<ion-badge color="success">44</ion-badge>
-<ion-badge color="warning">55</ion-badge>
-<ion-badge color="danger">66</ion-badge>
-<ion-badge color="light">77</ion-badge>
-<ion-badge color="medium">88</ion-badge>
-<ion-badge color="dark">99</ion-badge>
+      <h1 class="user-name">Nombre de usuario</h1>
+      <form class="description">
+        <ion-textarea placeholder="Descripcion"></ion-textarea>
+      </form>
 
-<!-- Item with badge on left and right -->
-<ion-item>
-  <!-- <ion-badge slot="start">11</ion-badge>
-  <ion-label>My Item</ion-label>
-  <ion-badge slot="end">22</ion-badge> -->
-  <ion-button>
-    <ion-badge>10</ion-badge>
-    <ion-icon name="heart-outline"></ion-icon>
-  </ion-button>
-</ion-item>
+      <div class="container-interaction">
+        <div class="container-button">
+          <ion-button class="button-like">
+            <ion-icon slot="icon-only" name="flame-outline"></ion-icon>
+          </ion-button>
+        </div>
+
+        <div class="container-stars">
+          <ion-icon name="star-outline"></ion-icon>
+          <ion-icon name="star-outline"></ion-icon>
+          <ion-icon name="star-outline"></ion-icon>
+          <ion-icon name="star-outline"></ion-icon>
+          <ion-icon name="star-outline"></ion-icon>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="container-follows">
+
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="4">
+          <div class="container-followers">
+            <p class="text-center">
+              25 
+              <br>
+              Seguidores
+            </p>
+          </div>
+        </ion-col>
+        <ion-col size="4">
+          <div class="container-followess">
+            <p class="text-center">
+              25 
+              <br>
+              Seguidos
+            </p>
+          </div>
+        </ion-col>
+        <ion-col size="4">
+          <div class="container-num-post">
+            <p class="text-center">
+              25 
+              <br>
+              Publicaciones
+            </p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </div>
+
+  <div class="container-post-user">
+    <div>
+      <h2 class="text-center">Publicaciones</h2>
+    </div>
+  </div>
 </ion-content>

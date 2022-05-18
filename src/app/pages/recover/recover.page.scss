@@ -4,12 +4,12 @@
     --background: #22243D;
 }
 
-.icono{
+.icon{
     font-size: 50px;
     color: #FFFFFF;
 }
 
-.texto p{
+.text p{
     padding: 10px 30px;
     font-size: 25px;
     font-weight: bold;
@@ -29,10 +29,15 @@
     
 }
 
-.inputs{
+.container-inputs{
     --background: #FFFFFF;
     padding-right: 30px;
     font-size: 15px;
+    --border-style: none;
+}
+
+.container-inputs>ion-input{
+    border-bottom: 1px solid #5C617E;
 }
 
 .button{

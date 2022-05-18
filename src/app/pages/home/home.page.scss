@@ -1,31 +1,36 @@
-h1{
-    margin-bottom: 30px;
+.title{
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 
-ion-item {
+.ion-item {
     --border-style: none;
-    --background: #FFFFFF;
 }
 
-ion-card{
-
-    --background: ;
+.card{
+    width: 90vw;
+    margin: auto;
     border: 1px solid #22243D;
-    background-color: #FFFFFF;
     margin-bottom: 50px;
 }
+
+.container-img{
+    width: 100%;
+}
+
 
 .description{
     display: flex;
     flex-direction: row;
+    border-top: #22243D 1px solid;
 }
 
 .description>div{
     width: 50%;
 }
 
-ion-card-title{
+.card-title{
     --color: #5C617E;
 }
 
@@ -40,12 +45,5 @@ ion-card-title{
     --box-shadow: none;
     --ripple-color: #5C617E;
     --border-radius: 100%;
-}
-
-ion-icon{
-    // font-size: 30px;
     color: #22243D;
 }
-
-
-// 22243D - 5C617E

@@ -1,8 +1,6 @@
 .container-form-register{
     width: 100vw;
-    height: 60vh;
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
 }
@@ -10,13 +8,14 @@
 .form-register{
     width: 80vw;
     background: #FFFFFF;
-    padding: 30px 10px;
-    border-radius: 5px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 15px 5px;
     text-align: center;
     
 }
 
-.inputs{
+.container-inputs{
     --background: #FFFFFF;
     margin-top: 10px;
     padding-right: 30px;
@@ -24,25 +23,26 @@
     --border-style: none;
 }
 
-ion-input{
+.container-inputs>ion-input{
     border-bottom: #5C617E 1px solid;
 }
 
 .button{
     --background: #22243D;
     --border-radius: 5px;
-    margin-top: 30px;
+    margin-top: 15px;
 }
 
 .ion-item-terms{
     --border-style: none;
+    --background: none;
     margin-top: 10px;
     text-align: center;
     font-size: 10px;
 }
 
-ion-checkbox{
-    margin-right: 5px;
+.checkbox{
+    // margin-right: 5px;
     --background-checked: #5C617E;
     --border-color-checked: #5C617E;
 }

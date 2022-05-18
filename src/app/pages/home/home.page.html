@@ -1,26 +1,26 @@
 <ion-content>
-  <ion-item>
+  <ion-item class="ion-item">
     <ion-label>
         <b>Hola</b>, <i>Usuario</i>
     </ion-label>
   </ion-item>
 
-  <ion-text class="titulo ion-text-center">
-    <h1><b>Tendencias</b></h1>
-  </ion-text>
+  <h1 class="title"><b>Tendencias</b></h1>
   
-  <ion-card>
-    <ion-img routerLink="/tabs/view-post" src="../../../assets/categories/pexels-peggy-anke-3827506.jpg"></ion-img>
-
+  <ion-card class="card">
+    <div class="container-img">
+      <ion-img routerLink="/tabs/view-post" src="../../../assets/categories/vinilo.png"></ion-img>
+    </div>
+    
     <div class="description">
-      <div routerLink="/tabs/view-post" class="title">
+      <div routerLink="/tabs/view-post" class="container-title-card">
         <ion-card-header>
-          <ion-card-subtitle>$ 9900</ion-card-subtitle>
-          <ion-card-title>Billete Francia</ion-card-title>
+          <ion-card-subtitle>$ Precio</ion-card-subtitle>
+          <ion-card-title class="card-title">Titulo</ion-card-title>
         </ion-card-header>
       </div>
       <div class="container-button">
-        <ion-item>
+        <ion-item class="ion-item">
           <ion-button class="button" slot="end" size="default">
             <ion-icon slot="icon-only" name="flame-outline"></ion-icon>
           </ion-button>
@@ -30,18 +30,20 @@
 
   </ion-card>
 
-  <ion-card>
-    <ion-img src="../../../assets/categories/pexels-peggy-anke-3827506.jpg"></ion-img>
+  <ion-card class="card">
+    <div class="container-img">
+      <ion-img routerLink="/tabs/view-post" src="../../../assets/categories/pexels-peggy-anke-3827506.jpg"></ion-img>
+    </div>
 
     <div class="description">
-      <div class="title">
+      <div routerLink="/tabs/view-post" class="container-title-card">
         <ion-card-header>
-          <ion-card-subtitle>$ 9900</ion-card-subtitle>
-          <ion-card-title>Billete Francia</ion-card-title>
+          <ion-card-subtitle>$ Precio</ion-card-subtitle>
+          <ion-card-title class="card-title">Titulo</ion-card-title>
         </ion-card-header>
       </div>
       <div class="container-button">
-        <ion-item>
+        <ion-item class="ion-item">
           <ion-button class="button" slot="end" size="default">
             <ion-icon slot="icon-only" name="flame-outline"></ion-icon>
           </ion-button>
