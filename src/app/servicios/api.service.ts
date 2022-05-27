@@ -10,7 +10,7 @@ import { Storage } from '@capacitor/storage';
 })
 export class ApiService {
 
-  apiBase = "http://localhost:3000/api/";
+  api = "http://localhost:3000/api/";
 
 
   constructor(private http:HttpClient,private router:Router,
@@ -31,8 +31,8 @@ export class ApiService {
 
 // Funcion permite obtener listado Categorias
 getColecciones():Observable<any>{
-  console.log("Api url  = " + this.apiBase);
-  return this.http.get(this.apiBase + "categoria").pipe();
+  console.log("Api url  = " + this.api);
+  return this.http.get(this.api + "categoria").pipe();
 } // Cierre obtener Categorias
 
 
@@ -40,10 +40,11 @@ getColecciones():Observable<any>{
 getPerfilusuario(idusuario):Observable<any>{
   // idusuario =  pasar id usuario
   var url = "usuario/" + idusuario ;
-  console.log("Api url  = " + this.apiBase + url );
-  return this.http.get(this.apiBase + url).pipe();
-
+  console.log("Api url  = " + this.api + url );
+  return this.http.get(this.api + url).pipe();
 } 
+
+
 
 
 

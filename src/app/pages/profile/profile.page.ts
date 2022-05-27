@@ -27,7 +27,10 @@ export class ProfilePage implements OnInit {
       console.log(this.perfilUsuario)
       return resultado.result
     })
+
+
     
+
 
   } // fin NgOninit
 
