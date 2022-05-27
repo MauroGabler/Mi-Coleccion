@@ -45,6 +45,19 @@ getPerfilusuario(idusuario):Observable<any>{
 } 
 
 
+//Funciones Login //
+consultarUsuario(data): Observable<any> {
+  return this.http.get(`${this.api}usuario`, data).pipe();
+}
+
+registrarUsuario(data): Observable<any> {
+  return this.http.post(`${this.api}usuario`, data).pipe();
+}
+
+login(data): Observable<any> {
+  return this.http.post(`${this.api}login`, data).pipe();
+}
+
 
 
 

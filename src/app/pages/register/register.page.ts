@@ -3,9 +3,9 @@ import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { ApiService } from 'src/app/servicios/api.service';
 import { IUsuario } from './usuario';
-import { Md5 } from 'ts-md5/dist/md5';
+//import { Md5 } from 'ts-md5/dist/md5';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { RutValidator } from 'ng2-rut';
+//import { RutValidator } from 'ng2-rut';
 
 @Component({
   selector: 'app-register',
