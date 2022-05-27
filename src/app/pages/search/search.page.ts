@@ -16,13 +16,17 @@ export class SearchPage implements OnInit {
   colecciones: any [];
 
   ngOnInit() {
+    
     this.api.getColecciones().subscribe((resultado)=>
     {
-      this.colecciones = resultado.result;
-      return resultado.restult
+      this.colecciones = resultado.categoria_coleccion;
+      //Borrar luego
+      console.log(this.colecciones);
+      return resultado.result
+      
     })
-    
-    console.log(this.colecciones);
+
+
 
   }
 }
