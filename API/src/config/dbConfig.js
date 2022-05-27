@@ -1,6 +1,7 @@
 const oracledb = require('oracledb')
 
 var password = 'oracle'
+var password2 = 'admin'
 
 const conectar = () => {
 
