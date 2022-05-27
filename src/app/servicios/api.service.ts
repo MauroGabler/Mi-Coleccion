@@ -36,4 +36,15 @@ getColecciones():Observable<any>{
 } // Cierre obtener Categorias
 
 
+//Funcion recuperar perfil usuario registrado
+getPerfilusuario(idusuario):Observable<any>{
+  // idusuario =  pasar id usuario
+  var url = "usuario/" + idusuario ;
+  console.log("Api url  = " + this.apiBase + url );
+  return this.http.get(this.apiBase + url).pipe();
+
+} 
+
+
+
 }//Final
