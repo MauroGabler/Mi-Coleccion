@@ -7,19 +7,24 @@
 <ion-content>
   <ion-tabs>
     <ion-tab-bar slot="bottom">
+     
       <ion-tab-button class="color-button" tab="home">
         <ion-icon name="home"></ion-icon>
         <ion-label>Inicio</ion-label>
       </ion-tab-button>
+      
       <ion-tab-button class="color-button" tab="search">
         <ion-icon name="compass"></ion-icon>
         <ion-label>Explorar</ion-label>
       </ion-tab-button>
-      <ion-tab-button tab="profile">
+     
+      <ion-tab-button (click)="this.Perfilusuario()">
         <ion-avatar>
-          <img src="https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg">
+          <img src="../../../assets/usuarios/{{usuario.INT_ID_USU}}.jpg">
+          
         </ion-avatar>
       </ion-tab-button>
+      
       <ion-tab-button class="color-button" tab="post">
         <ion-icon name="add-circle"></ion-icon>
         <ion-label>Publicar</ion-label>

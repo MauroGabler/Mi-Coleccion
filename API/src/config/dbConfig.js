@@ -9,7 +9,7 @@ const conectar = () => {
 
     resolve(oracledb.getConnection({
       user: 'MI_COLECCION',
-      password: password,
+      password: password2,
       connectString: 'localhost:1521/xe'
     }))
 

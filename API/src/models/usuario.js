@@ -5,13 +5,15 @@ const { cargar_consulta } = require('../helpers/funciones')
 const consultar = async (params) => {
 
   let respuesta = {}
-  respuesta['usuarios'] = []
+  //respuesta['usuario'] = {}
   let where = ''
 
-  if (params.int_id_usu) {
-    let int_id_usu = params['int_id_usu']
-    where += `WHERE int_id_usu = ${int_id_usu}`
+  if (params.var_user) {
+    let var_user = params['var_user']
+    where += `WHERE var_user = '${var_user}'`
   }
+
+
 
   let consulta = `SELECT 
                   int_id_usu, nro_rut_usu, var_prim_nombre, var_seg_nombre, var_ape_paterno,
@@ -20,7 +22,9 @@ const consultar = async (params) => {
                   FROM usuario
                   ${where}`
 
-  return await cargar_consulta(consulta)
+  respuesta ['usuarios'] =  await cargar_consulta(consulta)
+  return respuesta
+  //return await cargar_consulta(consulta)
 }
 
 const guardar = async (params) => {
@@ -60,11 +64,11 @@ const guardar = async (params) => {
     id = id[0].ID + 1
 
     let ins = `INSERT INTO usuario
-             (int_id_usu, nro_rut_usu, var_prim_nombre, var_ape_paterno, 
+             (BOOL_ACTIVA, BOOL_ADMIN , nro_rut_usu, var_prim_nombre, var_ape_paterno, 
               var_ape_materno, var_mail_usu, var_user, fecha_creacion, var_pass 
               ${into})
              VALUES
-             (${id}, '${nro_rut_usu}', '${var_prim_nombre}', '${var_ape_paterno}', 
+             ('1', '0', '${nro_rut_usu}', '${var_prim_nombre}', '${var_ape_paterno}', 
              '${var_ape_materno}', '${var_mail_usu}', '${var_user}', SYSDATE, '${var_pass}' 
              ${values})`
     const res = await cargar_consulta(ins)
@@ -74,6 +78,7 @@ const guardar = async (params) => {
 
   return respuesta
 }
+
 
 const login = async (params) => {
 

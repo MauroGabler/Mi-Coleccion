@@ -22,7 +22,7 @@ const routes: Routes = [
         loadChildren: () => import('../search/search.module').then( m => m.SearchPageModule)
       },
       {
-        path: 'profile',
+        path: 'profile/:user',
         loadChildren: () => import('../profile/profile.module').then( m => m.ProfilePageModule)
       },
       {
