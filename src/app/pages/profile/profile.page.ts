@@ -10,23 +10,33 @@ import { ApiService } from '../../servicios/api.service';
 })
 export class ProfilePage implements OnInit {
 
-  constructor(private api:ApiService, private router: Router) 
-  { }
+  usuario:any={}
 
-  perfilUsuario: any[];
-  seguidoresUsuario: any [];
-  publicacionesUsuario: any [];
+  constructor(private api: ApiService, private router: Router, private activateRoute: ActivatedRoute) {
+    this.activateRoute.queryParams.subscribe(params=>{
+      if(this.router.getCurrentNavigation().extras.state)
+        {
+          let data = this.router.getCurrentNavigation().extras.state.usuario;
+          const getUser = {
+            var_user: data
+          }
+          this.api.getPerfilusuario(getUser).subscribe(resultado =>{
+             this.usuario = resultado.usuarios[0]
+
+             //console.log("rescatando usuario PERFIL > resultado");
+             //console.log(resultado);
+             //console.log("rescatando usuario PERFIL > this.user");
+             //console.log(this.usuario);
+
+            })  
+        }
+
+      });
+
+
+  }
 
   ngOnInit() {
-    var iddtest = 1
-    
-    
-    this.api.getPerfilusuario(iddtest).subscribe((resultado)=>
-    {
-      this.perfilUsuario = resultado.result
-      console.log(this.perfilUsuario)
-      return resultado.result
-    })
 
 
     

@@ -37,11 +37,8 @@ getColecciones():Observable<any>{
 
 
 //Funcion recuperar perfil usuario registrado
-getPerfilusuario(idusuario):Observable<any>{
-  // idusuario =  pasar id usuario
-  var url = "usuario/" + idusuario ;
-  console.log("Api url  = " + this.api + url );
-  return this.http.get(this.api + url).pipe();
+getPerfilusuario(data):Observable<any>{
+  return this.http.post(`${this.api}consultarusuario`, data).pipe();
 } 
 
 

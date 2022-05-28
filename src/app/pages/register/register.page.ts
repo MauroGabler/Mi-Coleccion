@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { ApiService } from 'src/app/servicios/api.service';
+
 import { IUsuario } from './usuario';
 //import { Md5 } from 'ts-md5/dist/md5';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
@@ -70,7 +71,19 @@ export class RegisterPage implements OnInit {
         var_mail_usu: this.usuario.correo,
       };
 
-      this.api.registrarUsuario(params).subscribe(res => console.log(res));
+      this.api.registrarUsuario(params).subscribe(res => {
+        console.log(res.mensaje)
+        if(res.mensaje == 'Se ha guardado un nuevo usuario'){
+          this.router.navigate([''])
+          this.toastMsj(res.mensaje);
+        }
+        else{
+          this.toastMsj(res.mensaje);
+        }
+
+      }); 
+    
+
     } else {
       this.toastMsj('Las contraseñas ingresadas no coinciden');
     }

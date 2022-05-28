@@ -10,7 +10,18 @@ import { ApiService } from '../../servicios/api.service';
 })
 export class SearchPage implements OnInit {
 
-  constructor(private api: ApiService, private router: Router) { }
+
+  constructor(private api: ApiService, private router: Router, private activateRoute: ActivatedRoute) {
+    
+    this.activateRoute.queryParams.subscribe(params=>{
+    if(this.router.getCurrentNavigation().extras.state)
+      {
+        let data = this.router.getCurrentNavigation().extras.state.usuario;
+        console.log("bienvenido search " + data)
+      }
+    });
+
+  }
 
   colecciones: any[];
 
@@ -19,7 +30,9 @@ export class SearchPage implements OnInit {
     this.api.getColecciones().subscribe((resultado)=>
     {
       this.colecciones = resultado.categoria_coleccion;
-      return resultado.result
+      //console.log("colecciones: ")
+      //console.log(this.colecciones)
+      return resultado
       
     })
 
