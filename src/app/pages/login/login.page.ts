@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
+import { Storage } from '@capacitor/storage';
 import { ToastController } from '@ionic/angular';
 import { ApiService } from 'src/app/servicios/api.service';
 
@@ -12,7 +13,7 @@ export class LoginPage implements OnInit {
 
   usuario: string;
   contrasena: string;
-  user : [];
+  user: [];
 
   constructor(
     private api: ApiService,
@@ -29,21 +30,21 @@ export class LoginPage implements OnInit {
       contrasena: this.contrasena
     };
 
-    let navigationExtras: NavigationExtras = { // Creacion de un contexto para pasar a otro sitio 
+    const navigationExtras: NavigationExtras = { // Creacion de un contexto para pasar a otro sitio
       state:{
         usuario: this.usuario
       }
     };
 
     this.api.login(params).subscribe(msg => {
-      msg.logueado ? this.router.navigate(['tabs/home'],navigationExtras) : this.toastMsj(msg.mensaje);
+      if (msg.logueado) {
+        this.router.navigate(['tabs/home'],navigationExtras);
+        const usuario = JSON.stringify(params);
+        Storage.set({key: 'logueado', value: usuario});
+      } else { this.toastMsj(msg.mensaje); }
     });
 
   }
-
-
-
-
 
   async toastMsj(mensaje) {
     const toast = await this.toast.create({
@@ -53,8 +54,6 @@ export class LoginPage implements OnInit {
     });
     toast.present();
   }
-
-  
 
 
 }

@@ -72,17 +72,14 @@ export class RegisterPage implements OnInit {
       };
 
       this.api.registrarUsuario(params).subscribe(res => {
-        console.log(res.mensaje)
-        if(res.mensaje == 'Se ha guardado un nuevo usuario'){
-          this.router.navigate([''])
-          this.toastMsj(res.mensaje);
-        }
-        else{
-          this.toastMsj(res.mensaje);
+        console.log(res.mensaje);
+        this.toastMsj(res.mensaje);
+
+        if(res.mensaje === 'Se ha guardado un nuevo usuario') {
+          this.router.navigate(['']);
         }
 
-      }); 
-    
+      });
 
     } else {
       this.toastMsj('Las contraseñas ingresadas no coinciden');
