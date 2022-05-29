@@ -3,7 +3,7 @@ const { cargar_consulta } = require('../helpers/funciones')
 const consultar = async (params) => {
 
   let where = ''
-  let int_id_publi 
+  let int_id_publi
 
   if (params?.int_id_publi) {
     int_id_publi = params.int_id_publi
@@ -12,7 +12,7 @@ const consultar = async (params) => {
 
   let sel = `SELECT
             int_id_publi, var_titulo_publi, var_des_publi, img_publi, fecha_publi,
-            bool_evento, bool_discusion, bool_venta, bool_coleccion, bool_activa,
+            bool_evento, bool_discusion, bool_venta, BOOL_COLECC, bool_activa,
             usuario_int_id_usu, cat_col_int_id_cat_colecc
             FROM publicacion
             ${where}`
@@ -22,57 +22,103 @@ const consultar = async (params) => {
   return res
 }
 
+//rescatar publicaciones de usuario 
+const publicacionxusuario = async (params) => {
+
+  let respuesta = {}
+  let where = ''
+
+  if (params.USUARIO_INT_ID_USU) {
+    let USUARIO_INT_ID_USU = params['USUARIO_INT_ID_USU']
+    where += `WHERE USUARIO_INT_ID_USU = ${USUARIO_INT_ID_USU}`
+  }
+
+  let consulta = `SELECT *
+            FROM publicacion
+            ${where}`
+  respuesta['publicaciones'] = await cargar_consulta(consulta)
+  return respuesta
+}
+
 const guardar = async (params) => {
 
   let respuesta = {}
   let into = ''
   let values = ''
-  let bool_error
+  let bool_error = false
 
   if (!params?.var_titulo_publi) {
-    bool_error = 1
-    return respuesta['mensaje'] = 'No ha enviado el nombre del artículo'
+    bool_error = true
+    return respuesta.mensaje = 'No ha enviado el nombre del artículo'
   }
 
   if (!params?.usuario_int_id_usu) {
-    bool_error = 1
-    return respuesta['mensaje'] = 'No ha enviado el usuario asociado a la publicación'
-  }
-
-  if (!params?.img_publi) {
-    bool_error = 1
-    return respuesta['mensaje'] = 'No ha enviado una imagen'
+    bool_error = true
+    return respuesta.mensaje = 'No ha enviado el usuario asociado a la publicación'
   }
 
   if (!params?.cat_col_int_id_cat_colecc) {
-    bool_error = 1
-    return respuesta['mensaje'] = 'No ha enviado la categoria asociada a la publicación'
+    bool_error = true
+    return respuesta.mensaje = 'No ha enviado la categoria asociada a la publicación'
   }
 
-  if (!params?.bool_evento || !params?.bool_discusion || !params?.bool_venta || !params?.bool_coleccion) {
-    bool_error = 1
-    return respuesta['mensaje'] = 'No ha enviado el tipo de publicación'
+  if (params?.bool_evento == undefined && params?.bool_discusion == undefined && params?.bool_venta == undefined && params?.bool_coleccion == undefined) {
+    bool_error = true
+    return respuesta.mensaje = 'No ha enviado el tipo de publicación'
   } else {
-    params?.bool_evento && ((into += ', bool_evento') (values += `, ${params.bool_evento}`))
-    params?.bool_discusion && ((into += ', bool_discusion') (values += `, ${params.bool_discusion}`))
-    params?.bool_venta && ((into += ', bool_venta') (values += `, ${params.bool_venta}`))
-    params?.bool_coleccion && ((into += ', bool_coleccion') (values += `, ${params.bool_coleccion}`))
+
+    if (params?.bool_evento != undefined) {
+      into += ', bool_evento'
+      values += `, ${params.bool_evento}`
+    }
+
+    if (params?.bool_discusion != undefined) {
+      into += ', bool_discusion'
+      values += `, ${params.bool_discusion}`
+    }
+
+    if (params?.bool_venta != undefined) {
+      into += ', bool_venta'
+      values += `, ${params.bool_venta}`
+    }
+
+    if (params?.bool_coleccion != undefined) {
+      into += ', bool_colecc'
+      values += `, ${params.bool_coleccion}`
+    }
+
+    if (params?.img_publi1 != undefined) {
+      into += ', img_publi1'
+      values += `, ${params.img_publi1}`
+    }
+
+    if (params?.img_publi2 != undefined) {
+      into += ', img_publi2'
+      values += `, ${params.img_publi2}`
+    }
+
+    if (params?.img_publi3 != undefined) {
+      into += ', img_publi3'
+      values += `, ${params.img_publi3}`
+    }
   }
 
   if (!bool_error) {
 
-    const sel = `SELECT MAX(int_id_publi) + 1
+    const sel = `SELECT MAX(int_id_publi) + 1 as ID
                 FROM publicacion`
-    const id = cargar_consulta(sel)
-  
+    const res = await cargar_consulta(sel)
+
+    const id = res[0].ID
+
     const ins = `INSERT INTO publicacion
-                 (int_id_publi, var_nom_art, var_des_publi, img_publi, fecha_publi, usuario_int_id_usu, cat_col_int_id_cat_colecc 
+                 (int_id_publi, var_titulo_publi, var_des_publi, fecha_publi, usuario_int_id_usu, cat_col_int_id_cat_colecc 
                   ${into})
                  VALUES
-                 (${id}, ${params.var_nom_art}, ${params.venta_int_id_venta}, ${params.img_publi}, SYSDATE, ${params.usuario_int_id_usu}, ${params.cat_col_int_id_cat_colecc} 
+                 (${id}, '${params.var_titulo_publi}', '${params.var_des_publi}', SYSDATE, ${params.usuario_int_id_usu}, ${params.cat_col_int_id_cat_colecc} 
                   ${values})`
-  
-    cargar_consulta(ins)
+
+    await cargar_consulta(ins)
 
     respuesta.mensaje = 'Se ha guardado la publicación'
   }
@@ -118,5 +164,6 @@ const modificar = async (params) => {
 module.exports = {
   consultar,
   guardar,
-  modificar
+  modificar,
+  publicacionxusuario
 }

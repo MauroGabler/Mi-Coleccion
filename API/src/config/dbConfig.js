@@ -1,6 +1,7 @@
 const oracledb = require('oracledb')
 
-var password = 'oracle'
+const password = 'oracle'
+ var password2 = 'admin'
 
 const conectar = () => {
 
@@ -8,7 +9,7 @@ const conectar = () => {
 
     resolve(oracledb.getConnection({
       user: 'MI_COLECCION',
-      password: password,
+      password: password2,
       connectString: 'localhost:1521/xe'
     }))
 

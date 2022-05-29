@@ -7,13 +7,13 @@
 <ion-content>
   <div class="container-info-profile">
     <div class="container-profile-img">
-      <img src="https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg">
+      <img src="https://avatars.dicebear.com/api/bottts/{{usuario.VAR_USER}}.svg">
     </div>
     <div class="container-description">
 
-      <h1 class="user-name">Nombre de usuario</h1>
+      <h1 class="user-name">{{usuario.VAR_USER}}</h1>
       <form class="description">
-        <ion-textarea placeholder="Descripcion"></ion-textarea>
+        <ion-textarea placeholder={{usuario.VAR_MAIL_USU}}></ion-textarea>
       </form>
 
       <div class="container-interaction">
@@ -75,5 +75,45 @@
     <div>
       <h2 class="text-center">Publicaciones</h2>
     </div>
+
+  
+  <ion-card class="card" *ngFor="let publicacion of publicaciones; index as i" >
+    <div class="container-img">
+      <ion-slides mode="ios" pager="ios" scrollbar="ios">
+        <ion-slide>
+          <ion-img src="../../../assets/categories/vinilo.png" routerLink="/tabs/view-post"></ion-img>
+        </ion-slide>
+        <ion-slide>
+          <ion-img src="../../../assets/categories/vinilo.png" routerLink="/tabs/view-post"></ion-img>
+        </ion-slide>
+        <ion-slide>
+          <ion-img src="../../../assets/categories/vinilo.png" routerLink="/tabs/view-post"></ion-img>
+        </ion-slide>
+      </ion-slides>
+    </div>
+    
+    
+    <div class="description">
+      <div routerLink="/tabs/view-post" class="container-title-card">
+        <ion-card-header>
+          <ion-card-title class="card-title">{{publicacion.VAR_TITULO_PUBLI}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          {{publicacion.VAR_DES_PUBLI}}
+        </ion-card-content>
+      </div>
+      <div class="container-button">
+        <ion-item class="ion-item">
+          <ion-button class="button" slot="end" size="default">
+            <ion-icon slot="icon-only" name="flame-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </div>
+    </div>
+
+  </ion-card>
+
+  
+
   </div>
 </ion-content>

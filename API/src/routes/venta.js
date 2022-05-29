@@ -5,7 +5,7 @@ const { consultar, guardar, modificar } = require('../models/venta')
 
 const router = Router()
 
-router.get('/venta', async (req, res) => {
+router.post('/consultarVenta', async (req, res) => {
   const params = req.body
   const respuesta = await consultar(params)
   res.json(respuesta)

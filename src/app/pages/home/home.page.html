@@ -1,8 +1,11 @@
 <ion-content>
   <ion-item class="ion-item">
     <ion-label>
-        <b>Hola</b>, <i>Usuario</i>
+        <b>Hola </b> 
+        <em>{{this.nombreUsuario}}!</em>
+        <a href=""></a>
     </ion-label>
+    <ion-button (click)="this.cerrarSesion()">Cerrar sesión</ion-button> 
   </ion-item>
 
   <h1 class="title"><b>Tendencias</b></h1>

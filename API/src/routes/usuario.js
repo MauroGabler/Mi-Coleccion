@@ -1,12 +1,24 @@
 /* eslint-disable linebreak-style */
 const { Router } = require('express')
-const { consultar, guardar, modificar, login } = require('../models/usuario')
+const { consultar, consultarNombreDisponible, guardar, modificar, login } = require('../models/usuario')
 
 const router = Router()
 
 router.get('/usuario', async (req, res) => {
   const params = req.body
   const respuesta = await consultar(params)
+  res.json(respuesta)
+})
+
+router.post('/consultarusuario', async (req, res) => {
+  const params = req.body
+  const respuesta = await consultar(params)
+  res.json(respuesta)
+})
+
+router.post('/verificarNombreUsuario', async (req, res) => {
+  const params = req.body
+  const respuesta = await consultarNombreDisponible(params)
   res.json(respuesta)
 })
 
