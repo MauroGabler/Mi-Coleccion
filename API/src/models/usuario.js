@@ -5,7 +5,6 @@ const { cargar_consulta } = require('../helpers/funciones')
 const consultar = async (params) => {
 
   let respuesta = {}
-  //respuesta['usuario'] = {}
   let where = ''
 
   if (params.var_user) {
@@ -22,7 +21,6 @@ const consultar = async (params) => {
 
   respuesta ['usuarios'] =  await cargar_consulta(consulta)
   return respuesta
-  //return await cargar_consulta(consulta)
 }
 
 const consultarNombreDisponible = async (params) => {

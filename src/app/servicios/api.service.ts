@@ -26,7 +26,6 @@ export class ApiService {
     return this.http.post(`${this.api}consultarusuario`, data).pipe();
   }
 
-
   //Funciones Login //
   consultarUsuario(data): Observable<any> {
     return this.http.get(`${this.api}usuario`, data).pipe();
@@ -86,6 +85,15 @@ export class ApiService {
 
   modificarCategoria(data): Observable<any> {
     return this.http.put(`${this.api}categoria`, data).pipe();
+  }
+  //Funcion recuperar publicaciones por usuario
+  getMisPublicaciones(data): Observable<any> {
+    //console.log("APISERVICE : ")
+    //console.log("Api url  = " + this.api +"publicacionxusuario");
+    //console.log("data: " + data)
+    //console.log("FIN API SERVICE")
+
+    return this.http.post(`${this.api}publicacionxusuario`, data).pipe();
   }
 
   // Artículos
