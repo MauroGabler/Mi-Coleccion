@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-<<<<<<< HEAD
-import { image } from '@cloudinary/url-gen/qualifiers/source';
-import axios from 'axios';
-=======
 import { ApiService } from 'src/app/servicios/api.service';
 import { Storage } from '@capacitor/storage';
 import { ToastController } from '@ionic/angular';
->>>>>>> 82c9d103d0287baf842d5e9a2d16229a396eea54
 
 @Component({
   selector: 'app-post',
@@ -14,9 +9,6 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./post.page.scss'],
 })
 export class PostPage implements OnInit {
-<<<<<<< HEAD
-  constructor() {}
-=======
 
   categorias = [];
 
@@ -52,7 +44,6 @@ export class PostPage implements OnInit {
     private api: ApiService,
     private toast: ToastController,
   ) { }
->>>>>>> 82c9d103d0287baf842d5e9a2d16229a396eea54
 
   ngOnInit() {
     this.consultarCategorias();

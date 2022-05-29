@@ -21,7 +21,7 @@ import { FileUploadService } from './servicios/file-upload.service';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    Ng9RutModule,
+    // Ng9RutModule,
     // FileUploadService
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
