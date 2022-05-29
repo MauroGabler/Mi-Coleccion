@@ -72,13 +72,15 @@ const guardar = async (params) => {
     id = id[0].ID + 1
 
     let ins = `INSERT INTO usuario
-             (int_id_usu, nro_rut_usu, var_prim_nombre, var_ape_paterno, 
-              var_ape_materno, var_mail_usu, var_user, fecha_creacion, var_pass 
-              ${into})
+             (INT_ID_USU, NRO_RUT_USU, VAR_PRIM_NOMBRE, VAR_APE_PATERNO, 
+              VAR_APE_MATERNO, VAR_MAIL_USU, VAR_USER, fecha_creacion, VAR_PASS, BOOL_ACTIVA, BOOL_ADMIN
+              )
              VALUES
-             (${id} '${nro_rut_usu}', '${var_prim_nombre}', '${var_ape_paterno}', 
-             '${var_ape_materno}', '${var_mail_usu}', '${var_user}', SYSDATE, '${var_pass}' 
-             ${values})`
+             ('${id}', '${nro_rut_usu}', '${var_prim_nombre}', '${var_ape_paterno}', 
+             '${var_ape_materno}', '${var_mail_usu}', '${var_user}', SYSDATE, '${var_pass}', '1','0'
+             )`
+
+    console.log(ins)
     const res = await cargar_consulta(ins)
 
     res === 0 ? (respuesta['mensaje'] = 'Se ha guardado un nuevo usuario') : (respuesta['mensaje'] = 'No se han insertado datos')
