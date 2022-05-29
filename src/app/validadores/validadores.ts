@@ -1,4 +1,5 @@
 import { AbstractControl } from '@angular/forms';
+import { ApiService } from '../servicios/api.service';
 
 export const validarContrasenas = (control: AbstractControl): { [key: string]: boolean } | null => {
 
@@ -7,3 +8,4 @@ export const validarContrasenas = (control: AbstractControl): { [key: string]: b
 
   return password && confirmPassword && password.value !== confirmPassword.value ? { noCoincide: true } : null;
 };
+

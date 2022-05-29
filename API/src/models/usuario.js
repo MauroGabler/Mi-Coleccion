@@ -19,7 +19,7 @@ const consultar = async (params) => {
                   FROM usuario
                   ${where}`
 
-  respuesta ['usuarios'] =  await cargar_consulta(consulta)
+  respuesta['usuarios'] = await cargar_consulta(consulta)
   return respuesta
 }
 
@@ -31,7 +31,7 @@ const consultarNombreDisponible = async (params) => {
                     FROM usuario
                     WHERE var_user = '${var_user}'`
   const res = await cargar_consulta(consulta)
-  
+
   return res[0].CUENTA === 1 ? true : false
 }
 
@@ -86,7 +86,6 @@ const guardar = async (params) => {
 
   return respuesta
 }
-
 
 const login = async (params) => {
 

@@ -1,89 +1,34 @@
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-title>register</ion-title>
-  </ion-toolbar>
-</ion-header> -->
-
-<!-- <ion-content> -->
-  <!-- <div class="container-form-register">
-
-    <form class="form-register">
-
-      <ion-item class="container-inputs">
-        <ion-input name="names" type="text" placeholder="Nombres" [(ngModel)]="this.usuario.nombres"></ion-input>
-        <ion-icon name="person-sharp" slot="start"></ion-icon>
-      </ion-item>
-
-      <ion-item class="container-inputs">
-        <ion-input name="app-f" type="text" placeholder="Apellido Paterno"[(ngModel)]="this.usuario.apPaterno"></ion-input>
-        <ion-icon name="person-sharp" slot="start"></ion-icon>
-      </ion-item>
-
-      <ion-item class="container-inputs">
-        <ion-input name="app-m" type="text" placeholder="Apellido Materno"[(ngModel)]="this.usuario.apMaterno"></ion-input>
-        <ion-icon name="person-sharp" slot="start"></ion-icon>
-      </ion-item>
-  
-      <ion-item class="container-inputs">
-        <ion-input name="recover-rut" type="text" placeholder="Ingrese RUT"[(ngModel)]="this.usuario.rut"></ion-input>
-        <ion-icon name="id-card-sharp" slot="start"></ion-icon>
-      </ion-item>
-
-      <ion-item class="container-inputs">
-        <ion-input name="new-user" type="text" placeholder="Ingrese nuevo usuario"[(ngModel)]="this.usuario.alias"></ion-input>
-        <ion-icon name="person-sharp" slot="start"></ion-icon>
-      </ion-item>
-  
-      <ion-item class="container-inputs">
-        <ion-input name="new-pass" type="password" placeholder="Ingrese nueva contraseña"[(ngModel)]="this.contrasena1"></ion-input>
-        <ion-icon name="key-sharp" slot="start"></ion-icon>
-      </ion-item>
-  
-      <ion-item class="container-inputs">
-        <ion-input name="pass-repeat" type="password" placeholder="Repita la contraseña"[(ngModel)]="this.contrasena2"></ion-input>
-        <ion-icon name="key-sharp" slot="start"></ion-icon>
-      </ion-item>
-  
-      <ion-item class="container-inputs">
-        <ion-input name="mail" type="email" placeholder="Ingrese correo electronico"[(ngModel)]="this.usuario.correo"></ion-input>
-        <ion-icon name="mail-sharp" slot="start"></ion-icon>
-      </ion-item>
-
-      <ion-item class="ion-item-terms">
-        <ion-checkbox class="checkbox" mode="md" [(ngModel)]="this.boolContrato"></ion-checkbox>
-        <ion-label>Acepto terminos y condiciones</ion-label>
-      </ion-item>
-      
-      <ion-button class="button" (click)="this.registrar()">REGISTRAR</ion-button>
-      
-    </form>
-  
-  
-  </div> -->
-<!-- </ion-content> -->
-
 <div class="container-form-register">
 
-  <form [formGroup]="formulario" (ngSubmit)="this.onSubmit()">
+  <form [formGroup]="formulario" (ngSubmit)="registrar()">
   <!-- <form class="form-register"> -->
 
     <ion-item class="container-inputs">
+      <ion-label position="floating" *ngIf="formulario.controls.nombres.touched && formulario.controls.nombres.errors?.required">
+        <ion-text color="danger">Debes ingresar un nombre</ion-text>
+  </ion-label>
       <ion-input name="names" type="text" placeholder="Nombres" formControlName="nombres"></ion-input>
       <ion-icon name="person-sharp" slot="start"></ion-icon>
     </ion-item>
 
     <ion-item class="container-inputs">
+      <ion-label position="floating" *ngIf="formulario.controls.apPaterno.touched && formulario.controls.apPaterno.errors?.required">
+        <ion-text color="danger">Debes ingresar un apellido</ion-text>
+  </ion-label>
       <ion-input name="app-f" type="text" placeholder="Apellido Paterno" formControlName="apPaterno"></ion-input>
       <ion-icon name="person-sharp" slot="start"></ion-icon>
     </ion-item>
 
     <ion-item class="container-inputs">
+      <ion-label position="floating" *ngIf="formulario.controls.apMaterno.touched && formulario.controls.apMaterno.errors?.required">
+        <ion-text color="danger">Debes ingresar un apellido</ion-text>
+  </ion-label>
       <ion-input name="app-m" type="text" placeholder="Apellido Materno" formControlName="apMaterno"></ion-input>
       <ion-icon name="person-sharp" slot="start"></ion-icon>
     </ion-item>
 
     <ion-item class="container-inputs">
-      <ion-label position="floating" *ngIf="formulario.errors?.rutInvalido">
+      <ion-label position="floating" *ngIf="formulario.controls.rut.errors?.invalidRut && formulario.controls.rut.touched">
         <ion-text color="danger">Ingresa un Rut válido</ion-text>
   </ion-label>
       <ion-input name="recover-rut" type="text" placeholder="Ingrese RUT" formatRut formControlName="rut"></ion-input>
@@ -91,8 +36,8 @@
     </ion-item>
 
     <ion-item class="container-inputs">
-      <ion-label position="floating" *ngIf="formulario.errors?.yaExiste">
-        <ion-text color="danger">Este nombre de usuario ya existe</ion-text>
+      <ion-label position="floating" *ngIf="formulario.controls.alias.errors?.required && formulario.controls.alias.touched">
+        <ion-text color="danger">Debes ingresar un alias</ion-text>
       </ion-label>
       <ion-input name="new-user" type="text" placeholder="Ingrese nuevo usuario" formControlName="alias"></ion-input>
       <ion-icon name="person-sharp" slot="start"></ion-icon>
@@ -104,17 +49,16 @@
     </ion-item>
 
     <ion-item class="container-inputs">
-      <ion-label position="floating" *ngIf="formulario.errors?.noCoincide">
+      <ion-label position="floating" *ngIf="formulario.errors?.noCoincide && formulario.controls.contrasena2?.touched">
           <ion-text color="danger">Las contraseñas no coinciden</ion-text>
     </ion-label>
       <ion-input [class.is-invalid]="formulario.errors?.noCoincide" id="pass-repeat" type="password" placeholder="Repita la contraseña" formControlName="contrasena2"></ion-input>
       <ion-icon name="key-sharp" slot="start"></ion-icon>
      
-
     </ion-item>
 
     <ion-item class="container-inputs">
-      <ion-label position="floating" *ngIf="formulario.errors">
+      <ion-label position="floating" *ngIf="formulario.controls.correo.errors?.email && formulario.controls.correo?.touched && formulario.controls.correo.errors?.required">
         <ion-text color="danger">Ingresa un correo válido</ion-text>
   </ion-label>
       <ion-input name="mail" type="email" placeholder="Ingrese correo electronico" formControlName="correo"></ion-input>
@@ -122,11 +66,15 @@
     </ion-item>
 
     <ion-item class="ion-item-terms">
+      <ion-label position="floating" *ngIf="formulario.controls.boolContrato.touched && formulario.controls.boolContrato.errors?.required">
+        <ion-text color="danger">Debes aceptar los términos y condiciones</ion-text>
+  </ion-label>
       <ion-checkbox class="checkbox" mode="md" formControlName="boolContrato"></ion-checkbox>
       <ion-label>Acepto los términos y condiciones</ion-label>
     </ion-item>
     
-    <ion-button class="submit" [disabled]="formulario.invalid">REGISTRAR</ion-button>
+    <!-- <ion-button class="submit" (click)="registrar()">REGISTRAR</ion-button> -->
+    <ion-button class="submit" [disabled]="formulario.invalid" (click)="registrar()">REGISTRAR</ion-button>
     
   </form>
 

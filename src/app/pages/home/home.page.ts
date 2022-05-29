@@ -28,7 +28,6 @@ export class HomePage implements OnInit {
           this.usuario = resultado.usuarios[0];
           const miUsuario = JSON.stringify(this.usuario);
           Storage.set({key: 'miUsuario', value: miUsuario});
-
         });
       }
     });
@@ -44,8 +43,8 @@ export class HomePage implements OnInit {
   }
 
   async obtenerUsuario() {
-    const storage = await Storage.get({ key: 'logueado'});
+    const storage = await Storage.get({ key: 'logueado' });
     const valores = JSON.parse(storage.value);
-    this.nombreUsuario = valores.usuario;
+    this.nombreUsuario = valores.VAR_USER;
   }
 }
