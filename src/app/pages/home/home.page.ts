@@ -44,13 +44,12 @@ export class HomePage implements OnInit {
 
   cerrarSesion() {
     Storage.clear();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/menu-auth']);
   }
 
   async obtenerUsuario() {
     const storage = await Storage.get({ key: 'logueado'});
     const valores = JSON.parse(storage.value);
     this.nombreUsuario = valores.usuario;
-    console.log(this.nombreUsuario);
   }
 }

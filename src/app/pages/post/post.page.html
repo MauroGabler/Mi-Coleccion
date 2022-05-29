@@ -18,22 +18,25 @@
           <ion-label>
             Agregar fotos
           </ion-label>
-          <ion-input type="file"></ion-input>
+          <ion-input type="file" id="file-input" accept="image/png, image/jpeg"></ion-input>
         </div>
         
       </div>
       
       <div class="title-post inputs">
-        <ion-input name="title-post" type="text" placeholder="Titulo"></ion-input>
+        <ion-label position="floating">Título de la publicación</ion-label>
+        <ion-input name="title-post" type="text" [(ngModel)]="this.publicacion.var_titulo_publi"></ion-input>
       </div>
       
       <div class="categories">
         <ion-label>Categoria</ion-label>
-        <ion-select okText="Elegir" cancelText="Cancelar">
-          <ion-select-option value="Zapatillas">Zapatillas</ion-select-option>
+        <ion-select okText="Elegir" cancelText="Cancelar" [(ngModel)]="this.publicacion.cat_col_int_id_cat_col">
+
+          <ion-select-option *ngFor="let c of this.categorias" >{{c.VAR_NOM_CAT}}</ion-select-option>
+          <!-- <ion-select-option value="Zapatillas">Zapatillas</ion-select-option>
           <ion-select-option value="Billetes">Billetes</ion-select-option>
           <ion-select-option value="Joyas">Joyas</ion-select-option>
-          <ion-select-option value="Figuras">Figuras</ion-select-option>
+          <ion-select-option value="Figuras">Figuras</ion-select-option> -->
         </ion-select>
       </div>
 
