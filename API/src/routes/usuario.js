@@ -1,6 +1,6 @@
 /* eslint-disable linebreak-style */
 const { Router } = require('express')
-const { consultar, guardar, modificar, login } = require('../models/usuario')
+const { consultar, consultarNombreDisponible, guardar, modificar, login } = require('../models/usuario')
 
 const router = Router()
 
@@ -16,6 +16,11 @@ router.post('/consultarusuario', async (req, res) => {
   res.json(respuesta)
 })
 
+router.post('/verificarNombreUsuario', async (req, res) => {
+  const params = req.body
+  const respuesta = await consultarNombreDisponible(params)
+  res.json(respuesta)
+})
 
 router.post('/usuario', async (req, res) => {
   const params = req.body

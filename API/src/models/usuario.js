@@ -13,8 +13,6 @@ const consultar = async (params) => {
     where += `WHERE var_user = '${var_user}'`
   }
 
-
-
   let consulta = `SELECT 
                   int_id_usu, nro_rut_usu, var_prim_nombre, var_seg_nombre, var_ape_paterno,
                   var_ape_materno, var_mail_usu, var_user, fecha_creacion, var_desc_user,
@@ -25,6 +23,18 @@ const consultar = async (params) => {
   respuesta ['usuarios'] =  await cargar_consulta(consulta)
   return respuesta
   //return await cargar_consulta(consulta)
+}
+
+const consultarNombreDisponible = async (params) => {
+  const var_user = params.var_user
+
+  const consulta = `SELECT
+                    COUNT(var_user) as cuenta
+                    FROM usuario
+                    WHERE var_user = '${var_user}'`
+  const res = await cargar_consulta(consulta)
+  
+  return res[0].CUENTA === 1 ? true : false
 }
 
 const guardar = async (params) => {
@@ -64,11 +74,11 @@ const guardar = async (params) => {
     id = id[0].ID + 1
 
     let ins = `INSERT INTO usuario
-             (BOOL_ACTIVA, BOOL_ADMIN , nro_rut_usu, var_prim_nombre, var_ape_paterno, 
+             (int_id_usu, nro_rut_usu, var_prim_nombre, var_ape_paterno, 
               var_ape_materno, var_mail_usu, var_user, fecha_creacion, var_pass 
               ${into})
              VALUES
-             ('1', '0', '${nro_rut_usu}', '${var_prim_nombre}', '${var_ape_paterno}', 
+             (${id} '${nro_rut_usu}', '${var_prim_nombre}', '${var_ape_paterno}', 
              '${var_ape_materno}', '${var_mail_usu}', '${var_user}', SYSDATE, '${var_pass}' 
              ${values})`
     const res = await cargar_consulta(ins)
@@ -149,6 +159,7 @@ const modificar = async (params) => {
 
 module.exports = {
   consultar,
+  consultarNombreDisponible,
   guardar,
   login,
   modificar
