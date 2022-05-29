@@ -12,7 +12,7 @@ const consultar = async (params) => {
   }
 
   let sel = `SELECT
-            int_id_cat_colecc, var_nom_cat, bool_activa
+            *
             FROM categoria_coleccion
             ${where}`
 

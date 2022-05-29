@@ -20,13 +20,14 @@ export class HomePage implements OnInit {
     this.activateRoute.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         const data = this.router.getCurrentNavigation().extras.state.usuario;
-        // console.log("bienvenido home " + data )
 
         const getUser = {
           var_user: data
         };
         this.api.getPerfilusuario(getUser).subscribe(resultado => {
           this.usuario = resultado.usuarios[0];
+          const miUsuario = JSON.stringify(this.usuario);
+          Storage.set({key: 'miUsuario', value: miUsuario});
         });
       }
     });

@@ -12,10 +12,15 @@ import { ApiService } from '../../servicios/api.service';
 export class ProfilePage implements OnInit {
 
   usuario:any={}
-  publicaciones:any={}
+  
   usuarioid: 0;
 
   constructor(private api: ApiService, private router: Router, private activateRoute: ActivatedRoute) {
+  }
+
+  publicaciones:any[];
+
+  ngOnInit() {
     this.activateRoute.queryParams.subscribe(params=>{
       if(this.router.getCurrentNavigation().extras.state)
         {
@@ -26,43 +31,25 @@ export class ProfilePage implements OnInit {
           this.api.getPerfilusuario(getUser).subscribe(resultado =>{
             this.usuario = resultado.usuarios[0]
             this.usuarioid = this.usuario.INT_ID_USU
-            
-             //console.log("rescatando usuario PERFIL > resultado");
-             //console.log(resultado);
-             //console.log("rescatando usuario PERFIL > this.user");
-             //console.log(this.usuario);
-             //console.log("id usuario: " +  this.usuario.INT_ID_USU )
-             //console.log("id nick: " +  this.usuario.VAR_USER )
-            })  
 
+            const params = {
+              USUARIO_INT_ID_USU: this.usuario.INT_ID_USU
+            }
+
+            this.api.getMisPublicaciones(params).subscribe((resultado)=>
+            {
+              this.publicaciones = resultado.publicaciones;
+              console.log("publicaciones: ")
+              console.log(this.publicaciones)
+              return resultado
+            })
+          })  
         }
         
 
       });
 
-
-
-    
-
-
-
-  }
-
-  ngOnInit() {
-    
-    this.api.getMisPublicaciones(this.usuarioid).subscribe((resultado)=>
-    {
-      this.publicaciones = resultado;
-      console.log(resultado)
-      console.log("id usuario pasado: " + this.usuarioid)
-      return resultado   
-    })
-
+      
 
   } // fin NgOninit
-
-
-
-
-
 } // fin

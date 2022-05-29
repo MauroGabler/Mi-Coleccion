@@ -24,10 +24,10 @@ export class TabsPage implements OnInit {
           this.api.getPerfilusuario(getUser).subscribe(resultado =>{
              this.usuario = resultado.usuarios[0]
 
-             //console.log("rescatando usuario TABS > resultado");
-             //console.log(resultado);
-             //console.log("rescatando usuario TABS > this.user");
-             //console.log(this.usuario);
+             console.log("rescatando usuario TABS > resultado");
+             console.log(resultado);
+             console.log("rescatando usuario TABS > this.user");
+             console.log(this.usuario);
 
             })  
         }
