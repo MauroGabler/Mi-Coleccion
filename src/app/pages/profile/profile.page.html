@@ -75,5 +75,45 @@
     <div>
       <h2 class="text-center">Publicaciones</h2>
     </div>
+
+  
+  <ion-card class="card" *ngFor="let publicacion of publicaciones; index as i" >
+    <div class="container-img">
+      <ion-slides mode="ios" pager="ios" scrollbar="ios">
+        <ion-slide>
+          <ion-img src="../../../assets/categories/vinilo.png" routerLink="/tabs/view-post"></ion-img>
+        </ion-slide>
+        <ion-slide>
+          <ion-img src="../../../assets/categories/vinilo.png" routerLink="/tabs/view-post"></ion-img>
+        </ion-slide>
+        <ion-slide>
+          <ion-img src="../../../assets/categories/vinilo.png" routerLink="/tabs/view-post"></ion-img>
+        </ion-slide>
+      </ion-slides>
+    </div>
+    
+    
+    <div class="description">
+      <div routerLink="/tabs/view-post" class="container-title-card">
+        <ion-card-header>
+          <ion-card-title class="card-title">{{publicacion.VAR_TITULO_PUBLI}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          {{publicacion.VAR_DES_PUBLI}}
+        </ion-card-content>
+      </div>
+      <div class="container-button">
+        <ion-item class="ion-item">
+          <ion-button class="button" slot="end" size="default">
+            <ion-icon slot="icon-only" name="flame-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </div>
+    </div>
+
+  </ion-card>
+
+  
+
   </div>
 </ion-content>
