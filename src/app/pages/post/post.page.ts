@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { image } from '@cloudinary/url-gen/qualifiers/source';
+import axios from 'axios';
 
 @Component({
   selector: 'app-post',
@@ -6,10 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./post.page.scss'],
 })
 export class PostPage implements OnInit {
-
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
   }
+
+  
 
 }
