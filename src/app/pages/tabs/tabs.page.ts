@@ -43,8 +43,8 @@ export class TabsPage implements OnInit {
 
 
   Perfilusuario(){
-    console.log("usuario a pasar" )
-    console.log(this.usuario.VAR_USER )
+    //console.log("usuario a pasar" )
+    //console.log(this.usuario.VAR_USER )
     let navigationExtras: NavigationExtras = { // Creacion de un contexto para pasar a otro sitio 
       state:{
         usuario: this.usuario.VAR_USER
