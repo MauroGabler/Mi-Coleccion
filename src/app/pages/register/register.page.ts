@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { ApiService } from 'src/app/servicios/api.service';
-import { validarContrasenas } from 'src/app/validadores/validadores';
+import { validarContrasenas, validarNombreUsuario } from 'src/app/validadores/validadores';
 
 import { IUsuario } from './usuario';
 //import { Md5 } from 'ts-md5/dist/md5';
 import { FormGroup, FormBuilder, Validators, FormControl, ReactiveFormsModule, AbstractControl } from '@angular/forms';
-import { RutValidator } from 'ng2-rut';
+import { RutValidator } from 'ng9-rut';
 
 @Component({
   selector: 'app-register',
@@ -47,7 +47,7 @@ export class RegisterPage implements OnInit {
       apPaterno: ['', [Validators.required]],
       apMaterno: ['', [Validators.required]],
       rut: ['', [Validators.required, this.rv]],
-      alias: ['', [Validators.required, this.validarNombreUsuario]],
+      alias: ['', [Validators.required, validarNombreUsuario]],
       contrasena1: ['', [Validators.required]],
       contrasena2: ['', [Validators.required]],
       // contrasenas: this.fb.group({
@@ -64,35 +64,35 @@ export class RegisterPage implements OnInit {
 
     // let boolPuede = false;
 
-    if (this.contrasena1 === this.contrasena2) {
+    // if (this.contrasena1 === this.contrasena2) {
 
-      const params: object = {
+    const params: object = {
 
-        var_prim_nombre: this.formulario.value('nombres'),
-        // var_prim_nombre: this.formulario.nombres,
-        var_ape_paterno: this.formulario.value('apPaterno'),
-        var_ape_materno: this.formulario.value('apMaterno'),
-        nro_rut_usu: this.formulario.value('rut'),
-        var_user: this.formulario.value('alias'),
-        var_pass: this.formulario.value('contrasena1'),
-        var_mail_usu: this.formulario.value('correo'),
-      };
+      var_prim_nombre: this.formulario.value('nombres'),
+      // var_prim_nombre: this.formulario.nombres,
+      var_ape_paterno: this.formulario.value('apPaterno'),
+      var_ape_materno: this.formulario.value('apMaterno'),
+      nro_rut_usu: this.formulario.value('rut'),
+      var_user: this.formulario.value('alias'),
+      var_pass: this.formulario.value('contrasena1'),
+      var_mail_usu: this.formulario.value('correo'),
+    };
 
-      console.log(params);
+    console.log(params);
 
-      this.api.registrarUsuario(params).subscribe(res => {
-        console.log(res.mensaje);
-        this.toastMsj(res.mensaje);
+    this.api.registrarUsuario(params).subscribe(res => {
+      console.log(res.mensaje);
+      this.toastMsj(res.mensaje);
 
-        if (res.mensaje === 'Se ha guardado un nuevo usuario') {
-          this.router.navigate(['']);
-        }
+      if (res.mensaje === 'Se ha guardado un nuevo usuario') {
+        this.router.navigate(['']);
+      }
 
-      });
+    });
 
-    } else {
-      this.toastMsj('Las contraseñas ingresadas no coinciden');
-    }
+    // } else {
+    //   this.toastMsj('Las contraseñas ingresadas no coinciden');
+    // }
   }
 
   async toastMsj(mensaje) {
@@ -108,14 +108,14 @@ export class RegisterPage implements OnInit {
     console.log(this.formulario);
   }
 
-  async validarNombreUsuario(nombre: AbstractControl) {
-    const user: object = {
-      var_user: nombre.get('nombres')
-    };
+  // async validarNombreUsuario(nombre: AbstractControl) {
+  //   const user: object = {
+  //     var_user: nombre.get('nombres')
+  //   };
 
-    const res = await this.api.consultarNombreUsuario(user).subscribe();
+  //   const res = await this.api.consultarNombreUsuario(user).subscribe();
 
-    return res ? null : { yaExiste: true };
-  }
+  //   return res ? null : { yaExiste: true };
+  // }
 
 }

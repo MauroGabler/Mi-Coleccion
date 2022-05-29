@@ -4,7 +4,7 @@
       <b>Nueva publicacion</b>
     </h1>
   </div>
-    
+
   <div class="container-form-register">
 
     <form class="form-register">
@@ -12,7 +12,7 @@
         <p class="text-center">
           Fotos - <span>0</span>/3 puedes agregar hasta 3 fotos
         </p>
-        
+
         <div class="file">
           <ion-icon name="images-sharp"></ion-icon>
           <ion-label>
@@ -20,37 +20,35 @@
           </ion-label>
           <ion-input type="file" id="file-input" accept="image/png, image/jpeg"></ion-input>
         </div>
-        
+
       </div>
-      
+
       <div class="title-post inputs">
         <ion-label position="floating">Título de la publicación</ion-label>
         <ion-input name="title-post" type="text" [(ngModel)]="this.publicacion.var_titulo_publi"></ion-input>
       </div>
-      
+
       <div class="categories">
         <ion-label>Categoria</ion-label>
-        <ion-select okText="Elegir" cancelText="Cancelar" [(ngModel)]="this.publicacion.cat_col_int_id_cat_col">
+        <ion-select okText="Elegir" name="cod_categoria" cancelText="Cancelar" [(ngModel)]="this.publicacion.cat_col_int_id_cat_colecc">
 
-          <ion-select-option *ngFor="let c of this.categorias" >{{c.VAR_NOM_CAT}}</ion-select-option>
-          <!-- <ion-select-option value="Zapatillas">Zapatillas</ion-select-option>
-          <ion-select-option value="Billetes">Billetes</ion-select-option>
-          <ion-select-option value="Joyas">Joyas</ion-select-option>
-          <ion-select-option value="Figuras">Figuras</ion-select-option> -->
+          <ion-select-option *ngFor="let c of this.categorias" value="{{c.INT_ID_CAT_COLECC}}">{{c.VAR_NOM_CAT}}
+          </ion-select-option>
+
         </ion-select>
       </div>
 
       <div class="description-post">
-        <ion-label position="floating">Descripción</ion-label>
-        <ion-textarea></ion-textarea>
-        <div class="letter-count">
-          <p>0/500</p>
-        </div>
+        <ion-item [counter]="true">
+          <ion-label position="floating">Descripción</ion-label>
+          <ion-textarea name="descripcion" type="text" [(ngModel)]="publicacion.var_des_publi" inputmode="text" maxlength="500"></ion-textarea>
+        </ion-item>
       </div>
 
       <div class="toggle-complete-colection">
         <ion-label>Coleccion completa</ion-label>
-        <ion-toggle></ion-toggle>
+        <ion-toggle (ionChange)="this.coleccionCompleta = !this.coleccionCompleta"></ion-toggle>
+        <!-- <ion-checkbox [(ngModel)]="this.coleccionCompleta"></ion-checkbox> -->
       </div>
 
       <div class="type-post">
@@ -65,19 +63,19 @@
                 <ion-col size="4" class="radio-item">
                   <div class="event">
                     <ion-label>Evento</ion-label>
-                  <ion-radio slot="start" value="evento"></ion-radio>
+                    <ion-radio slot="start" (ionFocus)="this.tipoPublicacion = 3"></ion-radio>
                   </div>
                 </ion-col>
                 <ion-col size="4" class="radio-item">
                   <div>
-                    <ion-label>Discusion</ion-label>
-                  <ion-radio slot="start" value="discusion"></ion-radio>
+                    <ion-label>Discusión</ion-label>
+                    <ion-radio slot="start" (ionFocus)="this.tipoPublicacion = 2"></ion-radio>
                   </div>
                 </ion-col>
                 <ion-col size="4" class="radio-item">
                   <div>
                     <ion-label>Venta</ion-label>
-                  <ion-radio slot="start" value="venta"></ion-radio>
+                    <ion-radio slot="start" (ionFocus)="this.tipoPublicacion = 1"></ion-radio>
                   </div>
                 </ion-col>
               </ion-row>
@@ -85,49 +83,32 @@
 
           </ion-radio-group>
         </ion-list>
-  
-        <div class="type-sale">
-          <h2 class="text-center">Tipo de venta</h2>
+
+        <div class="type-sale" *ngIf="this.tipoPublicacion === 1">
+          <h2 class="text-center">¿Es subasta?</h2>
+
+          <ion-list style="display:flex;justify-content:center;">
+            <ion-toggle (ionChange)="this.esSubasta = !this.esSubasta"></ion-toggle>
+          </ion-list>
+
+          
+          <div class="price inputs">
+            <ion-label position="floating">Precio inicial $</ion-label>
+            <ion-input name="price" type="number" [(ngModel)]="this.precioInicial"></ion-input>
+          </div>
+          
+          <div class="price-buy-now inputs">
+            <ion-label position="floating">Precio compra inmediata $</ion-label>
+            <ion-input name="price-now" type="number" [(ngModel)]="this.precioCompraYa"></ion-input>
+          </div>
         </div>
-  
-        <ion-list>
-          <ion-radio-group>
-            <ion-grid fixed>
-              <ion-row>
-                <ion-col size="6" class="radio-item">
-                  <div class="event">
-                    <ion-label>Subasta</ion-label>
-                  <ion-radio slot="start" value="evento"></ion-radio>
-                  </div>
-                </ion-col>
-                <ion-col size="6" class="radio-item">
-                  <div>
-                    <ion-label>Discusion</ion-label>
-                  <ion-radio slot="start" value="discusion"></ion-radio>
-                  </div>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-            
-          </ion-radio-group>
-        </ion-list>
+        <div class="container-button-post">
+          <ion-button class="button-post" (click)="this.publicarVenta()">
+            Publicar
+          </ion-button>
+        </div>
       </div>
-      
-      
-      <div class="price inputs">
-        <ion-input name="price" type="number" placeholder="Precio inicial $"></ion-input>
-      </div>
-
-      <div class="price-buy-now inputs">
-        <ion-input name="price-now" type="number" placeholder="Precio compra inmediata $"></ion-input>
-      </div>
-
-      <div class="container-button-post">
-        <ion-button class="button-post">
-          Publicar
-        </ion-button>
-      </div>
-
+        
     </form>
 
   </div>

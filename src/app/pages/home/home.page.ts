@@ -27,12 +27,6 @@ export class HomePage implements OnInit {
         };
         this.api.getPerfilusuario(getUser).subscribe(resultado => {
           this.usuario = resultado.usuarios[0];
-
-          // console.log("rescatando usuario HOME > resultado");
-          // console.log(resultado);
-          // console.log("rescatando usuario HOME > this.user");
-          // console.log(this.usuario);
-
         });
       }
     });
@@ -48,8 +42,8 @@ export class HomePage implements OnInit {
   }
 
   async obtenerUsuario() {
-    const storage = await Storage.get({ key: 'logueado'});
+    const storage = await Storage.get({ key: 'logueado' });
     const valores = JSON.parse(storage.value);
-    this.nombreUsuario = valores.usuario;
+    this.nombreUsuario = valores.VAR_USER;
   }
 }

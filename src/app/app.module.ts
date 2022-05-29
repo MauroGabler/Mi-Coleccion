@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Ng2Rut } from 'ng2-rut';
+import { Ng9RutModule } from 'ng9-rut';
 import { FileUploadService } from './servicios/file-upload.service';
 
 @NgModule({
@@ -21,7 +21,7 @@ import { FileUploadService } from './servicios/file-upload.service';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    Ng2Rut,
+    Ng9RutModule,
     // FileUploadService
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],

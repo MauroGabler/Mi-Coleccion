@@ -19,7 +19,7 @@ export class LoginPage implements OnInit {
     private api: ApiService,
     private router: Router,
     private toast: ToastController
-    ) { }
+  ) { }
 
   ngOnInit() {
   }
@@ -31,19 +31,25 @@ export class LoginPage implements OnInit {
     };
 
     const navigationExtras: NavigationExtras = { // Creacion de un contexto para pasar a otro sitio
-      state:{
+      state: {
         usuario: this.usuario
       }
     };
 
     this.api.login(params).subscribe(msg => {
       if (msg.logueado) {
-        this.router.navigate(['tabs/home'],navigationExtras);
-        const usuario = JSON.stringify(params);
-        Storage.set({key: 'logueado', value: usuario});
+        this.router.navigate(['tabs/home'], navigationExtras);
+
+        const p = { var_user: params.usuario };
+
+        let objetoUsuario;
+
+        this.api.consultarUsuario(p).subscribe(res => {
+          objetoUsuario = JSON.stringify(res.usuarios[0]);
+          Storage.set({ key: 'logueado', value: objetoUsuario });
+        });
       } else { this.toastMsj(msg.mensaje); }
     });
-
   }
 
   async toastMsj(mensaje) {
