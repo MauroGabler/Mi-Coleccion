@@ -1,44 +1,37 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
 import { ApiService } from 'src/app/servicios/api.service';
-import { validarContrasenas, validarNombreUsuario } from 'src/app/validadores/validadores';
-
-import { IUsuario } from './usuario';
-//import { Md5 } from 'ts-md5/dist/md5';
-import { FormGroup, FormBuilder, Validators, FormControl, ReactiveFormsModule, AbstractControl } from '@angular/forms';
-import { RutValidator } from 'ng9-rut';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Md5 } from 'ts-md5/dist/md5';
+import { Router } from '@angular/router';
+import { RutValidator, RutDirective } from 'ng9-rut';
+import { ToastController } from '@ionic/angular';
+import { validarContrasenas } from 'src/app/validadores/validadores';
+import { IonSegment } from '@ionic/angular';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
+  viewProviders: [RutDirective]
 })
 export class RegisterPage implements OnInit {
+
+  @ViewChild(IonSegment, { static: true })
+  segment: IonSegment;
 
   contrasena1: string;
   contrasena2: string;
   boolContrato = false;
-  usuario = {
-    nombres: '',
-    apPaterno: '',
-    apMaterno: '',
-    rut: '',
-    alias: '',
-    contrasena: '',
-    correo: ''
-  };
+  boolNombreOcupado: boolean;
 
   formulario: FormGroup;
 
-  u: IUsuario;
-
   constructor(
-    private toast: ToastController,
     private api: ApiService,
+    private fb: FormBuilder,
     private router: Router,
     private rv: RutValidator,
-    private fb: FormBuilder,
+    private toast: ToastController,
   ) { }
 
   ngOnInit() {
@@ -47,52 +40,50 @@ export class RegisterPage implements OnInit {
       apPaterno: ['', [Validators.required]],
       apMaterno: ['', [Validators.required]],
       rut: ['', [Validators.required, this.rv]],
-      alias: ['', [Validators.required, validarNombreUsuario]],
+      alias: ['', [Validators.required]],
       contrasena1: ['', [Validators.required]],
       contrasena2: ['', [Validators.required]],
-      // contrasenas: this.fb.group({
-      //   contrasena1: ['', [Validators.required]],
-      //   contrasena2: ['', [Validators.required]],
-      // }, { validator: this.matchingPasswords }),
       correo: ['', [Validators.required, Validators.email]],
       boolContrato: [false, [Validators.required, Validators.requiredTrue]]
     }, { validator: validarContrasenas });
-  }
 
+  }
 
   registrar() {
 
-    // let boolPuede = false;
+    const nombre = { var_user: this.formulario.value.alias };
 
-    // if (this.contrasena1 === this.contrasena2) {
+    this.api.consultarNombreUsuario(nombre).subscribe(msg => {
 
-    const params: object = {
+      if (msg) {
+        this.toastMsj('El nombre de usuario ingresado ya existe. Prueba con otro!');
+        return;
+      } else {
 
-      var_prim_nombre: this.formulario.value('nombres'),
-      // var_prim_nombre: this.formulario.nombres,
-      var_ape_paterno: this.formulario.value('apPaterno'),
-      var_ape_materno: this.formulario.value('apMaterno'),
-      nro_rut_usu: this.formulario.value('rut'),
-      var_user: this.formulario.value('alias'),
-      var_pass: this.formulario.value('contrasena1'),
-      var_mail_usu: this.formulario.value('correo'),
-    };
+        const params: object = {
 
-    console.log(params);
+          var_prim_nombre: this.formulario.value.nombres,
+          var_ape_paterno: this.formulario.value.apPaterno,
+          var_ape_materno: this.formulario.value.apMaterno,
+          nro_rut_usu: this.formulario.value.rut,
+          var_user: this.formulario.value.alias,
+          var_pass: Md5.hashStr(this.formulario.value.contrasena1),
+          var_mail_usu: this.formulario.value.correo,
+        };
 
-    this.api.registrarUsuario(params).subscribe(res => {
-      console.log(res.mensaje);
-      this.toastMsj(res.mensaje);
+        this.api.registrarUsuario(params).subscribe(res => {
 
-      if (res.mensaje === 'Se ha guardado un nuevo usuario') {
-        this.router.navigate(['']);
+          this.toastMsj(res.mensaje);
+          if (res.mensaje === 'Se ha guardado un nuevo usuario') {
+            console.log('redirigiendo...');
+
+            location.reload();
+            // this.segment.value = 'login';
+            // this.router.navigate('/menu-auth');
+          }
+        });
       }
-
     });
-
-    // } else {
-    //   this.toastMsj('Las contraseñas ingresadas no coinciden');
-    // }
   }
 
   async toastMsj(mensaje) {
@@ -104,18 +95,6 @@ export class RegisterPage implements OnInit {
     toast.present();
   }
 
-  onSubmit() {
-    console.log(this.formulario);
-  }
+};
 
-  // async validarNombreUsuario(nombre: AbstractControl) {
-  //   const user: object = {
-  //     var_user: nombre.get('nombres')
-  //   };
 
-  //   const res = await this.api.consultarNombreUsuario(user).subscribe();
-
-  //   return res ? null : { yaExiste: true };
-  // }
-
-}

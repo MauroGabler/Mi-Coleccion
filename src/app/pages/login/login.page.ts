@@ -3,6 +3,7 @@ import { Router, NavigationExtras } from '@angular/router';
 import { Storage } from '@capacitor/storage';
 import { ToastController } from '@ionic/angular';
 import { ApiService } from 'src/app/servicios/api.service';
+import { Md5 } from 'ts-md5';
 
 @Component({
   selector: 'app-login',
@@ -27,8 +28,10 @@ export class LoginPage implements OnInit {
   login() {
     const params = {
       usuario: this.usuario,
-      contrasena: this.contrasena
+      contrasena: Md5.hashStr(this.contrasena)
     };
+    console.log(params);
+
 
     const navigationExtras: NavigationExtras = { // Creacion de un contexto para pasar a otro sitio
       state: {

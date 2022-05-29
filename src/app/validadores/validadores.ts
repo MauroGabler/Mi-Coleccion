@@ -9,14 +9,3 @@ export const validarContrasenas = (control: AbstractControl): { [key: string]: b
   return password && confirmPassword && password.value !== confirmPassword.value ? { noCoincide: true } : null;
 };
 
-export const validarNombreUsuario = async (control: AbstractControl): Promise<{ [key: string]: boolean } | null> => {
-
-  let res;
-  const params = {
-    var_user: control.get('alias')
-  };
-
-  await ApiService.prototype.consultarNombreUsuario(params).subscribe(msg => res = msg);
-
-  return res ? null : { yaExiste: true };
-};

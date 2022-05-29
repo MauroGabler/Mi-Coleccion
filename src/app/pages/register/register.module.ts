@@ -16,7 +16,7 @@ import { Ng9RutModule } from 'ng9-rut';
     IonicModule,
     RegisterPageRoutingModule,
     ReactiveFormsModule,
-    Ng9RutModule
+    Ng9RutModule,
   ],
   declarations: [RegisterPage],
   exports: [RegisterPage]
