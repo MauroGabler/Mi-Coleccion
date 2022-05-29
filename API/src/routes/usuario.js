@@ -10,6 +10,13 @@ router.get('/usuario', async (req, res) => {
   res.json(respuesta)
 })
 
+router.post('/consultarusuario', async (req, res) => {
+  const params = req.body
+  const respuesta = await consultar(params)
+  res.json(respuesta)
+})
+
+
 router.post('/usuario', async (req, res) => {
   const params = req.body
   const respuesta = await guardar(params)

@@ -7,13 +7,13 @@
 <ion-content>
   <div class="container-info-profile">
     <div class="container-profile-img">
-      <img src="https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg">
+      <img src="https://avatars.dicebear.com/api/bottts/{{usuario.VAR_USER}}.svg">
     </div>
     <div class="container-description">
 
-      <h1 class="user-name">Nombre de usuario</h1>
+      <h1 class="user-name">{{usuario.VAR_USER}}</h1>
       <form class="description">
-        <ion-textarea placeholder="Descripcion"></ion-textarea>
+        <ion-textarea placeholder={{usuario.VAR_MAIL_USU}}></ion-textarea>
       </form>
 
       <div class="container-interaction">

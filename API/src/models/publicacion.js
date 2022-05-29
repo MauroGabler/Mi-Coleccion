@@ -12,7 +12,7 @@ const consultar = async (params) => {
 
   let sel = `SELECT
             int_id_publi, var_titulo_publi, var_des_publi, img_publi, fecha_publi,
-            bool_evento, bool_discusion, bool_venta, bool_coleccion, bool_activa,
+            bool_evento, bool_discusion, bool_venta, BOOL_COLECC, bool_activa,
             usuario_int_id_usu, cat_col_int_id_cat_colecc
             FROM publicacion
             ${where}`
@@ -21,6 +21,27 @@ const consultar = async (params) => {
 
   return res
 }
+
+//rescatar publicaciones de usuario 
+const publicacionxusuario = async (params) => {
+
+  let respuesta = {}
+  let where = '' 
+
+  if (params.USUARIO_INT_ID_USU) {
+    let USUARIO_INT_ID_USU = params['USUARIO_INT_ID_USU']
+    where += `WHERE USUARIO_INT_ID_USU = ${USUARIO_INT_ID_USU}`
+
+  }
+  
+  let consulta = `SELECT *
+            FROM publicacion
+            ${where}`
+  respuesta ['publicaciones'] =  await cargar_consulta(consulta)
+  return respuesta
+}
+
+
 
 const guardar = async (params) => {
 
@@ -118,5 +139,6 @@ const modificar = async (params) => {
 module.exports = {
   consultar,
   guardar,
-  modificar
+  modificar,
+  publicacionxusuario
 }

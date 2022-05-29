@@ -10,7 +10,7 @@ import { Storage } from '@capacitor/storage';
 })
 export class ApiService {
 
-  apiBase = "http://localhost:3000/api/";
+  api = "http://localhost:3000/api/";
 
 
   constructor(private http:HttpClient,private router:Router,
@@ -31,9 +31,43 @@ export class ApiService {
 
 // Funcion permite obtener listado Categorias
 getColecciones():Observable<any>{
-  console.log("Api url  = " + this.apiBase);
-  return this.http.get(this.apiBase + "categoria").pipe();
+  //console.log("Api url  = " + this.api);
+  return this.http.get(this.api + "categoria").pipe();
 } // Cierre obtener Categorias
+
+
+
+
+//Funcion recuperar perfil usuario registrado
+getPerfilusuario(data):Observable<any>{
+  return this.http.post(`${this.api}consultarusuario`, data).pipe();
+} 
+
+//Funciones Login //
+consultarUsuario(data): Observable<any> {
+  return this.http.get(`${this.api}usuario`, data).pipe();
+}
+
+registrarUsuario(data): Observable<any> {
+  return this.http.post(`${this.api}usuario`, data).pipe();
+}
+
+login(data): Observable<any> {
+  return this.http.post(`${this.api}login`, data).pipe();
+}
+
+
+
+//Funcion recuperar publicaciones por usuario
+getMisPublicaciones(data):Observable<any>{
+  //console.log("APISERVICE : ")
+  //console.log("Api url  = " + this.api +"publicacionxusuario");
+  //console.log("data: " + data)
+  //console.log("FIN API SERVICE")
+  
+  return this.http.post(`${this.api}publicacionxusuario`, data).pipe();
+}
+
 
 
 }//Final
