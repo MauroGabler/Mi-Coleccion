@@ -6,13 +6,13 @@ const consultar = async (params) => {
   respuesta['categoria_coleccion'] = {}
   let where = ''
 
-  if (params.int_id_cat_coleccion) {
-    let int_id_cat_coleccion = params['int_id_cat_coleccion']
-    where += `WHERE int_id_cat_coleccion = ${int_id_cat_coleccion}`
+  if (params.int_id_cat_colecc) {
+    let int_id_cat_colecc = params['int_id_cat_colecc']
+    where += `WHERE int_id_cat_coleccion = ${int_id_cat_colecc}`
   }
 
   let sel = `SELECT
-            int_id_cat_coleccion, var_nom_cat, bool_activa
+            *
             FROM categoria_coleccion
             ${where}`
 

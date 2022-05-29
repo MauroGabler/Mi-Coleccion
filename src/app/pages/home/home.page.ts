@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';  // IMPORTAR LIBRERIA DE RUTAS
 import { ToastController } from '@ionic/angular';// Libreria mensaje Toas
-import { ApiService } from '../../servicios/api.service'; // Import de API 
+import { ApiService } from '../../servicios/api.service'; // Import de API
+import { Storage } from '@capacitor/storage';
 
 
 @Component({
@@ -11,42 +12,40 @@ import { ApiService } from '../../servicios/api.service'; // Import de API
 })
 export class HomePage implements OnInit {
 
-
-  usuario:any={}
+  nombreUsuario: string;
+  usuario: any = {};
 
   constructor(private api: ApiService, private router: Router, private activateRoute: ActivatedRoute) {
 
-   this.activateRoute.queryParams.subscribe(params=>{
-     if(this.router.getCurrentNavigation().extras.state)
-       {
-         let data = this.router.getCurrentNavigation().extras.state.usuario;
-         console.log("bienvenido home " + data )
+    this.activateRoute.queryParams.subscribe(params => {
+      if (this.router.getCurrentNavigation().extras.state) {
+        const data = this.router.getCurrentNavigation().extras.state.usuario;
 
-         const getUser = {
-           var_user: data
-         }
-         this.api.getPerfilusuario(getUser).subscribe(resultado =>{
-            this.usuario = resultado.usuarios[0]
+        const getUser = {
+          var_user: data
+        };
+        this.api.getPerfilusuario(getUser).subscribe(resultado => {
+          this.usuario = resultado.usuarios[0];
+          const miUsuario = JSON.stringify(this.usuario);
+          Storage.set({key: 'miUsuario', value: miUsuario});
 
-           console.log("rescatando usuario HOME > resultado");
-           console.log(resultado);
-           console.log("rescatando usuario HOME > this.user");
-           console.log(this.usuario);
-           
-           })  
-       }
-
-     });
-
-      
-
-
+        });
+      }
+    });
   }
 
   ngOnInit() {
-
+    this.obtenerUsuario();
   }
 
+  cerrarSesion() {
+    Storage.clear();
+    this.router.navigate(['/menu-auth']);
+  }
 
-
+  async obtenerUsuario() {
+    const storage = await Storage.get({ key: 'logueado'});
+    const valores = JSON.parse(storage.value);
+    this.nombreUsuario = valores.usuario;
+  }
 }

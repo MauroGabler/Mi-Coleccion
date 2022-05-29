@@ -30,13 +30,13 @@ export class SearchPage implements OnInit {
     this.api.getColecciones().subscribe((resultado)=>
     {
       this.colecciones = resultado.categoria_coleccion;
-      //console.log("colecciones: ")
-      //console.log(this.colecciones)
+      console.log("colecciones: ")
+      console.log(this.colecciones)
       return resultado
       
     })
 
 
 
-  }
+  } // fin NGOinit
 }
