@@ -1,7 +1,7 @@
 import { ApiService } from 'src/app/servicios/api.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-// import { Md5 } from 'ts-md5/dist/md5';
+import { Md5 } from 'ts-md5/dist/md5';
 import { Router } from '@angular/router';
 import { RutValidator, RutDirective } from 'ng9-rut';
 import { ToastController } from '@ionic/angular';

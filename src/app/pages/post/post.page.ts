@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/servicios/api.service';
 import { Storage } from '@capacitor/storage';
 import { ToastController } from '@ionic/angular';
+import axios from 'axios';
+
 
 @Component({
   selector: 'app-post',
@@ -47,6 +49,22 @@ export class PostPage implements OnInit {
 
   ngOnInit() {
     this.consultarCategorias();
+
+    const imageUpload = document.getElementById('imageUpload');
+    const imagePreview = document.getElementById('imagePreview');
+    const cloudinaryURL="https://api.cloudinary.com/v1_1/micoleccion/image/upload";
+    const presetName = "t4bru0ez";
+
+    console.log(imageUpload,imagePreview)
+
+    // imageUpload.addEventListener('change', (e) =>{
+    //   const file = (e.target as HTMLInputElement).files[0]
+      
+    //   const formData = new FormData();
+    //   formData.append('file',file);
+    //   formData.append('upload_preset', presetName);
+    // });
+
   }
 
   consultarCategorias() {
