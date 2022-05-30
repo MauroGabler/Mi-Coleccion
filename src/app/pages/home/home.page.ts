@@ -17,6 +17,7 @@ export class HomePage implements OnInit {
 
   constructor(private api: ApiService, private router: Router, private activateRoute: ActivatedRoute) {
 
+
     this.activateRoute.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         const data = this.router.getCurrentNavigation().extras.state.usuario;
@@ -34,7 +35,7 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
-    this.obtenerUsuario();
+
   }
 
   cerrarSesion() {

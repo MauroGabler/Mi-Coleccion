@@ -44,13 +44,14 @@
           <ion-textarea name="descripcion" type="text" [(ngModel)]="publicacion.var_des_publi" inputmode="text" maxlength="500"></ion-textarea>
         </ion-item>
       </div>
-
+<!--
       <div class="toggle-complete-colection">
         <ion-label>Coleccion completa</ion-label>
         <ion-toggle (ionChange)="this.coleccionCompleta = !this.coleccionCompleta"></ion-toggle>
-        <!-- <ion-checkbox [(ngModel)]="this.coleccionCompleta"></ion-checkbox> -->
+       
+        <ion-checkbox [(ngModel)]="this.coleccionCompleta"></ion-checkbox> 
       </div>
-
+-->
       <div class="type-post">
         <h2 class="text-center">Tipo de publicacion</h2>
       </div>
@@ -60,19 +61,25 @@
           <ion-radio-group>
             <ion-grid fixed>
               <ion-row>
-                <ion-col size="4" class="radio-item">
+                <ion-col size="3" class="radio-item">
+                  <div class="event">
+                    <ion-label>Coleccion</ion-label>
+                    <ion-radio slot="start" (ionFocus)="this.tipoPublicacion = 4"></ion-radio>
+                  </div>
+                </ion-col>
+                <ion-col size="3" class="radio-item">
                   <div class="event">
                     <ion-label>Evento</ion-label>
                     <ion-radio slot="start" (ionFocus)="this.tipoPublicacion = 3"></ion-radio>
                   </div>
                 </ion-col>
-                <ion-col size="4" class="radio-item">
+                <ion-col size="3" class="radio-item">
                   <div>
                     <ion-label>Discusión</ion-label>
                     <ion-radio slot="start" (ionFocus)="this.tipoPublicacion = 2"></ion-radio>
                   </div>
                 </ion-col>
-                <ion-col size="4" class="radio-item">
+                <ion-col size="3" class="radio-item">
                   <div>
                     <ion-label>Venta</ion-label>
                     <ion-radio slot="start" (ionFocus)="this.tipoPublicacion = 1"></ion-radio>

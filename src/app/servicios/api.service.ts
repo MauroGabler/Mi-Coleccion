@@ -49,6 +49,10 @@ export class ApiService {
     return this.http.get(`${this.api}publicacion`, data).pipe();
   }
 
+  consultarPublicacion(data): Observable<any> {
+    return this.http.post(`${this.api}consultarPublicacion`, data).pipe();
+  }
+
   guardarPublicacion(data): Observable<any> {
     return this.http.post(`${this.api}publicacion`, data).pipe();
   }

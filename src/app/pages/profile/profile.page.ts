@@ -12,44 +12,61 @@ import { ApiService } from '../../servicios/api.service';
 export class ProfilePage implements OnInit {
 
   usuario:any={}
-  
-  usuarioid: 0;
+  var_usuario: '';
 
   constructor(private api: ApiService, private router: Router, private activateRoute: ActivatedRoute) {
   }
 
   publicaciones:any[];
+  cantPublicaciones = 0;
 
   ngOnInit() {
     this.activateRoute.queryParams.subscribe(params=>{
+
       if(this.router.getCurrentNavigation().extras.state)
         {
           let data = this.router.getCurrentNavigation().extras.state.usuario;
+
           const getUser = {
             var_user: data
           }
-          this.api.getPerfilusuario(getUser).subscribe(resultado =>{
-            this.usuario = resultado.usuarios[0]
-            this.usuarioid = this.usuario.INT_ID_USU
 
-            const params = {
-              USUARIO_INT_ID_USU: this.usuario.INT_ID_USU
-            }
 
-            this.api.getMisPublicaciones(params).subscribe((resultado)=>
+          this.api.getPerfilusuario(getUser).subscribe(resultado =>
             {
-              this.publicaciones = resultado.publicaciones;
-              console.log("publicaciones: ")
-              console.log(this.publicaciones)
-              return resultado
-            })
-          })  
-        }
-        
+              this.usuario = resultado.usuarios[0]
+              this.var_usuario = this.usuario.VAR_USER
 
-      });
+              const params = {
+              USUARIO_INT_ID_USU: this.usuario.INT_ID_USU
+              }
 
-      
-
+              this.api.getMisPublicaciones(params).subscribe((resultado)=>
+              {
+                this.publicaciones = resultado.publicaciones;
+                this.cantPublicaciones = resultado.publicaciones.length;
+                //console.log("publicaciones: ")
+                //console.log(this.publicaciones)
+                //console.log(this.cantPublicaciones)
+                return this.publicaciones
+              })
+            })  
+        } //Fin if
+      }); //Fin ActivateRoute
   } // fin NgOninit
+
+
+
+
+  irAPost(idPost){
+    let navigationExtras: NavigationExtras = { 
+      state:{
+        iduser: this.var_usuario,
+        idPost: idPost
+      }
+    };
+    this.router.navigate(['tabs/view-post/'+ idPost], navigationExtras)
+  }
+
+
 } // fin
