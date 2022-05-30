@@ -133,4 +133,19 @@ export class ApiService {
     return this.http.put(`${this.api}valoracion`, data).pipe();
   }
 
+  // Venta
+  consultarVentas(data = null): Observable<any> {
+    return this.http.get(`${this.api}venta`, data).pipe();
+  }
+
+  guardarVenta(data): Observable<any> {
+    return this.http.post(`${this.api}venta`, data).pipe();
+  }
+
+  modificarVenta(data): Observable<any> {
+    return this.http.put(`${this.api}venta`, data).pipe();
+  }
+
+
+
 }
