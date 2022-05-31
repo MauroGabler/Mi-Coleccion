@@ -9,49 +9,50 @@ import { ApiService } from '../../servicios/api.service';
   styleUrls: ['./view-post.page.scss'],
 })
 export class ViewPostPage implements OnInit {
-  constructor(private api: ApiService, private router: Router, private activateRoute: ActivatedRoute) { 
 
+  usuario:any={}
+  post:any={}
+  datos:any;
+
+  constructor(private api: ApiService, private router: Router, private activateRoute: ActivatedRoute) { 
+    this.activateRoute.queryParams.subscribe(Params =>{
+      if(this.router.getCurrentNavigation().extras.state)
+      {
+        this.datos = this.router.getCurrentNavigation().extras.state;
+      }
+      //console.log(this.datos)
+
+    })
+
+ 
   }
 
-  usuario:any=[];
-  post:any=[];
- 
   ngOnInit() {
 
-    this.activateRoute.queryParams.subscribe(params=>{
-      if(this.router.getCurrentNavigation().extras.state)
-        {
-          let datos = this.router.getCurrentNavigation().extras.state;
+    const getUser = {
+      var_user: this.datos.iduser
+    }
 
-          const getUser = {
-            var_user: datos.iduser
-          }
+    this.api.getPerfilusuario(getUser).subscribe(resUser =>
+      {
+      this.usuario = resUser.usuarios[0];
+      //console.log("datos de usuario rescatado");
+      //console.log(this.usuario);
+      return this.usuario;
+      });
 
-          const getPost = {
-            INT_ID_PUBLI: datos.idPost
-          }
+    const getPost = {
+      INT_ID_PUBLI: this.datos.idPost
+    }
 
-
-          this.api.getPerfilusuario(getUser).subscribe(resUser =>
-            {
-            this.usuario = resUser.usuarios;
-            console.log("datos de usuario rescatado");
-            console.log(this.usuario);
-            });
-
-          this.api.consultarPublicacion(getPost).subscribe(resPost =>{
-             this.post = resPost;
-             console.log("datos de post rescatado");
-             console.log(this.post);
-             
-           });
-        } //Fin if
-      }); //Fin ActivateRoute
+    this.api.consultarPublicacion(getPost).subscribe(resPost =>{
+      this.post = resPost[0];
+      //console.log("datos de post rescatado");
+      //console.log(this.post);
+      return this.post;
+    });
+    
   } // fin NgOninit
-
-
-
-
 
 
 }

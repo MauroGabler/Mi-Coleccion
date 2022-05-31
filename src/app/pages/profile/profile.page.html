@@ -78,20 +78,24 @@
 
   
   <ion-card class="card" *ngFor="let publicacion of publicaciones; index as i" >
-    <div class="container-img">
+    <div >
       <ion-slides mode="ios" pager="ios" scrollbar="ios">
-        <ion-slide>
-          <ion-img src="../../../assets/categories/vinilo.png"></ion-img>
+
+        <ion-slide *ngIf="publicacion.IMG_PUBLI != null">
+          <ion-img  src="{{publicacion.IMG_PUBLI}}"></ion-img>
         </ion-slide>
-        <ion-slide>
-          <ion-img src="../../../assets/categories/vinilo.png"></ion-img>
+
+        <ion-slide *ngIf="publicacion.IMG_PUBLI2 != null">
+          <ion-img  src="{{publicacion.IMG_PUBLI2}}"></ion-img>
         </ion-slide>
-        <ion-slide>
-          <ion-img src="../../../assets/categories/vinilo.png"></ion-img>
+
+        <ion-slide *ngIf="publicacion.IMG_PUBLI3 != null">
+          <ion-img  src="{{publicacion.IMG_PUBLI3}}"></ion-img>
         </ion-slide>
+
       </ion-slides>
     </div>
-    
+
     <div class="description">
       <div class="container-title-card">
         <ion-card-header>

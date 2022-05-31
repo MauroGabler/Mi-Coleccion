@@ -30,7 +30,7 @@ export class LoginPage implements OnInit {
       usuario: this.usuario,
       contrasena: Md5.hashStr(this.contrasena)
     };
-    console.log(params);
+    //console.log(params);
 
 
     const navigationExtras: NavigationExtras = { // Creacion de un contexto para pasar a otro sitio
@@ -49,8 +49,8 @@ export class LoginPage implements OnInit {
 
         this.api.getPerfilusuario(p).subscribe(res => {
           objetoUsuario = JSON.stringify(res.usuarios[0]);
-          console.log("este?")
-          console.log(res)
+          //console.log("este?")
+          //console.log(res)
           Storage.set({ key: 'logueado', value: objetoUsuario });
         });
       } else { this.toastMsj(msg.mensaje); }
