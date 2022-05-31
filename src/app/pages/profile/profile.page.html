@@ -60,7 +60,7 @@
         <ion-col size="4">
           <div class="container-num-post">
             <p class="text-center">
-              25 
+              {{cantPublicaciones}} 
               <br>
               Publicaciones
             </p>
@@ -78,25 +78,30 @@
 
   
   <ion-card class="card" *ngFor="let publicacion of publicaciones; index as i" >
-    <div class="container-img">
+    <div >
       <ion-slides mode="ios" pager="ios" scrollbar="ios">
-        <ion-slide>
-          <ion-img src="../../../assets/categories/vinilo.png" routerLink="/tabs/view-post"></ion-img>
+
+        <ion-slide *ngIf="publicacion.IMG_PUBLI != null">
+          <ion-img  src="{{publicacion.IMG_PUBLI}}"></ion-img>
         </ion-slide>
-        <ion-slide>
-          <ion-img src="../../../assets/categories/vinilo.png" routerLink="/tabs/view-post"></ion-img>
+
+        <ion-slide *ngIf="publicacion.IMG_PUBLI2 != null">
+          <ion-img  src="{{publicacion.IMG_PUBLI2}}"></ion-img>
         </ion-slide>
-        <ion-slide>
-          <ion-img src="../../../assets/categories/vinilo.png" routerLink="/tabs/view-post"></ion-img>
+
+        <ion-slide *ngIf="publicacion.IMG_PUBLI3 != null">
+          <ion-img  src="{{publicacion.IMG_PUBLI3}}"></ion-img>
         </ion-slide>
+
       </ion-slides>
     </div>
-    
-    
+
     <div class="description">
-      <div routerLink="/tabs/view-post" class="container-title-card">
+      <div class="container-title-card">
         <ion-card-header>
-          <ion-card-title class="card-title">{{publicacion.VAR_TITULO_PUBLI}}</ion-card-title>
+          <ion-card-title class="card-title" (click)="this.irAPost(publicacion.INT_ID_PUBLI)" >
+              {{publicacion.VAR_TITULO_PUBLI}}
+          </ion-card-title>
         </ion-card-header>
         <ion-card-content>
           {{publicacion.VAR_DES_PUBLI}}

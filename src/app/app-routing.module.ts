@@ -49,10 +49,10 @@ const routes: Routes = [
   {
     path: 'profile/:user',
     loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule),
-    canActivate: [RutaProtegidaGuard]
+    //canActivate: [RutaProtegidaGuard]
   },
   {
-    path: 'view-post',
+    path: 'view-post/:idPost',
     loadChildren: () => import('./pages/view-post/view-post.module').then( m => m.ViewPostPageModule)
   },
 
