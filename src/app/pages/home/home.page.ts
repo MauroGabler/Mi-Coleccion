@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';  // IMPORTAR LIBRERIA DE RUTAS
+import {NavigationExtras, Router, ActivatedRoute} from '@angular/router';  // IMPORTAR LIBRERIA DE RUTAS
 import { ToastController } from '@ionic/angular';// Libreria mensaje Toas
 import { ApiService } from '../../servicios/api.service'; // Import de API
 import { Storage } from '@capacitor/storage';
@@ -14,6 +14,7 @@ export class HomePage implements OnInit {
 
   nombreUsuario: string;
   usuario: any = {};
+  publicaciones:any={};
 
   constructor(private api: ApiService, private router: Router, private activateRoute: ActivatedRoute) {
 
@@ -21,21 +22,53 @@ export class HomePage implements OnInit {
       if (this.router.getCurrentNavigation().extras.state) {
         const data = this.router.getCurrentNavigation().extras.state.usuario;
 
+        this.nombreUsuario = data;
         const getUser = {
-          var_user: data
+          var_user: this.nombreUsuario
         };
-        this.api.getPerfilusuario(getUser).subscribe(resultado => {
-          this.usuario = resultado.usuarios[0];
-          const miUsuario = JSON.stringify(this.usuario);
-          Storage.set({key: 'miUsuario', value: miUsuario});
-        });
       }
+      });
+
+  }
+  
+
+  
+  ngOnInit() 
+  {
+
+    const getUser = {
+      var_user: this.nombreUsuario
+    };
+
+    this.api.getPerfilusuario(getUser).subscribe(resultado => {
+      this.usuario = resultado.usuarios[0];
+      const miUsuario = JSON.stringify(this.usuario);
+      Storage.set({key: 'miUsuario', value: miUsuario});
     });
+
+    console.log("usuario >> post ")
+    console.log(this.nombreUsuario)
+
+    this.api.consultarPublicaciones().subscribe(resultado=> {
+      this.publicaciones =  resultado;
+      console.log("publicaciones rescatadas")
+      console.log(this.publicaciones)
+      });
+  
+
+}
+
+
+  irAPost(idPost){
+    let navigationExtras: NavigationExtras = { 
+      state:{
+        iduser: this.nombreUsuario,
+        idPost: idPost
+      }
+    };
+    this.router.navigate(['tabs/view-post/'+ idPost], navigationExtras)
   }
 
-  ngOnInit() {
-    this.obtenerUsuario();
-  }
 
   cerrarSesion() {
     Storage.clear();

@@ -3,17 +3,14 @@ const { cargar_consulta } = require('../helpers/funciones')
 const consultar = async (params) => {
 
   let where = ''
-  let int_id_publi
+  let INT_ID_PUBLI
 
-  if (params?.int_id_publi) {
-    int_id_publi = params.int_id_publi
-    where += `WHERE int_id_publi = ${int_id_publi}`
+  if (params?.INT_ID_PUBLI) {
+    INT_ID_PUBLI = params.INT_ID_PUBLI
+    where += `WHERE INT_ID_PUBLI = ${INT_ID_PUBLI}`
   }
 
-  let sel = `SELECT
-            int_id_publi, var_titulo_publi, var_des_publi, img_publi, fecha_publi,
-            bool_evento, bool_discusion, bool_venta, BOOL_COLECC, bool_activa,
-            usuario_int_id_usu, cat_col_int_id_cat_colecc
+  let sel = `SELECT *
             FROM publicacion
             ${where}`
 
@@ -118,6 +115,8 @@ const guardar = async (params) => {
                  (${id}, '${params.var_titulo_publi}', '${params.var_des_publi}', SYSDATE, ${params.usuario_int_id_usu}, ${params.cat_col_int_id_cat_colecc} 
                   ${values})`
 
+ // , , , , BOOL_EVENTO, BOOL_DISCUSION, BOOL_VENTA, BOOL_COLECC, BOOL_ACTIVA, , , IMG_PUBLI, IMG_PUBLI2, IMG_PUBLI3
+ //INT_ID_PUBLI, VAR_TITULO_PUBLI, VAR_DES_PUBLI, FECHA_PUBLI, BOOL_EVENTO, BOOL_DISCUSION, BOOL_VENTA, BOOL_COLECC, BOOL_ACTIVA, USUARIO_INT_ID_USU, CAT_COL_INT_ID_CAT_COLECC, IMG_PUBLI, IMG_PUBLI2, IMG_PUBLI3
     await cargar_consulta(ins)
 
     respuesta.mensaje = 'Se ha guardado la publicación'

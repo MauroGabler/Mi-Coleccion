@@ -5,6 +5,14 @@ const { consultar, guardar, modificar, publicacionxusuario } = require('../model
 
 const router = Router()
 
+
+router.get('/publicaciones', async (req, res) => {
+  //const params = req.body
+  const respuesta = await consultar()
+  res.json(respuesta)
+})
+
+
 router.post('/consultarPublicacion', async (req, res) => {
   const params = req.body
   const respuesta = await consultar(params)
