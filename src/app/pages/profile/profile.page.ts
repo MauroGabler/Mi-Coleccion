@@ -32,19 +32,19 @@ export class ProfilePage implements OnInit {
           }
 
 
-          this.api.getPerfilusuario(getUser).subscribe(resultado =>
+          this.api.getPerfilusuario(getUser).subscribe(resUsu =>
             {
-              this.usuario = resultado.usuarios[0]
+              this.usuario = resUsu.usuarios[0]
               this.nombreUsuario = this.usuario.VAR_USER
 
               const params = {
               USUARIO_INT_ID_USU: this.usuario.INT_ID_USU
               }
 
-              this.api.getMisPublicaciones(params).subscribe((resultado)=>
+              this.api.getMisPublicaciones(params).subscribe((resPubli)=>
               {
-                this.publicaciones = resultado.publicaciones;
-                this.cantPublicaciones = resultado.publicaciones.length;
+                this.publicaciones = resPubli.publicaciones;
+                this.cantPublicaciones = resPubli.publicaciones.length;
                 //console.log("publicaciones: ")
                 //console.log(this.publicaciones)
                 //console.log(this.cantPublicaciones)
