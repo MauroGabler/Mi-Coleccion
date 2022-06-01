@@ -32,6 +32,7 @@ export class HomePage implements OnInit {
   ngOnInit() {
 
     this.consultarPublicaciones();
+    this.obtenerUsuario();
   }
 
   consultarPublicaciones() {
@@ -67,6 +68,8 @@ export class HomePage implements OnInit {
   async obtenerUsuario() {
     const storage = await Storage.get({ key: 'logueado' });
     const valores = JSON.parse(storage.value);
+    console.log(valores);
+    
     this.nombreUsuario = valores.VAR_USER;
   }
 

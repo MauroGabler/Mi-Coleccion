@@ -32,23 +32,19 @@ export class LoginPage implements OnInit {
     };
     //console.log(params);
 
-
-    const navigationExtras: NavigationExtras = { // Creacion de un contexto para pasar a otro sitio
-      state: {
-        usuario: this.usuario
-      }
-    };
-
     this.api.login(params).subscribe(msg => {
+      
       if (msg.logueado) {
-        this.router.navigate(['tabs/home'], navigationExtras);
-
+        this.router.navigate(['tabs/home']);
+        
         const p = { var_user: params.usuario };
-
+        
         let objetoUsuario;
-
+        
         this.api.getPerfilusuario(p).subscribe(res => {
+          console.log(res);
           objetoUsuario = JSON.stringify(res.usuarios[0]);
+          console.log(objetoUsuario);
           Storage.set({ key: 'logueado', value: objetoUsuario });
         });
       } else { this.toastMsj(msg.mensaje); }
