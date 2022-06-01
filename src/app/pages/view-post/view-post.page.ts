@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ToastController } from '@ionic/angular';// Libreria mensaje Toas
-import {NavigationExtras, Router, ActivatedRoute} from '@angular/router';  // IMPORTAR LIBRERIA DE RUTAS
+import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 import { ApiService } from '../../servicios/api.service';
 
 @Component({
@@ -10,50 +10,63 @@ import { ApiService } from '../../servicios/api.service';
 })
 export class ViewPostPage implements OnInit {
 
-  usuario:any={}
-  post:any={}
-  datos:any;
+  usuario: object;
+  post: object;
+  datos: any;
+  idPublicacion: number;
 
-  constructor(private api: ApiService, private router: Router, private activateRoute: ActivatedRoute) { 
-    this.activateRoute.queryParams.subscribe(Params =>{
-      if(this.router.getCurrentNavigation().extras.state)
-      {
+  constructor(
+    private api: ApiService,
+    private router: Router,
+    private toast: ToastController,
+    private activateRoute: ActivatedRoute) {
+
+    this.activateRoute.queryParams.subscribe(params => {
+      if (this.router.getCurrentNavigation().extras.state) {
         this.datos = this.router.getCurrentNavigation().extras.state;
       }
-      //console.log(this.datos)
-
-    })
-
- 
+    });
   }
 
   ngOnInit() {
 
     const getUser = {
       var_user: this.datos.iduser
-    }
+    };
 
-    this.api.getPerfilusuario(getUser).subscribe(resUser =>
-      {
+    this.api.getPerfilusuario(getUser).subscribe(resUser => {
       this.usuario = resUser.usuarios[0];
-      //console.log("datos de usuario rescatado");
-      //console.log(this.usuario);
       return this.usuario;
-      });
+    });
 
     const getPost = {
       INT_ID_PUBLI: this.datos.idPost
-    }
+    };
 
-    this.api.consultarPublicacion(getPost).subscribe(resPost =>{
+    this.api.consultarPublicacion(getPost).subscribe(resPost => {
       this.post = resPost[0];
-      //console.log("datos de post rescatado");
-      //console.log(this.post);
       return this.post;
     });
-    
   } // fin NgOninit
 
+  async meGusta() {
+    
+    const params = {
+      int_id_publi: this.datos.idPost
+    };
+    this.api.guardarMeGusta(params).subscribe(res => {
+      this.toastMsj('Te gusta!');
+    });
+  }
+
+  async toastMsj(mensaje) {
+    const toast = await this.toast.create({
+      message: mensaje,
+      position: 'bottom',
+      duration: 3000,
+    });
+    toast.present();
+  }
 
 }
 

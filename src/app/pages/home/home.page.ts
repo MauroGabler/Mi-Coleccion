@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import {NavigationExtras, Router, ActivatedRoute} from '@angular/router';  // IMPORTAR LIBRERIA DE RUTAS
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';  // IMPORTAR LIBRERIA DE RUTAS
 import { ToastController } from '@ionic/angular';// Libreria mensaje Toas
 import { ApiService } from '../../servicios/api.service'; // Import de API
 import { Storage } from '@capacitor/storage';
+import { IonInfiniteScroll } from '@ionic/angular';
 
 
 @Component({
@@ -10,65 +11,53 @@ import { Storage } from '@capacitor/storage';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
+
 export class HomePage implements OnInit {
+
+  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
   nombreUsuario: string;
   usuario: any = {};
-  publicaciones:any={};
+  publicaciones;
 
-  constructor(private api: ApiService, private router: Router, private activateRoute: ActivatedRoute) {
-
-    this.activateRoute.queryParams.subscribe(params => {
-      if (this.router.getCurrentNavigation().extras.state) {
-        const data = this.router.getCurrentNavigation().extras.state.usuario;
-
-        this.nombreUsuario = data;
-        const getUser = {
-          var_user: this.nombreUsuario
-        };
-      }
-      });
-
+  constructor(
+    private api: ApiService,
+    private router: Router,
+    private toast: ToastController,
+    private aRoute: ActivatedRoute,
+    private chRef: ChangeDetectorRef
+    ) {
   }
-  
 
-  
-  ngOnInit() 
-  {
+  ngOnInit() {
 
-    const getUser = {
-      var_user: this.nombreUsuario
-    };
+    this.consultarPublicaciones();
+  }
 
-    this.api.getPerfilusuario(getUser).subscribe(resultado => {
-      this.usuario = resultado.usuarios[0];
-      const miUsuario = JSON.stringify(this.usuario);
-      Storage.set({key: 'miUsuario', value: miUsuario});
+  consultarPublicaciones() {
+
+    this.api.consultarPublicaciones().subscribe(res => {
+      this.publicaciones = res;
+      // this.publicaciones = JSON.stringify(this.publicaciones);
     });
+  }
 
-    console.log("usuario >> post ")
-    console.log(this.nombreUsuario)
+  reloadPage() {
+    this.aRoute.params && this.aRoute.params.subscribe(params => {
+      const id = params.idPost;
+      this.router.navigate([`view-post/${id}`]);
+    });
+  }
 
-    this.api.consultarPublicaciones().subscribe(resultado=> {
-      this.publicaciones =  resultado;
-      console.log("publicaciones rescatadas")
-      console.log(this.publicaciones)
-      });
-  
-
-}
-
-
-  irAPost(idPost){
-    let navigationExtras: NavigationExtras = { 
-      state:{
+  irAPost(idPost) {
+    const navigationExtras: NavigationExtras = {
+      state: {
         iduser: this.nombreUsuario,
         idPost: idPost
       }
     };
-    this.router.navigate(['tabs/view-post/'+ idPost], navigationExtras)
+    this.router.navigate(['tabs/view-post/' + idPost], navigationExtras);
   }
-
 
   cerrarSesion() {
     Storage.clear();
@@ -80,4 +69,40 @@ export class HomePage implements OnInit {
     const valores = JSON.parse(storage.value);
     this.nombreUsuario = valores.VAR_USER;
   }
+
+  async meGusta(id) {
+
+    const params = {
+      int_id_publi: id
+    };
+    this.api.guardarMeGusta(params).subscribe(res => {
+      this.toastMsj('Te gusta!');
+    });
+
+    // this.chRef.detectChanges();
+    // this.zone.run(() => {});
+    this.consultarPublicaciones();
+  }
+
+  async toastMsj(mensaje) {
+    const toast = await this.toast.create({
+      message: mensaje,
+      position: 'bottom',
+      duration: 3000,
+    });
+    toast.present();
+  }
+
+  // loadData(event) {
+  //   setTimeout(() => {
+  //     console.log('Listo');
+  //     event.target.complete();
+
+  //     // App logic to determine if all data is loaded
+  //     // and disable the infinite scroll
+  //     if (data.length === 1000) {
+  //       event.target.disabled = true;
+  //     }
+  //   }, 500);
+  // }
 }

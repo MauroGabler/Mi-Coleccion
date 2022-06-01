@@ -10,29 +10,28 @@ import { ApiService } from '../../servicios/api.service'; // Import de API
 })
 export class TabsPage implements OnInit {
 
-  usuario:any={}
+  usuario: any = {}
 
-  constructor(private api: ApiService, private router: Router, private activateRoute: ActivatedRoute) { 
+  constructor(private api: ApiService, private router: Router, private activateRoute: ActivatedRoute) {
 
-    this.activateRoute.queryParams.subscribe(params=>{
-      if(this.router.getCurrentNavigation().extras.state)
-        {
-          let data = this.router.getCurrentNavigation().extras.state.usuario;
-          const getUser = {
-            var_user: data
-          }
-          this.api.getPerfilusuario(getUser).subscribe(resultado =>{
-             this.usuario = resultado.usuarios[0]
-
-             //console.log("rescatando usuario TABS > resultado");
-             //console.log(resultado);
-             //console.log("rescatando usuario TABS > this.user");
-             //console.log(this.usuario);
-
-            })  
+    this.activateRoute.queryParams.subscribe(params => {
+      if (this.router.getCurrentNavigation().extras.state) {
+        let data = this.router.getCurrentNavigation().extras.state.usuario;
+        const getUser = {
+          var_user: data
         }
+        this.api.getPerfilusuario(getUser).subscribe(resultado => {
+          this.usuario = resultado.usuarios[0]
 
-      });
+          //console.log("rescatando usuario TABS > resultado");
+          //console.log(resultado);
+          //console.log("rescatando usuario TABS > this.user");
+          //console.log(this.usuario);
+
+        })
+      }
+
+    });
 
 
   }
@@ -40,16 +39,14 @@ export class TabsPage implements OnInit {
   ngOnInit() {
   }
 
-
-
-  Perfilusuario(){
+  Perfilusuario() {
     let navigationExtras: NavigationExtras = { // Creacion de un contexto para pasar a otro sitio 
-      state:{
+      state: {
         usuario: this.usuario.VAR_USER
       }
     };
 
-    this.router.navigate(['tabs/profile/'+ this.usuario.VAR_USER], navigationExtras)
+    this.router.navigate(['tabs/profile/' + this.usuario.VAR_USER], navigationExtras)
 
   }
 

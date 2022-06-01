@@ -1,65 +1,56 @@
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-title>view-post</ion-title>
-  </ion-toolbar>
-</ion-header> -->
+<ion-content>
+  <div class="container-slides">
 
-  <ion-content>
-    <div class="container-slides">
-      
-      <ion-button class="button-slides button-chat">
-        <ion-icon slot="icon-only" name="flame"></ion-icon>
-      </ion-button>
+    <ion-button class="button-slides button-chat" (click)="meGusta()">
+      <span>{{post.INT_MEGUSTA}}</span><ion-icon slot="icon-only" name="flame" ></ion-icon>
+    </ion-button>
 
-      <ion-slides mode="ios" pager="ios" scrollbar="ios">
+    <ion-slides mode="ios" pager="ios" scrollbar="ios">
 
-        <ion-slide *ngIf="post.IMG_PUBLI != null">
-          <ion-img  src="{{post.IMG_PUBLI}}"></ion-img>
-        </ion-slide>
+      <ion-slide *ngIf="post.IMG_PUBLI != null">
+        <ion-img src="{{post.IMG_PUBLI}}"></ion-img>
+      </ion-slide>
 
-        <ion-slide *ngIf="post.IMG_PUBLI2 != null">
-          <ion-img  src="{{post.IMG_PUBLI2}}"></ion-img>
-        </ion-slide>
+      <ion-slide *ngIf="post.IMG_PUBLI2 != null">
+        <ion-img src="{{post.IMG_PUBLI2}}"></ion-img>
+      </ion-slide>
 
-        <ion-slide *ngIf="post.IMG_PUBLI3 != null">
-          <ion-img  src="{{post.IMG_PUBLI3}}"></ion-img>
-        </ion-slide>
-        
-      </ion-slides>
+      <ion-slide *ngIf="post.IMG_PUBLI3 != null">
+        <ion-img src="{{post.IMG_PUBLI3}}"></ion-img>
+      </ion-slide>
 
-    </div>
+    </ion-slides>
 
-    <div class="container-title">
-      <ion-card-title class="card-title">
-       {{post.VAR_TITULO_PUBLI}}
+  </div>
+
+  <div class="container-title">
+    <ion-card-title class="card-title">
+      {{post.VAR_TITULO_PUBLI}}
     </ion-card-title>
-    </div>
-  
-    <div class="container-post">
-      <div class="container-chips">
-        <ion-chip>
-          <ion-label>
-            {{post.FECHA_PUBLI}}
-          </ion-label>
-        </ion-chip>
-        <ion-chip>
-          <ion-label>{{usuario.VAR_USER}}</ion-label>
-        </ion-chip>
+  </div>
 
-      </div>
-
-      <h2>{{post.VAR_DES_PUBLI}}</h2>
-
+  <div class="container-post">
+    <div class="container-chips">
+      <ion-chip>
+        <ion-label>
+          {{post.FECHA_PUBLI}}
+        </ion-label>
+      </ion-chip>
+      <ion-chip>
+        <ion-label>{{usuario.VAR_USER}}</ion-label>
+      </ion-chip>
 
     </div>
 
-    <div class="container-button-purchase" *ngIf="!post.BOOL_VENTA">
-      <ion-button class="button-purchase">
-        Comprar
-      </ion-button>
-    </div>
+    <h2>{{post.VAR_DES_PUBLI}}</h2>
 
+  </div>
 
+  <div class="container-button-purchase" *ngIf="!post.BOOL_VENTA">
+    <ion-button class="button-purchase">
+      Comprar
+    </ion-button>
+  </div>
 
   <div class="container-comment">
 

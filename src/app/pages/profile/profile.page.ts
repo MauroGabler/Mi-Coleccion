@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ToastController } from '@ionic/angular';// Libreria mensaje Toas
-import {NavigationExtras, Router, ActivatedRoute} from '@angular/router';  // IMPORTAR LIBRERIA DE RUTAS
+import { ToastController } from '@ionic/angular';// Libreria mensaje Toas
+import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';  // IMPORTAR LIBRERIA DE RUTAS
 import { ApiService } from '../../servicios/api.service';
 import { Storage } from '@capacitor/storage';
 
@@ -11,62 +11,60 @@ import { Storage } from '@capacitor/storage';
 })
 export class ProfilePage implements OnInit {
 
-  usuario:any={}
+  usuario: any = {};
   nombreUsuario: string;
-  vacio= ""
-  constructor(private api: ApiService, private router: Router, private activateRoute: ActivatedRoute) {
-  }
-
-  publicaciones:any[];
+  publicaciones: any[];
   cantPublicaciones = 0;
 
+  constructor(
+    private api: ApiService,
+    private router: Router,
+    private activateRoute: ActivatedRoute
+    ) {
+  }
+
   ngOnInit() {
-    this.activateRoute.queryParams.subscribe(params=>{
+    this.activateRoute.queryParams.subscribe(params => {
 
-      if(this.router.getCurrentNavigation().extras.state)
-        {
-          let data = this.router.getCurrentNavigation().extras.state.usuario;
+      if (this.router.getCurrentNavigation().extras.state) {
+        const data = this.router.getCurrentNavigation().extras.state.usuario;
 
-          const getUser = {
-            var_user: data
-          }
+        const getUser = {
+          var_user: data
+        };
 
 
-          this.api.getPerfilusuario(getUser).subscribe(resultado =>
-            {
-              this.usuario = resultado.usuarios[0]
-              this.nombreUsuario = this.usuario.VAR_USER
+        this.api.getPerfilusuario(getUser).subscribe(resultado => {
+          this.usuario = resultado.usuarios[0];
+          this.nombreUsuario = this.usuario.VAR_USER;
 
-              const params = {
-              USUARIO_INT_ID_USU: this.usuario.INT_ID_USU
-              }
+          const params = {
+            USUARIO_INT_ID_USU: this.usuario.INT_ID_USU
+          };
 
-              this.api.getMisPublicaciones(params).subscribe((resultado)=>
-              {
-                this.publicaciones = resultado.publicaciones;
-                this.cantPublicaciones = resultado.publicaciones.length;
-                //console.log("publicaciones: ")
-                //console.log(this.publicaciones)
-                //console.log(this.cantPublicaciones)
-                return this.publicaciones
-              })
-            })  
-        } //Fin if
-      }); //Fin ActivateRoute
+          this.api.getMisPublicaciones(params).subscribe(res => {
+
+            this.publicaciones = res.publicaciones;
+            this.cantPublicaciones = res.publicaciones.length;
+            //console.log("publicaciones: ")
+            //console.log(this.publicaciones)
+            //console.log(this.cantPublicaciones)
+            return this.publicaciones;
+          });
+        });
+      } //Fin if
+    }); //Fin ActivateRoute
   } // fin NgOninit
 
-
-
-
-  irAPost(idPost){
-    let navigationExtras: NavigationExtras = { 
-      state:{
+  irAPost(idPost) {
+    const navigationExtras: NavigationExtras = {
+      state: {
         iduser: this.nombreUsuario,
         idPost: idPost
       }
     };
-    this.router.navigate(['tabs/view-post/'+ idPost], navigationExtras)
-  }
+    this.router.navigate(['tabs/view-post/' + idPost], navigationExtras)
+  };
 
 
 } // fin
