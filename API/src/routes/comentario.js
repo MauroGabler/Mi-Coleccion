@@ -5,7 +5,7 @@ const { consultar, guardar, modificar } = require('../models/comentario')
 
 const router = Router()
 
-router.get('/comentario', async (req, res) => {
+router.post('/getComentario', async (req, res) => {
   const params = req.body
   const respuesta = await consultar(params)
   res.json(respuesta)

@@ -113,7 +113,7 @@ export class ApiService {
 
   // Comentarios
   consultarComentarios(data): Observable<any> {
-    return this.http.get(`${this.api}comentario`, data).pipe();
+    return this.http.post(`${this.api}getComentario`, data).pipe();
   }
 
   guardarComentario(data): Observable<any> {

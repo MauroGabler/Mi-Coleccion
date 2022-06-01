@@ -27,6 +27,8 @@ export class HomePage implements OnInit {
     private aRoute: ActivatedRoute,
     private chRef: ChangeDetectorRef
     ) {
+
+
   }
 
   ngOnInit() {
