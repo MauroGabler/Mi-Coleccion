@@ -4,73 +4,106 @@
   </ion-toolbar>
 </ion-header> -->
 
-  <ion-content>
-    <div class="container-slides">
-      
-      <ion-button class="button-slides button-chat">
-        <ion-icon slot="icon-only" name="flame"></ion-icon>
-      </ion-button>
+<ion-content>
+  <div >
+    <ion-card  class = "ion-slides">
 
-      <ion-slides mode="ios" pager="ios" scrollbar="ios">
+    <ion-slides mode="ios" pager="ios" scrollbar="ios">
+      <ion-slide *ngIf="post.IMG_PUBLI != null">
+        <ion-img class="img-slide"  style="size-adjust: 100px;" src="{{post.IMG_PUBLI}}"></ion-img>
+      </ion-slide>
+      <ion-slide *ngIf="post.IMG_PUBLI2 != null">
+        <ion-img class="img-slide" src="{{post.IMG_PUBLI2}}"></ion-img>
+      </ion-slide>
+      <ion-slide *ngIf="post.IMG_PUBLI3 != null">
+        <ion-img class="img-slide"  src="{{post.IMG_PUBLI3}}"></ion-img>
+      </ion-slide>
+    </ion-slides>
 
-        <ion-slide *ngIf="post.IMG_PUBLI != null">
-          <ion-img  src="{{post.IMG_PUBLI}}"></ion-img>
-        </ion-slide>
-
-        <ion-slide *ngIf="post.IMG_PUBLI2 != null">
-          <ion-img  src="{{post.IMG_PUBLI2}}"></ion-img>
-        </ion-slide>
-
-        <ion-slide *ngIf="post.IMG_PUBLI3 != null">
-          <ion-img  src="{{post.IMG_PUBLI3}}"></ion-img>
-        </ion-slide>
-        
-      </ion-slides>
-
-    </div>
-
-    <div class="container-title">
-      <ion-card-title class="card-title">
-       {{post.VAR_TITULO_PUBLI}}
-    </ion-card-title>
-    </div>
-  
-    <div class="container-post">
-      <div class="container-chips">
-        <ion-chip>
-          <ion-label>
-            {{post.FECHA_PUBLI}}
-          </ion-label>
-        </ion-chip>
-        <ion-chip>
-          <ion-label>{{usuario.VAR_USER}}</ion-label>
-        </ion-chip>
-
+    <div class="container-interaction">
+      <div class="container-button">
+        <ion-button class="button-like">
+          <ion-icon slot="icon-only" name="flame-outline"></ion-icon>
+        </ion-button>
+      </div>
       </div>
 
-      <h2>{{post.VAR_DES_PUBLI}}</h2>
-
-
-    </div>
-
-    <div class="container-button-purchase" *ngIf="!post.BOOL_VENTA">
-      <ion-button class="button-purchase">
-        Comprar
-      </ion-button>
-    </div>
-
-
-
-  <div class="container-comment">
-
-    <h2><span>2</span> Comentarios</h2>
-
-    <p>USUARIO <span>Hace <span>3</span> minutos</span></p>
-
-    <ion-item class="margin-bottom-button">
-    </ion-item>
-
+      
+  </ion-card>
   </div>
 
 
-</ion-content>
+  <div class="container-comment" >
+    <ion-card>
+      <div >
+        <ion-card-title class="ion-text-center">
+         {{post.VAR_TITULO_PUBLI}}
+        </ion-card-title>
+      </div>
+    
+    
+      <div class="container-post">
+        <div class="container-chips">
+          <ion-title>
+            Fecha de publicacion:
+              <ion-chip>      
+                 {{post.FECHA_PUBLI | date: 'dd-MM-YYY' }}    
+              </ion-chip>
+          </ion-title>
+
+          <ion-title>
+            Publicado por : 
+            <ion-chip>
+              <ion-label>{{usuario.VAR_USER}}</ion-label>
+            </ion-chip>
+          </ion-title>
+
+          <ion-title>
+            Descripcion  
+           <p style="color: #5C617E ">{{post.VAR_DES_PUBLI}} </p>
+          </ion-title>
+
+        </div>
+      </div>
+    </ion-card>
+
+    </div>
+
+    <ion-card>
+      <div class="description-post">
+        <ion-item [counter]="true">
+          <ion-label position="floating">Comenta</ion-label>
+          <ion-textarea name="descripcion" type="text" [(ngModel)]="saveComentario.VAR_COMENT_DESC" inputmode="text" maxlength="200"></ion-textarea>
+          <ion-button slot="end" class="button-post" (click)="this.publicarComentario()">
+            Publicar
+          </ion-button>
+        </ion-item>
+
+        </div>
+
+    </ion-card>
+
+    <div class="container-comment">
+      
+      <ion-card class="card" *ngFor="let coment of comentarios; index as i" >
+        <h2 style = "margin-left:20px" >{{i+1}} Comentario : {{coment.VAR_USER}} </h2>
+        <p style = "margin-left:20px ; color: #5C617E">{{coment.VAR_COMENT_DESC}}</p>
+        
+      </ion-card>
+    </div>
+
+
+
+
+    <ion-card class="compra-segmento" >
+      <div class="container-button-purchase" *ngIf="!post.BOOL_VENTA">
+        <ion-button class="button-purchase">
+          Comprar
+        </ion-button>
+      </div>
+    </ion-card>
+
+  </ion-content>
+
+
+

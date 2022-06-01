@@ -7,53 +7,51 @@ const consultar = async (params) => {
   let filtro = ''
   let where = 'WHERE'
   
-  if (params.var_coment_desc) {
-    let var_coment_desc = params['var_coment_desc']
-    filtro += where + ` var_coment_desc = ${var_coment_desc}`
+  if (params.PUBLICACION_INT_ID_PUBLI) {
+    let PUBLICACION_INT_ID_PUBLI = params['PUBLICACION_INT_ID_PUBLI']
+    filtro += where + ` PUBLICACION_INT_ID_PUBLI = ${PUBLICACION_INT_ID_PUBLI}`
   }
 
   let sel = `SELECT
-            int_id_cat_coleccion, var_nom_cat, bool_activa
-            FROM categoria_coleccion
+            C.INT_ID_COMENT, C.VAR_COMENT_DESC, C.BOOL_ACTIVA, C.PUBLICACION_INT_ID_PUBLI, U.VAR_USER
+            FROM comentario C
+            join usuario U on (C.USUARIO_INT_ID_USU = U.INT_ID_USU)
             ${filtro}`
 
   const res = await cargar_consulta(sel)
-
-  res.forEach(c => {
-
-    let comentario = {}
-
-    comentario['int_id_art'] = c[0]
-    comentario['var_nom_art'] = c[1]
-    comentario['venta_int_id_venta'] = c[2]
-
-    respuesta.comentario.push(comentario)
-  })
-
-  return respuesta
+  return res
 }
 
 const guardar = async (params) => {
 
   let respuesta = {}
   respuesta['mensaje'] = 'Se ha guardado el comentario'
-   
-  let var_nom_cat = params?.var_nom_cat
 
-  if (var_nom_cat == undefined) {
-    return respuesta['mensaje'] = 'No ha enviado el nombre de categoria'
-  } 
+  //let var_nom_cat = params?.var_nom_cat
 
-  const sel = `SELECT COUNT(int_id_cat_colecc)
-              FROM categoria_coleccion`
-  const id = cargar_consulta(sel)
 
-  const ins = `INSERT INTO categoria_coleccion
-               (int_id_cat_colecc, var_nom_cat)
+
+    let coment_desc = params.VAR_COMENT_DESC;
+    let userId = params.USUARIO_INT_ID_USU;
+    let publiId = params.PUBLICACION_INT_ID_PUBLI;
+    let bolActiva = '1'
+
+    if (coment_desc == undefined) {
+      return respuesta['mensaje'] = 'No ha guardado comentario'
+    }
+ 
+
+  const sel = `SELECT COUNT(INT_ID_COMENT)+1 as id
+              FROM COMENTARIO`
+  const rest = await cargar_consulta(sel)
+  const id = rest[0].ID
+
+  const ins = `INSERT INTO COMENTARIO
+               (INT_ID_COMENT, VAR_COMENT_DESC, USUARIO_INT_ID_USU, PUBLICACION_INT_ID_PUBLI, BOOL_ACTIVA)
                VALUES
-               (${id}, ${var_nom_cat})`
-  cargar_consulta(ins)
-
+               (${id}, '${coment_desc}',  ${userId}, ${publiId}, ${bolActiva})`
+  
+  await cargar_consulta(ins)
   return respuesta
 }
 
