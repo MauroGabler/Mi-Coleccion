@@ -85,8 +85,6 @@ export class PostPage implements OnInit {
 
     });
 
-
-
   } // ng onit
 
 
