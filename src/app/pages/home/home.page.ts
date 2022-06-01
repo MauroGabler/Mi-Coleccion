@@ -27,11 +27,14 @@ export class HomePage implements OnInit {
     private aRoute: ActivatedRoute,
     private chRef: ChangeDetectorRef
     ) {
+
+
   }
 
   ngOnInit() {
 
     this.consultarPublicaciones();
+    this.obtenerUsuario();
   }
 
   consultarPublicaciones() {

@@ -15,7 +15,7 @@ const consultar = async (params) => {
   let consulta = `SELECT 
                   int_id_usu, nro_rut_usu, var_prim_nombre, var_seg_nombre, var_ape_paterno,
                   var_ape_materno, var_mail_usu, var_user, fecha_creacion, var_desc_user,
-                  bool_activa, bool_admin, int_megusta
+                  bool_activa, bool_admin
                   FROM usuario
                   ${where}`
 
