@@ -5,6 +5,7 @@ import { ToastController } from '@ionic/angular';
 import axios from 'axios';
 
 
+
 @Component({
   selector: 'app-post',
   templateUrl: './post.page.html',
@@ -30,7 +31,10 @@ export class PostPage implements OnInit {
     bool_evento: 0,
     bool_coleccion: 0,
     usuario_int_id_usu: 0,
-    cat_col_int_id_cat_colecc: ''
+    cat_col_int_id_cat_colecc: '',
+    IMG_PUBLI: '',
+    IMG_PUBLI2: '',
+    IMG_PUBLI3: '',
   };
 
   venta = {
@@ -47,24 +51,47 @@ export class PostPage implements OnInit {
     private toast: ToastController,
   ) { }
 
+  url_server: any[];
+  respuesta: any ;
+
+
   ngOnInit() {
+
     this.consultarCategorias();
 
-    const imageUpload = document.getElementById('imageUpload');
-    const imagePreview = document.getElementById('imagePreview');
-    const cloudinaryURL="https://api.cloudinary.com/v1_1/micoleccion/image/upload";
-    const presetName = "t4bru0ez";
+    let array = [];
+    this.url_server = array;
 
-    console.log(imageUpload,imagePreview)
+    const CLOUDINARY_URL="https://api.cloudinary.com/v1_1/micoleccion/image/upload";
+    const preset = "t4bru0ez";
+    const imageUploader = document.getElementById("file-input");
 
-    // imageUpload.addEventListener('change', (e) =>{
-    //   const file = (e.target as HTMLInputElement).files[0]
-      
-    //   const formData = new FormData();
-    //   formData.append('file',file);
-    //   formData.append('upload_preset', presetName);
-    // });
+    imageUploader.addEventListener('change', async(e:Event) =>{
+      const file = (e.target as HTMLInputElement).files[0];
 
+      const formData = new FormData();
+      formData.append('file',file);
+      formData.append('upload_preset',preset);
+      const res = await axios.post(CLOUDINARY_URL,formData,{
+        headers: {
+          'Content-Type' : 'multipart/form-data'
+        }
+      });
+
+      console.log(this.url_server)
+
+      if (array.length < 3) {
+        array.push(res.data.secure_url);
+        if(array.length === 3){
+          imageUploader.setAttribute('disabled','');
+        }
+      }
+
+    });
+
+
+    
+    
   }
 
   consultarCategorias() {
@@ -83,6 +110,12 @@ export class PostPage implements OnInit {
 
     this.publicacion.usuario_int_id_usu = this.idUsuario;
 
+    this.publicacion.IMG_PUBLI = this.url_server[0];
+    this.publicacion.IMG_PUBLI2 = this.url_server[1];
+    this.publicacion.IMG_PUBLI3 = this.url_server[2];
+
+    console.log(this.publicacion.IMG_PUBLI)
+    
     if (this.tipoPublicacion === 1) {
       esVenta = true;
       this.venta.nro_precio = this.precioInicial;
@@ -94,6 +127,8 @@ export class PostPage implements OnInit {
 
     this.coleccionCompleta && (this.publicacion.bool_coleccion = 1);
 
+    console.log("asd")
+    console.log(this.publicacion)
     this.api.guardarPublicacion(this.publicacion).subscribe(msg => {
 
       this.toastMsj(msg.mensaje);
@@ -105,6 +140,8 @@ export class PostPage implements OnInit {
       }
     });
   }
+
+  
 
   async toastMsj(mensaje) {
     const toast = await this.toast.create({

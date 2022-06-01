@@ -10,16 +10,21 @@
     <form class="form-register">
       <div class="add-img">
         <p class="text-center">
-          Fotos - <span>0</span>/3 puedes agregar hasta 3 fotos
+          Fotos - <span>{{url_server.length}}</span>/3 puedes agregar hasta 3 fotos
         </p>
+
+        <div class="images" *ngFor="let url of url_server">
+          <div class="images" style="background: url({{url}}) no-repeat center;">
+          </div>
+        </div>
+        
 
         <div class="file">
           <ion-icon name="images-sharp"></ion-icon>
           <ion-label>
             Agregar fotos
           </ion-label>
-          <img id="imagePreview">
-          <ion-input id="imageUpload" type="file" id="file-input" accept="image/png, image/jpeg"></ion-input>
+          <ion-input type="file" id="file-input" name="file[]" accept="image/png, image/jpeg" multiple=""></ion-input>
         </div>
 
       </div>
