@@ -25,8 +25,29 @@ export class HomePage implements OnInit {
     private router: Router,
     private toast: ToastController,
     private aRoute: ActivatedRoute,
-    private chRef: ChangeDetectorRef
+    private chRef: ChangeDetectorRef,
+    private activateRoute: ActivatedRoute
     ) {
+
+    this.activateRoute.queryParams.subscribe(params => {
+      if (this.router.getCurrentNavigation().extras.state) {
+        let data = this.router.getCurrentNavigation().extras.state.usuario;
+        const getUser = {
+          var_user: data
+        }
+        this.api.getPerfilusuario(getUser).subscribe(resultado => {
+          this.usuario = resultado.usuarios[0]
+          this.nombreUsuario = this.usuario.VAR_USER;
+
+          //console.log("rescatando usuario TABS > resultado");
+          //console.log(resultado);
+          //console.log("rescatando usuario TABS > this.user");
+          //console.log(this.usuario);
+
+        })
+      }
+
+    });
 
 
   }
@@ -34,7 +55,7 @@ export class HomePage implements OnInit {
   ngOnInit() {
 
     this.consultarPublicaciones();
-    this.obtenerUsuario();
+    // this.obtenerUsuario();
   }
 
   consultarPublicaciones() {
@@ -69,8 +90,10 @@ export class HomePage implements OnInit {
 
   async obtenerUsuario() {
     const storage = await Storage.get({ key: 'logueado' });
-    const valores = JSON.parse(storage.value);
-    this.nombreUsuario = valores.VAR_USER;
+    const valores = await JSON.parse(storage.value);
+    // console.log(valores);
+    this.nombreUsuario = await valores.VAR_USER;
+
   }
 
   async meGusta(id) {

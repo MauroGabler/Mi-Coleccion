@@ -26,11 +26,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/post/post.module').then( m => m.PostPageModule)
   },
   {
-    path: 'chat',
-    loadChildren: () => import('./pages/chat/chat.module').then( m => m.ChatPageModule),
-    canActivate: [RutaProtegidaGuard]
-  },
-  {
     path: 'menu-auth',
     loadChildren: () => import('./pages/menu-auth/menu-auth.module').then( m => m.MenuAuthPageModule)
   },

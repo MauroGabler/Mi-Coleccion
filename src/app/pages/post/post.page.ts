@@ -3,6 +3,7 @@ import { ApiService } from 'src/app/servicios/api.service';
 import { Storage } from '@capacitor/storage';
 import { ToastController } from '@ionic/angular';
 import axios from 'axios'
+import { Router, Routes } from '@angular/router';
 
 @Component({
   selector: 'app-post',
@@ -47,6 +48,7 @@ export class PostPage implements OnInit {
   constructor(
     private api: ApiService,
     private toast: ToastController,
+    private router: Router
   ) { }
 
   url_server: any[];
@@ -74,7 +76,7 @@ export class PostPage implements OnInit {
         }
       });
 
-      console.log(this.url_server)
+      // console.log(this.url_server)
 
       if (array.length < 3) {
         array.push(res.data.secure_url);
@@ -98,7 +100,7 @@ export class PostPage implements OnInit {
 
   async publicarVenta() {
 
-    console.log(this.publicacion.var_des_publi);
+    // console.log(this.publicacion.var_des_publi);
     let esVenta = false;
     const dxUsuario = await Storage.get({ key: 'logueado' });
 
@@ -134,6 +136,9 @@ export class PostPage implements OnInit {
         });
       }
     });
+
+    // this.router.navigate(['/tabs/home'])
+
   }
 
   async toastMsj(mensaje) {

@@ -29,6 +29,34 @@ const consultar = async (params) => {
 
   return await cargar_consulta(sel)
 }
+const meGusta = async (params)=> {
+  if (params?.int_id_publicacion != null) {
+
+    const int_id_publi = params.int_id_publi
+  
+    let upd = 
+      `UPDATE publicacion
+      SET
+      int_megusta = (int_megusta + 1)
+      WHERE int_id_publi = ${int_id_publi}`
+  
+    await cargar_consulta(upd)
+  }
+  
+  if (params?.int_id_cat_colecc != null) {
+  
+    const int_id_cat_colecc = params.int_id_cat_colecc
+  
+    let upd = 
+      `UPDATE categoria_coleccion
+      SET
+      int_megusta = (int_megusta + 1)
+      WHERE int_id_cat_colecc = ${int_id_cat_colecc}`
+    console.log(upd)
+    await cargar_consulta(upd)
+  }
+}
+
 
 // const meGusta = async (params) => {
 
@@ -90,18 +118,6 @@ const consultar = async (params) => {
 //   return respuesta
 // }
 
-const meGusta = async (params) => {
-
-  const int_id_publi = params.int_id_publi
-
-  let upd = `
-    UPDATE publicacion
-    SET
-    int_megusta = (int_megusta + 1)
-    WHERE int_id_publi = ${int_id_publi}`
-
-  await cargar_consulta(upd)
-}
 
 const noMeGusta = async (params) => {
 

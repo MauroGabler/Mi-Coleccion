@@ -99,7 +99,7 @@ export class ViewPostPage implements OnInit {
   }
 
   async publicarComentario(){
-    console.log(this.saveComentario.VAR_COMENT_DESC);
+    // console.log(this.saveComentario.VAR_COMENT_DESC);
     const dxUsuario = await Storage.get({ key: 'logueado' });
     this.idUsuario = JSON.parse(dxUsuario.value).INT_ID_USU;
 

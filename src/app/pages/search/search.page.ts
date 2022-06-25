@@ -11,13 +11,13 @@ import { ApiService } from '../../servicios/api.service';
 export class SearchPage implements OnInit {
 
 
-  constructor(private api: ApiService, private router: Router, private activateRoute: ActivatedRoute) {
+  constructor(private api: ApiService, private router: Router, private activateRoute: ActivatedRoute, private toast: ToastController) {
     
     this.activateRoute.queryParams.subscribe(params=>{
     if(this.router.getCurrentNavigation().extras.state)
       {
         let data = this.router.getCurrentNavigation().extras.state.usuario;
-        console.log("bienvenido search " + data)
+        // console.log("bienvenido search " + data)
       }
     });
 
@@ -30,13 +30,35 @@ export class SearchPage implements OnInit {
     this.api.getColecciones().subscribe((resultado)=>
     {
       this.colecciones = resultado.categoria_coleccion;
-      console.log("colecciones: ")
-      console.log(this.colecciones)
+      // console.log("colecciones: ")
+      // console.log(this.colecciones)
       return resultado
       
     })
 
 
 
+
+
   } // fin NGOinit
+
+  async meGusta(id) {
+
+    const params = {
+      int_id_cat_colecc: id
+    };
+
+    this.api.guardarMeGusta(params).subscribe(res => {
+      this.toastMsj('Te gusta!');
+    });
+  }
+
+  async toastMsj(mensaje) {
+    const toast = await this.toast.create({
+      message: mensaje,
+      position: 'bottom',
+      duration: 3000,
+    });
+    toast.present();
+  }
 }
