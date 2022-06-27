@@ -10,33 +10,26 @@ import { ApiService } from '../../servicios/api.service';
 })
 export class SearchPage implements OnInit {
 
+  colecciones: any[];
 
-  constructor(private api: ApiService, private router: Router, private activateRoute: ActivatedRoute) {
+  constructor(
+    private api: ApiService, 
+    private router: Router, 
+    private activateRoute: ActivatedRoute) {
     
     this.activateRoute.queryParams.subscribe(params=>{
     if(this.router.getCurrentNavigation().extras.state)
       {
         let data = this.router.getCurrentNavigation().extras.state.usuario;
-        console.log("bienvenido search " + data)
       }
     });
-
   }
 
-  colecciones: any[];
-
   ngOnInit() {
-    
     this.api.getColecciones().subscribe((resultado)=>
     {
       this.colecciones = resultado.categoria_coleccion;
-      console.log("colecciones: ")
-      console.log(this.colecciones)
       return resultado
-      
     })
-
-
-
-  } // fin NGOinit
+  }
 }

@@ -1,9 +1,3 @@
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-title>profile</ion-title>
-  </ion-toolbar>
-</ion-header> -->
-
 <ion-content>
   <div class="container-info-profile">
     <div class="container-profile-img">
@@ -42,7 +36,7 @@
         <ion-col size="4">
           <div class="container-followers">
             <p class="text-center">
-              25 
+              25
               <br>
               Seguidores
             </p>
@@ -51,7 +45,7 @@
         <ion-col size="4">
           <div class="container-followess">
             <p class="text-center">
-              25 
+              25
               <br>
               Seguidos
             </p>
@@ -60,7 +54,7 @@
         <ion-col size="4">
           <div class="container-num-post">
             <p class="text-center">
-              {{cantPublicaciones}} 
+              {{cantPublicaciones}}
               <br>
               Publicaciones
             </p>
@@ -76,49 +70,47 @@
       <h2 class="text-center">Publicaciones</h2>
     </div>
 
-  
-  <ion-card class="card" *ngFor="let publicacion of publicaciones; index as i" >
-    <div >
-      <ion-slides mode="ios" pager="ios" scrollbar="ios">
 
-        <ion-slide *ngIf="publicacion.IMG_PUBLI != null">
-          <ion-img  src="{{publicacion.IMG_PUBLI}}"></ion-img>
-        </ion-slide>
+    <ion-card class="card" *ngFor="let publicacion of publicaciones; index as i">
+      <div>
+        <ion-slides mode="ios" pager="ios" scrollbar="ios">
 
-        <ion-slide *ngIf="publicacion.IMG_PUBLI2 != null">
-          <ion-img  src="{{publicacion.IMG_PUBLI2}}"></ion-img>
-        </ion-slide>
+          <ion-slide *ngIf="publicacion.IMG_PUBLI != null">
+            <ion-img class="img-slide" src="{{publicacion.IMG_PUBLI}}"></ion-img>
+          </ion-slide>
 
-        <ion-slide *ngIf="publicacion.IMG_PUBLI3 != null">
-          <ion-img  src="{{publicacion.IMG_PUBLI3}}"></ion-img>
-        </ion-slide>
+          <ion-slide *ngIf="publicacion.IMG_PUBLI2 != null">
+            <ion-img class="img-slide" src="{{publicacion.IMG_PUBLI2}}"></ion-img>
+          </ion-slide>
 
-      </ion-slides>
-    </div>
+          <ion-slide *ngIf="publicacion.IMG_PUBLI3 != null">
+            <ion-img class="img-slide" src="{{publicacion.IMG_PUBLI3}}"></ion-img>
+          </ion-slide>
 
-    <div class="description">
-      <div class="container-title-card">
-        <ion-card-header>
-          <ion-card-title class="card-title" (click)="this.irAPost(publicacion.INT_ID_PUBLI)" >
+        </ion-slides>
+      </div>
+
+      <div class="description">
+        <div class="container-title-card">
+          <ion-card-header>
+            <ion-card-title class="card-title" (click)="this.irAPost(publicacion.INT_ID_PUBLI)">
               {{publicacion.VAR_TITULO_PUBLI}}
-          </ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          {{publicacion.VAR_DES_PUBLI}}
-        </ion-card-content>
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            {{publicacion.VAR_DES_PUBLI}}
+          </ion-card-content>
+        </div>
+        <div class="container-button">
+          <ion-item class="ion-item">
+            <ion-button class="button" slot="end" size="default">
+              <ion-icon slot="icon-only" name="flame-outline"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </div>
       </div>
-      <div class="container-button">
-        <ion-item class="ion-item">
-          <ion-button class="button" slot="end" size="default">
-            <ion-icon slot="icon-only" name="flame-outline"></ion-icon>
-          </ion-button>
-        </ion-item>
-      </div>
-    </div>
 
-  </ion-card>
-
-  
+    </ion-card>
 
   </div>
 </ion-content>

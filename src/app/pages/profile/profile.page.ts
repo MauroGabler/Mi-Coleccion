@@ -20,7 +20,7 @@ export class ProfilePage implements OnInit {
     private api: ApiService,
     private router: Router,
     private activateRoute: ActivatedRoute
-    ) {
+  ) {
   }
 
   ngOnInit() {
@@ -33,28 +33,23 @@ export class ProfilePage implements OnInit {
           var_user: data
         };
 
-
-        this.api.getPerfilusuario(getUser).subscribe(resultado => {
-          this.usuario = resultado.usuarios[0];
-          this.nombreUsuario = this.usuario.VAR_USER;
+        this.api.getPerfilusuario(getUser).subscribe(resUsu => {
+          this.usuario = resUsu.usuarios[0]
+          this.nombreUsuario = this.usuario.VAR_USER
 
           const params = {
             USUARIO_INT_ID_USU: this.usuario.INT_ID_USU
           };
 
-          this.api.getMisPublicaciones(params).subscribe(res => {
-
+          this.api.getMisPublicaciones(params).subscribe((res) => {
             this.publicaciones = res.publicaciones;
             this.cantPublicaciones = res.publicaciones.length;
-            //console.log("publicaciones: ")
-            //console.log(this.publicaciones)
-            //console.log(this.cantPublicaciones)
-            return this.publicaciones;
-          });
-        });
-      } //Fin if
-    }); //Fin ActivateRoute
-  } // fin NgOninit
+            return this.publicaciones
+          })
+        })
+      }
+    });
+  }
 
   irAPost(idPost) {
     const navigationExtras: NavigationExtras = {
@@ -67,4 +62,4 @@ export class ProfilePage implements OnInit {
   };
 
 
-} // fin
+}
