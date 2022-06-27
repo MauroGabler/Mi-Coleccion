@@ -11,7 +11,11 @@ import { ApiService } from '../../servicios/api.service';
 export class SearchPage implements OnInit {
 
 
-  constructor(private api: ApiService, private router: Router, private activateRoute: ActivatedRoute, private toast: ToastController) {
+  constructor(
+    private api: ApiService, 
+    private router: Router, 
+    private activateRoute: ActivatedRoute, 
+    private toast: ToastController) {
     
     this.activateRoute.queryParams.subscribe(params=>{
     if(this.router.getCurrentNavigation().extras.state)
@@ -31,16 +35,27 @@ export class SearchPage implements OnInit {
     {
       this.colecciones = resultado.categoria_coleccion;
       // console.log("colecciones: ")
-      // console.log(this.colecciones)
+      console.log(this.colecciones)
+  
       return resultado
       
     })
 
-
+    
 
 
 
   } // fin NGOinit
+
+  irACategorias(idCategoria,nombreCategoria) {
+    const navigationExtras: NavigationExtras = {
+      state: {
+        idCategoria: idCategoria,
+        nombreCategoria: nombreCategoria
+      }
+    };
+    this.router.navigate(['tabs/categories/' + idCategoria], navigationExtras);
+  }
 
   async meGusta(id) {
 

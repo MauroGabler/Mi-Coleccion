@@ -50,6 +50,12 @@ const routes: Routes = [
     path: 'view-post/:idPost',
     loadChildren: () => import('./pages/view-post/view-post.module').then( m => m.ViewPostPageModule)
   },
+  {
+    path: 'categories/:idCategoria',
+    loadChildren: () => import('./pages/categories/categories.module').then( m => m.CategoriesPageModule)
+  },
+
+
 
 ];
 

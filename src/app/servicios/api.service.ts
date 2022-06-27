@@ -98,6 +98,13 @@ export class ApiService {
     return this.http.post(`${this.api}publicacionxusuario`, data).pipe();
   }
 
+  // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  getPublicacionesXCategorias(data): Observable<any> {
+    return this.http.post(`${this.api}publicacionxcategoria`, data).pipe();
+  }
+
+  // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
   // Artículos
   consultarArticulos(data): Observable<any> {
     return this.http.get(`${this.api}articulos`, data).pipe();

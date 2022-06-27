@@ -36,6 +36,28 @@ const publicacionxusuario = async (params) => {
   respuesta['publicaciones'] = await cargar_consulta(consulta)
   return respuesta
 }
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Rescatar publicaciones x categorias
+  const publicacionxcategoria = async (params) => {
+    let respuesta = {};
+    let where = '';
+
+    if (params.CAT_COL_INT_ID_CAT_COLECC) {
+      let CAT_COL_INT_ID_CAT_COLECC = params['CAT_COL_INT_ID_CAT_COLECC']
+      where += `WHERE CAT_COL_INT_ID_CAT_COLECC = ${CAT_COL_INT_ID_CAT_COLECC}`
+    }
+
+    let consulta = `SELECT *
+                    FROM publicacion
+                    ${where}`
+                    console.log(consulta);
+    respuesta['publicaciones'] = await cargar_consulta(consulta)
+    return respuesta;
+
+  }
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 
 const guardar = async (params) => {
 
@@ -165,5 +187,6 @@ module.exports = {
   consultar,
   guardar,
   modificar,
-  publicacionxusuario
+  publicacionxusuario,
+  publicacionxcategoria
 }
