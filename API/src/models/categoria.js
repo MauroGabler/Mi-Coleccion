@@ -11,8 +11,7 @@ const consultar = async (params) => {
     where += `WHERE int_id_cat_coleccion = ${int_id_cat_colecc}`
   }
 
-  let sel = `SELECT
-            *
+  let sel = `SELECT *
             FROM categoria_coleccion
             ${where}`
 

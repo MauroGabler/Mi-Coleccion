@@ -31,6 +31,7 @@ const consultarNombreDisponible = async (params) => {
                     FROM usuario
                     WHERE var_user = '${var_user}'`
   const res = await cargar_consulta(consulta)
+  console.log(res.CUENTA)
 
   return res[0].CUENTA === 1 ? true : false
 }
@@ -69,6 +70,7 @@ const guardar = async (params) => {
     let sel = `SELECT COUNT(int_id_usu) as ID
              FROM usuario`
     let id = await cargar_consulta(sel)
+    console.log(id);
     id = id[0].ID + 1
 
     let ins = `INSERT INTO usuario
