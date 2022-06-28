@@ -1,7 +1,7 @@
 /* eslint-disable linebreak-style */
 
 const { Router } = require('express')
-const { consultar, seguir, modificar } = require('../models/seguidor')
+const { consultar, guardar, modificar } = require('../models/seguidor')
 
 const router = Router()
 
@@ -13,7 +13,7 @@ router.get('/seguidor', async (req, res) => {
 
 router.post('/seguidor', async (req, res) => {
   const params = req.body
-  const respuesta = await seguir(params)
+  const respuesta = await guardar(params)
   res.json(respuesta)
 })
 
