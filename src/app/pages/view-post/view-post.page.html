@@ -47,7 +47,7 @@
           <ion-title>
             Publicado por :
             <ion-chip>
-              <ion-label>{{usuario.VAR_USER}}</ion-label>
+              <ion-label (click)="visitarPerfil(post.VAR_USER)">{{post.VAR_USER}}</ion-label>
             </ion-chip>
           </ion-title>
 

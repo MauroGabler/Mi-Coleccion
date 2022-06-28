@@ -15,6 +15,7 @@
           <ion-button class="button-like">
             <ion-icon slot="icon-only" name="flame-outline"></ion-icon>
           </ion-button>
+          <ion-button *ngIf="usuarioVisitante.VAR_USER !== usuario.VAR_USER" (click)="this.seguirUsuario(usuario.INT_ID_USU)">SEGUIR</ion-button>
         </div>
 
         <div class="container-stars">
@@ -36,7 +37,7 @@
         <ion-col size="4">
           <div class="container-followers">
             <p class="text-center">
-              25
+              {{usuario.SEGUIDORES}}
               <br>
               Seguidores
             </p>
@@ -45,7 +46,7 @@
         <ion-col size="4">
           <div class="container-followess">
             <p class="text-center">
-              25
+              {{usuario.SEGUIDOS}}
               <br>
               Seguidos
             </p>

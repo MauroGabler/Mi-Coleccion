@@ -25,27 +25,24 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
-  login() {
+  async login() {
     const params = {
       usuario: this.usuario,
       contrasena: Md5.hashStr(this.contrasena)
     };
-    //console.log(params);
 
     this.api.login(params).subscribe(msg => {
-      
+
       if (msg.logueado) {
-        this.router.navigate(['tabs/home']);
-        
         const p = { var_user: params.usuario };
-        
+
         let objetoUsuario;
-        
+        Storage.clear();
+
         this.api.getPerfilusuario(p).subscribe(res => {
-          console.log(res);
           objetoUsuario = JSON.stringify(res.usuarios[0]);
-          console.log(objetoUsuario);
           Storage.set({ key: 'logueado', value: objetoUsuario });
+          this.router.navigate(['tabs/home']);
         });
       } else { this.toastMsj(msg.mensaje); }
     });

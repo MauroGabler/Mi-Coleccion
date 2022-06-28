@@ -13,6 +13,7 @@ export class ProfilePage implements OnInit {
 
   usuario: any = {};
   nombreUsuario: string;
+  usuarioVisitante: any = {};
   publicaciones: any[];
   cantPublicaciones = 0;
 
@@ -28,38 +29,58 @@ export class ProfilePage implements OnInit {
 
       if (this.router.getCurrentNavigation().extras.state) {
         const data = this.router.getCurrentNavigation().extras.state.usuario;
+        console.log(this.router.getCurrentNavigation().extras.state);
 
-        const getUser = {
-          var_user: data
-        };
+        const getUser = { var_user: data };
 
         this.api.getPerfilusuario(getUser).subscribe(resUsu => {
-          this.usuario = resUsu.usuarios[0]
-          this.nombreUsuario = this.usuario.VAR_USER
+          this.usuario = resUsu.usuarios[0];
+          this.nombreUsuario = this.usuario.VAR_USER;
+          console.log(this.usuario);
 
-          const params = {
+
+          const parametros = {
             USUARIO_INT_ID_USU: this.usuario.INT_ID_USU
           };
 
-          this.api.getMisPublicaciones(params).subscribe((res) => {
+          this.api.getMisPublicaciones(parametros).subscribe((res) => {
             this.publicaciones = res.publicaciones;
             this.cantPublicaciones = res.publicaciones.length;
-            return this.publicaciones
-          })
-        })
+            return this.publicaciones;
+          });
+        });
       }
     });
+    this.obtenerUsuario();
   }
 
   irAPost(idPost) {
     const navigationExtras: NavigationExtras = {
       state: {
         iduser: this.nombreUsuario,
-        idPost: idPost
+        idPost
       }
     };
-    this.router.navigate(['tabs/view-post/' + idPost], navigationExtras)
-  };
+    this.router.navigate(['tabs/view-post/' + idPost], navigationExtras);
+  }
+
+  async obtenerUsuario() {
+    const storage = await Storage.get({ key: 'logueado' });
+    const usuario = await JSON.parse(storage.value);
+    this.usuarioVisitante = usuario;
+    console.log(this.usuarioVisitante);
+  }
+
+  seguirUsuario(usuarioSeguir) {
+    const parametros = {
+      INT_ID_SEGUIDOR: this.usuarioVisitante.INT_ID_USU,
+      INT_ID_SEGUIDO: usuarioSeguir
+    };
+
+    this.api.seguirUsuario(parametros).subscribe(res => {
+      console.log(res);
+    });
+  }
 
 
 }

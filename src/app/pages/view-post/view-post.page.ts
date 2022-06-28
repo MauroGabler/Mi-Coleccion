@@ -11,20 +11,21 @@ import { Storage } from '@capacitor/storage';
 })
 export class ViewPostPage implements OnInit {
 
-  usuario: any = {}
-  post: any = {}
-  comentarios: any = []
+  usuario: any = {};
+  post: any = {};
+  comentarios: any = [];
 
 
   datos: any;
   tipoPublicacion: number;
   idUsuario: number;
+  idPost: number;
 
   saveComentario = {
     VAR_COMENT_DESC: '',
     USUARIO_INT_ID_USU: 0,
     PUBLICACION_INT_ID_PUBLI: 0,
-  }
+  };
 
   constructor(
     private api: ApiService,
@@ -32,25 +33,34 @@ export class ViewPostPage implements OnInit {
     private toast: ToastController,
     private activateRoute: ActivatedRoute) {
 
-    this.activateRoute.queryParams.subscribe(Params => {
+    this.activateRoute.queryParams.subscribe(() => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.datos = this.router.getCurrentNavigation().extras.state;
+
+        const getPost = { INT_ID_PUBLI: this.datos.idPost }
+
+        this.api.consultarPublicacion(getPost).subscribe(resPost => {
+          this.post = resPost[0];
+
+          return this.post;
+        });
       }
     });
   }
 
   ngOnInit() {
+    this.getPerfilUsuario();
+    this.getPublicaciones();
+    this.getComentarios();
+  }
 
-    this.getPerfilUsuario()
-    this.getPublicaciones()
-    this.getComentarios()
-  } // fin NgOninit
-
+  async datosPagina() {
+    const dxUsuario = await Storage.get({ key: 'logueado' });
+    this.idUsuario = JSON.parse(dxUsuario.value).INT_ID_USU;
+  }
 
   async getPublicaciones() {
-    const getPost = {
-      INT_ID_PUBLI: this.datos.idPost
-    }
+    const getPost = { INT_ID_PUBLI: this.datos.idPost }
 
     this.api.consultarPublicacion(getPost).subscribe(resPost => {
       this.post = resPost[0];
@@ -59,9 +69,7 @@ export class ViewPostPage implements OnInit {
   }
 
   async getPerfilUsuario() {
-    const getUser = {
-      var_user: this.datos.iduser
-    }
+    const getUser = { var_user: this.datos.iduser };
 
     this.api.getPerfilusuario(getUser).subscribe(resUser => {
       this.usuario = resUser.usuarios[0];
@@ -70,41 +78,34 @@ export class ViewPostPage implements OnInit {
   }
 
   async meGusta() {
-    const params = {
-      int_id_publi: this.datos.idPost
-    };
+    const params = { int_id_publi: this.datos.idPost };
+
     this.api.guardarMeGusta(params).subscribe(res => {
       this.toastMsj('Te gusta!');
     });
   }
 
-  async getComentarios() {
-    const getComent = {
-      PUBLICACION_INT_ID_PUBLI: this.datos.idPost
-    }
+  getComentarios() {
+    const getComent = { PUBLICACION_INT_ID_PUBLI: this.datos.idPost };
 
-    await this.api.consultarComentarios(getComent).subscribe(resComent => {
+    this.api.consultarComentarios(getComent).subscribe(resComent => {
       this.comentarios = resComent;
-    })
+    });
   }
 
   async publicarComentario() {
-    console.log(this.saveComentario.VAR_COMENT_DESC);
     const dxUsuario = await Storage.get({ key: 'logueado' });
     this.idUsuario = JSON.parse(dxUsuario.value).INT_ID_USU;
 
     this.saveComentario.USUARIO_INT_ID_USU = this.idUsuario;
     this.saveComentario.PUBLICACION_INT_ID_PUBLI = this.datos.idPost;
 
-    console.log("guardar comentario")
-    console.log(this.saveComentario)
-
-
     this.api.guardarComentario(this.saveComentario).subscribe(msg => {
-      this.toastMsj(msg.mensaje)
+      this.toastMsj(msg.mensaje);
+      this.getComentarios();
     });
 
-    this.saveComentario.VAR_COMENT_DESC = "";
+    this.saveComentario.VAR_COMENT_DESC = '';
   }
 
   async toastMsj(mensaje) {
@@ -114,6 +115,17 @@ export class ViewPostPage implements OnInit {
       duration: 3000,
     });
     toast.present();
+  }
+
+  // visitar perfil del usuario que publica
+  visitarPerfil(idUsuario) {
+
+    const navigationExtras: NavigationExtras = {
+      state: {
+        usuario: idUsuario
+      }
+    };
+    this.router.navigate([`/profile/${idUsuario}`], navigationExtras);
   }
 
 
