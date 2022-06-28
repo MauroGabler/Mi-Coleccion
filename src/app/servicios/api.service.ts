@@ -7,17 +7,17 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
 
-  api = 'http://localhost:3000/api/';
+  api = 'http://localhost:3000/API/';
 
 
-  constructor(private http: HttpClient,
+  constructor(
+    private http: HttpClient,
   ) { }
 
 
   // Funcion permite obtener listado Categorias
   getColecciones(): Observable<any> {
-    console.log("Api url  = " + this.api);
-    return this.http.get(this.api + "categoria").pipe();
+    return this.http.get(`${this.api}categoria`).pipe();
   } // Cierre obtener Categorias
 
 
@@ -98,6 +98,13 @@ export class ApiService {
     return this.http.post(`${this.api}publicacionxusuario`, data).pipe();
   }
 
+  // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  getPublicacionesXCategorias(data): Observable<any> {
+    return this.http.post(`${this.api}publicacionxcategoria`, data).pipe();
+  }
+
+  // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
   // Artículos
   consultarArticulos(data): Observable<any> {
     return this.http.get(`${this.api}articulos`, data).pipe();
@@ -148,6 +155,15 @@ export class ApiService {
 
   modificarVenta(data): Observable<any> {
     return this.http.put(`${this.api}venta`, data).pipe();
+  }
+
+  // Seguir
+  seguirUsuario(data): Observable<any> {
+    return this.http.post(`${this.api}seguidor`, data).pipe();
+  }
+
+  noSeguirUsuario(data): Observable<any> {
+    return this.http.post(`${this.api}seguidor`, data).pipe();
   }
 
 

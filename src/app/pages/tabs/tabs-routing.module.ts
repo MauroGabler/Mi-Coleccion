@@ -30,13 +30,13 @@ const routes: Routes = [
         loadChildren: () => import('../post/post.module').then( m => m.PostPageModule)
       },
       {
-        path: 'chat',
-        loadChildren: () => import('../chat/chat.module').then( m => m.ChatPageModule)
-      },
-      {
         path: 'view-post/:idPost',
         loadChildren: () => import('../view-post/view-post.module').then( m => m.ViewPostPageModule)
-      }
+      },
+      {
+        path: 'categories/:idCategoria',
+        loadChildren: () => import('../categories/categories.module').then( m=>m.CategoriesPageModule)
+      },
       
     ]
   }

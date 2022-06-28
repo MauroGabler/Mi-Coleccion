@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';  // IMPORTAR LIBRERIA DE RUTAS
-import { ToastController } from '@ionic/angular';// Libreria mensaje Toas
-import { ApiService } from '../../servicios/api.service'; // Import de API 
+import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';
+import { ApiService } from '../../servicios/api.service';
+import { Storage } from '@capacitor/storage';
 
 @Component({
   selector: 'app-tabs',
@@ -10,49 +10,44 @@ import { ApiService } from '../../servicios/api.service'; // Import de API
 })
 export class TabsPage implements OnInit {
 
-  usuario:any={}
+  usuario: any = {};
 
-  constructor(private api: ApiService, private router: Router, private activateRoute: ActivatedRoute) { 
+  constructor(
+    private api: ApiService,
+    private router: Router,
+    private activateRoute: ActivatedRoute
+  ) {
 
-    this.activateRoute.queryParams.subscribe(params=>{
-      if(this.router.getCurrentNavigation().extras.state)
-        {
-          let data = this.router.getCurrentNavigation().extras.state.usuario;
-          const getUser = {
-            var_user: data
-          }
-          this.api.getPerfilusuario(getUser).subscribe(resultado =>{
-             this.usuario = resultado.usuarios[0]
+    this.activateRoute.queryParams.subscribe(params => {
+      if (this.router.getCurrentNavigation().extras.state) {
+        const data = this.router.getCurrentNavigation().extras.state.usuario;
+        const getUser = { var_user: data };
 
-             //console.log("rescatando usuario TABS > resultado");
-             //console.log(resultado);
-             //console.log("rescatando usuario TABS > this.user");
-             //console.log(this.usuario);
-
-            })  
-        }
-
-      });
-
-
+        this.api.getPerfilusuario(getUser).subscribe(resultado => {
+          this.usuario = resultado.usuarios[0];
+        });
+      }
+    });
   }
 
   ngOnInit() {
   }
 
-
-
-  Perfilusuario(){
-    let navigationExtras: NavigationExtras = { // Creacion de un contexto para pasar a otro sitio 
-      state:{
-        usuario: this.usuario.VAR_USER
-      }
-    };
-
-    this.router.navigate(['tabs/profile/'+ this.usuario.VAR_USER], navigationExtras)
-
+  cerrarSesion() {
+    Storage.clear();
+    this.router.navigate(['/menu-auth']);
   }
 
+  async Perfilusuario() {
+    const storage = await Storage.get({ key: 'logueado' });
+    const usuario = await JSON.parse(storage.value);
+    const nombreUsuario = await usuario.VAR_USER;
 
+    const navigationExtras: NavigationExtras = {
+      state: { usuario: nombreUsuario }
+    };
+
+    this.router.navigate([`tabs/profile/${nombreUsuario}`], navigationExtras);
+  }
 
 }

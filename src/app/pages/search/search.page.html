@@ -16,17 +16,20 @@
         <ion-col size="4" >
           <ion-card class="card" >
             <ion-img src="../../../assets/categories/{{coleccion.VAR_NOM_CAT}}.jpg"></ion-img>
-            ../../../assets/articulos/noimage.jpg
+            
             <!-- Titulo Categoria -->
             <div class="description">
               <div class="title">
+                <a (click)="irACategorias(coleccion.INT_ID_CAT_COLECC,coleccion.VAR_NOM_CAT)">
                 <ion-label class="label-title">
                   {{coleccion.VAR_NOM_CAT}}
                 </ion-label>
+                </a>
               </div>
               <!-- Boton like -->
               <div class="container-button">
-                <ion-button routerLink="/tabs/search" class="button">
+                <ion-button class="button" (click)="this.meGusta(coleccion.INT_ID_CAT_COLECC)">
+                  <span style="color: black;">{{coleccion.INT_MEGUSTA}}</span>
                   <ion-icon class="icon" name="flame-outline"></ion-icon>
                 </ion-button>
               </div>

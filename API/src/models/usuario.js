@@ -9,17 +9,25 @@ const consultar = async (params) => {
 
   if (params.var_user) {
     let var_user = params['var_user']
-    where += `WHERE var_user = '${var_user}'`
+    where += `WHERE u.var_user = '${var_user}'`
   }
 
-  let consulta = `SELECT 
-                  int_id_usu, nro_rut_usu, var_prim_nombre, var_seg_nombre, var_ape_paterno,
-                  var_ape_materno, var_mail_usu, var_user, fecha_creacion, var_desc_user,
-                  bool_activa, bool_admin
-                  FROM usuario
-                  ${where}`
+  let consulta = 
+    `SELECT 
+    u.int_id_usu, u.nro_rut_usu, u.var_prim_nombre, u.var_seg_nombre, u.var_ape_paterno,
+    u.var_ape_materno, u.var_mail_usu, u.var_user, u.fecha_creacion, u.var_desc_user,
+    u.bool_activa, u.bool_admin, 
+      (SELECT COUNT(*)
+      FROM seguidor s
+      WHERE s.int_id_seguido = u.int_id_usu) as seguidores,
+      (SELECT COUNT(*)
+      FROM seguidor s
+      WHERE s.int_id_seguidor = u.int_id_usu) as seguidos
+    FROM usuario u
+    ${where}`
 
-  respuesta['usuarios'] = await cargar_consulta(consulta)
+  respuesta.usuarios = await cargar_consulta(consulta)
+
   return respuesta
 }
 
@@ -69,6 +77,7 @@ const guardar = async (params) => {
     let sel = `SELECT COUNT(int_id_usu) as ID
              FROM usuario`
     let id = await cargar_consulta(sel)
+    console.log(id);
     id = id[0].ID + 1
 
     let ins = `INSERT INTO usuario
@@ -80,7 +89,6 @@ const guardar = async (params) => {
              '${var_ape_materno}', '${var_mail_usu}', '${var_user}', SYSDATE, '${var_pass}', '1','0'
              )`
 
-    console.log(ins)
     const res = await cargar_consulta(ins)
 
     res === 0 ? (respuesta['mensaje'] = 'Se ha guardado un nuevo usuario') : (respuesta['mensaje'] = 'No se han insertado datos')
@@ -91,24 +99,29 @@ const guardar = async (params) => {
 
 const login = async (params) => {
 
-  let respuesta = {}
-  let bool_error = 0
-  params?.usuario ?? (bool_error = 1)
-  params?.contrasena ?? (bool_error = 1)
+  try {
+    let respuesta = {}
+    let bool_error = 0
+    params?.usuario ?? (bool_error = 1)
+    params?.contrasena ?? (bool_error = 1)
 
-  bool_error == 1 && (respuesta.mensaje = 'Usuario y/o contraseña incorrecto')
+    bool_error == 1 && (respuesta.mensaje = 'Usuario y/o contraseña incorrecto')
 
-  if (!bool_error) {
-    let sel = `SELECT COUNT(*) as u
+    if (!bool_error) {
+      let sel = `SELECT COUNT(*) as u
               FROM usuario
               WHERE var_user = '${params.usuario}'
               AND var_pass = '${params.contrasena}'`
-    const res = await cargar_consulta(sel)
+      const res = await cargar_consulta(sel)
 
-    res[0].U == 1 ? respuesta.logueado = true : respuesta.mensaje = 'El usuario ingresado no existe'
+      res[0].U == 1 ? respuesta.logueado = true : respuesta.mensaje = 'El usuario ingresado no existe'
+    }
+
+    return respuesta
   }
-
-  return respuesta
+  catch (e) {
+    console.log(e)
+  }
 }
 
 const modificar = async (params) => {
