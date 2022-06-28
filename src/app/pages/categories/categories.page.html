@@ -7,36 +7,35 @@
 <ion-content>
   <h1 class="title"><b>{{datos_categoria.nombreCategoria}}</b></h1>
 
-  <!-- <ion-card class="card" *ngFor=" let publicacion of publicaciones">
-    <div class="container-card" *ngIf="publicacion.CAT_COL_INT_ID_CAT_COLECC === datos_categoria.idCategoria">
-
+  <ion-card class="card" *ngFor="let publicacion of publicaciones">
       <div class="container-img">
         <ion-img src="{{publicacion.IMG_PUBLI}}"></ion-img>
+
       </div>
       
       <div class="description">
         <div class="container-title-card">
           <ion-card-header>
             <ion-card-title class="card-title">
-              <a></a>
-              {{publicacion.VAR_TITULO_PUBLI}}
+              <a (click)="irAPost(publicacion.INT_ID_PUBLI)" style="color: black">
+                {{publicacion.VAR_TITULO_PUBLI}}
+              </a>
             </ion-card-title>
-            <ion-item>
+            <ion-item class="ion-item">
+              {{publicacion.VAR_DES_PUBLI}}
             </ion-item>
           </ion-card-header>
         </div>
         <div class="container-button">
           <ion-item class="ion-item">
-            <ion-button class="button" slot="end" size="default">
-              <span></span>
+            <ion-button  class="button" slot="end" size="default" (click)="meGusta(publicacion.INT_ID_PUBLI)"> 
+              <span>{{publicacion.INT_MEGUSTA}}</span>
               <ion-icon slot="icon-only" name="flame-outline"></ion-icon>
             </ion-button>
           </ion-item>
         </div>
       </div>
-
-    </div>
-  </ion-card> -->
+  </ion-card>
 
 </ion-content>
 

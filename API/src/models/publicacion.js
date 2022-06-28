@@ -27,11 +27,19 @@ const consultar = async (params) => {
 const publicacionxusuario = async (params) => {
 
   let respuesta = {}
-  let where = ''
+  let where = 'WHERE '
+  let and = ''
 
   if (params.USUARIO_INT_ID_USU) {
     let USUARIO_INT_ID_USU = params['USUARIO_INT_ID_USU']
-    where += `WHERE USUARIO_INT_ID_USU = ${USUARIO_INT_ID_USU}`
+    where += ` ${and} USUARIO_INT_ID_USU = ${USUARIO_INT_ID_USU} `
+    and = 'AND'
+    
+  }
+
+  if (params.CAT_COL_INT_ID_CAT_COLECC) {
+    let CAT_COL_INT_ID_CAT_COLECC = params['CAT_COL_INT_ID_CAT_COLECC']
+    where += `${and} CAT_COL_INT_ID_CAT_COLECC = ${CAT_COL_INT_ID_CAT_COLECC}`
   }
 
   let consulta = `SELECT *
