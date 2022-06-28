@@ -10,21 +10,15 @@
     <form class="form-register">
       <div class="add-img">
         <p class="text-center">
-          Fotos - <span>{{url_server.length}}</span>/3 puedes agregar hasta 3 fotos
+          Fotos - <span>0</span>/3 puedes agregar hasta 3 fotos
         </p>
-
-        <div class="images" *ngFor="let url of url_server">
-          <div class="images" style="background: url({{url}}) no-repeat center;">
-          </div>
-        </div>
-        
 
         <div class="file">
           <ion-icon name="images-sharp"></ion-icon>
           <ion-label>
             Agregar fotos
           </ion-label>
-          <ion-input type="file" id="file-input" name="file[]" accept="image/png, image/jpeg" multiple=""></ion-input>
+          <ion-input type="file" id="file-input" accept="image/png, image/jpeg"></ion-input>
         </div>
 
       </div>
@@ -44,31 +38,20 @@
         </ion-select>
       </div>
 
-
-<!--
-      <ion-item>
-        <ion-label>Categorias</ion-label>
-        <ion-select interface="Action Sheet" [(ngModel)]="this.publicacion.cat_col_int_id_cat_colecc">
-          <ion-select-option *ngFor="let c of this.categorias" value="{{c.INT_ID_CAT_COLECC}}" >{{c.VAR_NOM_CAT}}</ion-select-option>
-        </ion-select>
-      </ion-item>
-    -->
-
-
-
       <div class="description-post">
         <ion-item [counter]="true">
           <ion-label position="floating">Descripción</ion-label>
           <ion-textarea name="descripcion" type="text" [(ngModel)]="publicacion.var_des_publi" inputmode="text" maxlength="500"></ion-textarea>
         </ion-item>
       </div>
-
+<!--
       <div class="toggle-complete-colection">
         <ion-label>Coleccion completa</ion-label>
         <ion-toggle (ionChange)="this.coleccionCompleta = !this.coleccionCompleta"></ion-toggle>
-        <!-- <ion-checkbox [(ngModel)]="this.coleccionCompleta"></ion-checkbox> -->
+       
+        <ion-checkbox [(ngModel)]="this.coleccionCompleta"></ion-checkbox> 
       </div>
-
+-->
       <div class="type-post">
         <h2 class="text-center">Tipo de publicacion</h2>
       </div>
@@ -78,19 +61,25 @@
           <ion-radio-group>
             <ion-grid fixed>
               <ion-row>
-                <ion-col size="4" class="radio-item">
+                <ion-col size="3" class="radio-item">
+                  <div class="event">
+                    <ion-label>Coleccion</ion-label>
+                    <ion-radio slot="start" (ionFocus)="this.tipoPublicacion = 4"></ion-radio>
+                  </div>
+                </ion-col>
+                <ion-col size="3" class="radio-item">
                   <div class="event">
                     <ion-label>Evento</ion-label>
                     <ion-radio slot="start" (ionFocus)="this.tipoPublicacion = 3"></ion-radio>
                   </div>
                 </ion-col>
-                <ion-col size="4" class="radio-item">
+                <ion-col size="3" class="radio-item">
                   <div>
                     <ion-label>Discusión</ion-label>
                     <ion-radio slot="start" (ionFocus)="this.tipoPublicacion = 2"></ion-radio>
                   </div>
                 </ion-col>
-                <ion-col size="4" class="radio-item">
+                <ion-col size="3" class="radio-item">
                   <div>
                     <ion-label>Venta</ion-label>
                     <ion-radio slot="start" (ionFocus)="this.tipoPublicacion = 1"></ion-radio>

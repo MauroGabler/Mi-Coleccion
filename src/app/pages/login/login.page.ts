@@ -49,6 +49,8 @@ export class LoginPage implements OnInit {
 
         this.api.getPerfilusuario(p).subscribe(res => {
           objetoUsuario = JSON.stringify(res.usuarios[0]);
+          //console.log("este?")
+          //console.log(res)
           Storage.set({ key: 'logueado', value: objetoUsuario });
         });
       } else { this.toastMsj(msg.mensaje); }

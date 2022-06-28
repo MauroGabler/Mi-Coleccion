@@ -1,7 +1,7 @@
 /* eslint-disable linebreak-style */
 
 const { Router } = require('express')
-const { consultar, guardar, modificar, publicacionxusuario,publicacionxcategoria } = require('../models/publicacion')
+const { consultar, guardar, modificar, publicacionxusuario } = require('../models/publicacion')
 
 const router = Router()
 
@@ -24,15 +24,6 @@ router.post('/publicacionxusuario', async (req, res) => {
   const respuesta = await publicacionxusuario(params)
   res.json(respuesta)
 })
-
-// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-router.post('/publicacionxcategoria', async (req, res) => {
-  const params = req.body
-  const respuesta = await publicacionxcategoria(params)
-  res.json(respuesta)
-});
-
-// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
 router.post('/publicacion', async (req, res) => {

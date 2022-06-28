@@ -91,29 +91,24 @@ const guardar = async (params) => {
 
 const login = async (params) => {
 
-  try {
-    let respuesta = {}
-    let bool_error = 0
-    params?.usuario ?? (bool_error = 1)
-    params?.contrasena ?? (bool_error = 1)
+  let respuesta = {}
+  let bool_error = 0
+  params?.usuario ?? (bool_error = 1)
+  params?.contrasena ?? (bool_error = 1)
 
-    bool_error == 1 && (respuesta.mensaje = 'Usuario y/o contraseña incorrecto')
+  bool_error == 1 && (respuesta.mensaje = 'Usuario y/o contraseña incorrecto')
 
-    if (!bool_error) {
-      let sel = `SELECT COUNT(*) as u
+  if (!bool_error) {
+    let sel = `SELECT COUNT(*) as u
               FROM usuario
               WHERE var_user = '${params.usuario}'
               AND var_pass = '${params.contrasena}'`
-      const res = await cargar_consulta(sel)
+    const res = await cargar_consulta(sel)
 
-      res[0].U == 1 ? respuesta.logueado = true : respuesta.mensaje = 'El usuario ingresado no existe'
-    }
+    res[0].U == 1 ? respuesta.logueado = true : respuesta.mensaje = 'El usuario ingresado no existe'
+  }
 
-    return respuesta
-  }
-  catch (e) {
-    console.log(e)
-  }
+  return respuesta
 }
 
 const modificar = async (params) => {

@@ -1,3 +1,9 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>view-post</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
 <ion-content>
   <div >
     <ion-card  class = "ion-slides">
@@ -16,14 +22,12 @@
 
     <div class="container-interaction">
       <div class="container-button">
-        <ion-button class="button-slides button-chat" (click)="meGusta()">
-          <span>{{post.INT_MEGUSTA}}</span><ion-icon slot="icon-only" name="flame" ></ion-icon>
+        <ion-button class="button-like">
+          <ion-icon slot="icon-only" name="flame-outline"></ion-icon>
         </ion-button>
       </div>
       </div>
 
-
-      
       
   </ion-card>
   </div>
@@ -100,3 +104,6 @@
     </ion-card>
 
   </ion-content>
+
+
+

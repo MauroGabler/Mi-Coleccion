@@ -7,12 +7,11 @@
 <ion-content>
   <ion-tabs>
     <ion-tab-bar slot="bottom">
-
-      <ion-tab-button class="chat color-button" (click)="this.cerrarSesion()">
-        <ion-icon name="log-out-sharp"></ion-icon>
-        <ion-label>Salir</ion-label>
-      </ion-tab-button>
      
+      <ion-tab-button class="color-button" tab="home">
+        <ion-icon name="home"></ion-icon>
+        <ion-label>Inicio</ion-label>
+      </ion-tab-button>
       
       <ion-tab-button class="color-button" tab="search">
         <ion-icon name="compass"></ion-icon>
@@ -31,10 +30,13 @@
         <ion-label>Publicar</ion-label>
       </ion-tab-button>
 
-      <ion-tab-button class="color-button" tab="home">
-        <ion-icon name="home"></ion-icon>
-        <ion-label>Inicio</ion-label>
+
+      <ion-tab-button class="chat color-button" tab="chat">
+        <ion-badge>10</ion-badge>
+        <ion-icon name="chatbubble-ellipses"></ion-icon>
+        <ion-label>Chat</ion-label>
       </ion-tab-button>
+
 
 
     </ion-tab-bar>
