@@ -4,9 +4,7 @@
       <b>Hola </b>
       <em>{{this.nombreUsuario}}! </em>
       <b>Bienvenido a mi colección!</b>
-      <!-- <a href=""></a> -->
     </ion-label>
-    <!-- <ion-button (click)="this.cerrarSesion()">Cerrar sesión</ion-button> -->
   </ion-item>
   
   <h1 class="title"><b>Tendencias</b></h1>
@@ -24,9 +22,9 @@
               <ion-card-title class="card-title">
                 <a (click)="irAPost(p.INT_ID_PUBLI)" style="color:black">{{p.VAR_TITULO_PUBLI}}</a>
               </ion-card-title>
-              <ion-item>
+              <p>
                 {{p.VAR_DES_PUBLI}}
-              </ion-item>
+              </p>
             </ion-card-header>
           </div>
           <div class="container-button">

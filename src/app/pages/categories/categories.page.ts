@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../servicios/api.service';
 import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-categories',
@@ -9,6 +10,8 @@ import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';
 })
 export class CategoriesPage implements OnInit {
 
+  nombreUsuario: string;
+  usuario: any = {};
   publicaciones: any[];
   publicaciones_filtro: any[];
   datos_categoria: any;
@@ -16,14 +19,29 @@ export class CategoriesPage implements OnInit {
   constructor(
     private api: ApiService,
     private router: Router,
-    private activateRoute: ActivatedRoute,) { 
+    private activateRoute: ActivatedRoute,
+    private toast: ToastController,
+    private aRoute:ActivatedRoute) { 
 
     this.activateRoute.queryParams.subscribe(params=>{
     if(this.router.getCurrentNavigation().extras.state)
       {
         this.datos_categoria = this.router.getCurrentNavigation().extras.state; 
         console.log(this.datos_categoria)
+
+
         
+      }
+      if (this.router.getCurrentNavigation().extras.state) {
+        let data = this.router.getCurrentNavigation().extras.state.usuario;
+        const getUser = {
+          var_user: data
+        }
+        this.api.getPerfilusuario(getUser).subscribe(resultado => {
+          this.usuario = resultado.usuarios[0]
+          this.nombreUsuario = this.usuario.VAR_USER;
+          console.log(this.nombreUsuario)
+        })
       }
     });
   }
@@ -35,18 +53,53 @@ export class CategoriesPage implements OnInit {
   }
 
   async getPublicaciones(){
-    const getPostCat = this.datos_categoria.idCategoria
+    const getPostCat = {
+      CAT_COL_INT_ID_CAT_COLECC : this.datos_categoria.idCategoria
+    }
 
+    this.api.getMisPublicaciones(getPostCat).subscribe(res => {
+      this.publicaciones = res.publicaciones
+      console.log(this.publicaciones)
+      return this.publicaciones;
+    });
+  }
 
-    this.api.getPublicacionesXCategorias(getPostCat).subscribe(res => {
-      this.publicaciones_filtro = res;
-      console.log(this.publicaciones_filtro.length)
+  reloadPage() {
+    this.aRoute.params && this.aRoute.params.subscribe(params => {
+      const id = params.idPost;
+      this.router.navigate([`view-post/${id}`]);
+    });
+  }
+
+  irAPost(idPost) {
+    const navigationExtras: NavigationExtras = {
+      state: {
+        idPost: idPost
+
+      }
+    };
+    this.router.navigate(['tabs/view-post/' + idPost], navigationExtras);
+  }
+
+  async meGusta(id) {
+
+    const params = {
+      int_id_publi: id
+    };
+    this.api.guardarMeGusta(params).subscribe(res => {
+      this.toastMsj('Te gusta!');
     });
 
-    this.api.consultarPublicaciones().subscribe(res => {
-      this.publicaciones = res;
-      console.log(this.publicaciones.length)
+    this.getPublicaciones();
+  }
+
+  async toastMsj(mensaje) {
+    const toast = await this.toast.create({
+      message: mensaje,
+      position: 'bottom',
+      duration: 3000,
     });
+    toast.present();
   }
 
 }
