@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';  // IMPORTAR LIBRERIA DE RUTAS
 import { ToastController } from '@ionic/angular';// Libreria mensaje Toas
-import { ApiService } from '../../servicios/api.service'; // Import de API 
+import { ApiService } from '../../servicios/api.service'; 
+import { Storage } from '@capacitor/storage';// Import de API 
 
 @Component({
   selector: 'app-tabs',
@@ -37,6 +38,11 @@ export class TabsPage implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  cerrarSesion() {
+    Storage.clear();
+    this.router.navigate(['/menu-auth']);
   }
 
   Perfilusuario() {

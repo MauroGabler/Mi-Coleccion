@@ -36,7 +36,7 @@ export class ViewPostPage implements OnInit {
       if (this.router.getCurrentNavigation().extras.state) {
         this.datos = this.router.getCurrentNavigation().extras.state;
       }
-    })
+    });
   }
 
   ngOnInit() {

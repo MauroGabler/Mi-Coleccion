@@ -2,10 +2,11 @@
   <ion-item class="ion-item">
     <ion-label>
       <b>Hola </b>
-      <em>{{this.nombreUsuario}}!</em>
-      <a href=""></a>
+      <em>{{this.nombreUsuario}}! </em>
+      <b>Bienvenido a mi colección!</b>
+      <!-- <a href=""></a> -->
     </ion-label>
-    <ion-button (click)="this.cerrarSesion()">Cerrar sesión</ion-button>
+    <!-- <ion-button (click)="this.cerrarSesion()">Cerrar sesión</ion-button> -->
   </ion-item>
   
   <h1 class="title"><b>Tendencias</b></h1>
@@ -14,7 +15,7 @@
     <ion-infinite-scroll-contentent loadingSpinner="bubbles" loadingText="Cargando más publicaciones..."> -->
       <ion-card class="card" *ngFor="let p of publicaciones">
         <div class="container-img">
-          <ion-img routerLink="/tabs/view-post" src="{{p.IMG_PUBLI}}"></ion-img>
+          <ion-img src="{{p.IMG_PUBLI}}"></ion-img>
         </div>
         
         <div class="description">
