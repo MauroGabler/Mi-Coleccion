@@ -9,24 +9,25 @@
     <p>
       Te enviaremos un correo al mail asociado a tu cuenta, si es que los datos son correctos
     </p>
-  </ion-text>
+  </ion-text >
 
   <div class="container-form-recover">
 
+    
     <form class="form-recover">
 
 
       <ion-item class="container-inputs">
-        <ion-input name="recover-user" type="text" placeholder="Ingrese nombre usuario"></ion-input>
+        <ion-input name="recover-user" type="text" placeholder="Ingrese nombre usuario" [(ngModel)]="this.user"></ion-input>
         <ion-icon name="person-sharp" slot="start"></ion-icon>
       </ion-item>
 
       <ion-item class="container-inputs">
-        <ion-input name="recover-mail" type="email" placeholder="Ingrese correo electronico"></ion-input>
+        <ion-input name="recover-mail" type="email" placeholder="Ingrese correo electronico" [(ngModel)]="this.email"></ion-input>
         <ion-icon name="mail-sharp" slot="start"></ion-icon>
       </ion-item>
       
-      <ion-button class="button" routerLink="/menu-auth">RECUPERAR</ion-button>
+      <ion-button type="submit" class="button" (click)="consultarUsuario()">RECUPERAR</ion-button>
       
     </form>
   

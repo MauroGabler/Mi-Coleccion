@@ -18,7 +18,6 @@ export class PostPage implements OnInit {
   idUsuario: number;
   precioInicial: number;
   precioCompraYa: number;
-  // descripcionVenta = 'preuasne';
   coleccionCompleta = false;
   esSubasta = false;
 
