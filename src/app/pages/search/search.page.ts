@@ -20,8 +20,7 @@ export class SearchPage implements OnInit {
 
     this.activateRoute.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
-        let data = this.router.getCurrentNavigation().extras.state.usuario;
-        // console.log("bienvenido search " + data)
+        const data = this.router.getCurrentNavigation().extras.state.usuario;
       }
     });
   }
@@ -29,28 +28,23 @@ export class SearchPage implements OnInit {
   ngOnInit() {
     this.api.getColecciones().subscribe((resultado) => {
       this.colecciones = resultado.categoria_coleccion;
-      // console.log("colecciones: ")
-      console.log(this.colecciones);
 
-      return resultado
+      return resultado;
     });
-  } // fin NGOinit
+  }
 
   irACategorias(idCategoria, nombreCategoria) {
     const navigationExtras: NavigationExtras = {
       state: {
-        idCategoria: idCategoria,
-        nombreCategoria: nombreCategoria
+        idCategoria,
+        nombreCategoria
       }
     };
     this.router.navigate(['tabs/categories/' + idCategoria], navigationExtras);
   }
 
   async meGusta(id) {
-
-    const params = {
-      int_id_cat_colecc: id
-    };
+    const params = { int_id_cat_colecc: id };
 
     this.api.guardarMeGusta(params).subscribe(res => {
       this.toastMsj('Te gusta!');

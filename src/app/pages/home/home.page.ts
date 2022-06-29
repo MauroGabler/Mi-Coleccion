@@ -31,7 +31,7 @@ export class HomePage implements OnInit {
     this.activateRoute.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         const data = this.router.getCurrentNavigation().extras.state.usuario;
-        const getUser = { var_user: data }
+        const getUser = { var_user: data };
         this.api.getPerfilusuario(getUser).subscribe(resultado => {
           this.usuario = resultado.usuarios[0];
           this.nombreUsuario = this.usuario.VAR_USER;
@@ -48,7 +48,6 @@ export class HomePage implements OnInit {
   consultarPublicaciones() {
     this.api.consultarPublicaciones().subscribe(res => {
       this.publicaciones = res;
-      // this.publicaciones = JSON.stringify(this.publicaciones);
     });
   }
 
@@ -76,19 +75,20 @@ export class HomePage implements OnInit {
 
   async obtenerUsuario() {
     const storage = await Storage.get({ key: 'logueado' });
-    const valores = await JSON.parse(storage.value);
-    console.log(valores);
-    this.nombreUsuario = await valores.VAR_USER;
+    this.usuario = await JSON.parse(storage.value);
+    this.nombreUsuario = await this.usuario.VAR_USER;
   }
 
   async meGusta(id) {
-    const params = { int_id_publi: id };
+    const params = {
+      publicacion_int_id_publi: id,
+      usuario_int_id_usu: this.usuario.INT_ID_USU
+    };
+
     this.api.guardarMeGusta(params).subscribe(res => {
       this.toastMsj('Te gusta!');
     });
 
-    // this.chRef.detectChanges();
-    // this.zone.run(() => {});
     this.consultarPublicaciones();
   }
 
@@ -101,16 +101,4 @@ export class HomePage implements OnInit {
     toast.present();
   }
 
-  // loadData(event) {
-  //   setTimeout(() => {
-  //     console.log('Listo');
-  //     event.target.complete();
-
-  //     // App logic to determine if all data is loaded
-  //     // and disable the infinite scroll
-  //     if (data.length === 1000) {
-  //       event.target.disabled = true;
-  //     }
-  //   }, 500);
-  // }
 }

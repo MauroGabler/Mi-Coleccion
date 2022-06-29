@@ -62,7 +62,6 @@ export class PostPage implements OnInit {
   }
 
   async publicarVenta() {
-
     let esVenta = false;
     const dxUsuario = await Storage.get({ key: 'logueado' });
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController } from '@ionic/angular';// Libreria mensaje Toas
-import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';  // IMPORTAR LIBRERIA DE RUTAS
+import { ToastController } from '@ionic/angular';
+import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../servicios/api.service';
 import { Storage } from '@capacitor/storage';
 
@@ -10,12 +10,9 @@ import { Storage } from '@capacitor/storage';
   styleUrls: ['./view-post.page.scss'],
 })
 export class ViewPostPage implements OnInit {
-
   usuario: any = {};
   post: any = {};
   comentarios: any = [];
-
-
   datos: any;
   tipoPublicacion: number;
   idUsuario: number;
@@ -37,7 +34,7 @@ export class ViewPostPage implements OnInit {
       if (this.router.getCurrentNavigation().extras.state) {
         this.datos = this.router.getCurrentNavigation().extras.state;
 
-        const getPost = { INT_ID_PUBLI: this.datos.idPost }
+        const getPost = { INT_ID_PUBLI: this.datos.idPost };
 
         this.api.consultarPublicacion(getPost).subscribe(resPost => {
           this.post = resPost[0];
@@ -80,7 +77,7 @@ export class ViewPostPage implements OnInit {
   async meGusta() {
     const params = { int_id_publi: this.datos.idPost };
 
-    this.api.guardarMeGusta(params).subscribe(res => {
+    this.api.guardarMeGusta(params).subscribe(() => {
       this.toastMsj('Te gusta!');
     });
   }

@@ -1,7 +1,7 @@
 <ion-content>
   <div class="title-new-post">
     <h1>
-      <b>Nueva publicacion</b>
+      <b>Nueva publicación</b>
     </h1>
   </div>
 
@@ -10,7 +10,9 @@
     <form class="form-register">
       <div class="add-img">
         <p class="text-center">
-          Fotos - <span>{{url_server.length}}</span>/3 puedes agregar hasta 3 fotos
+          Fotos - <span>{{url_server?.length}}</span>/3 
+          <br>
+          Puedes agregar hasta 3 fotos
         </p>
 
         <div class="images" *ngFor="let url of url_server">
@@ -35,7 +37,7 @@
       </div>
 
       <div class="categories">
-        <ion-label>Categoria</ion-label>
+        <ion-label>Categoría</ion-label>
         <ion-select okText="Elegir" name="cod_categoria" cancelText="Cancelar" [(ngModel)]="this.publicacion.cat_col_int_id_cat_colecc">
 
           <ion-select-option *ngFor="let c of this.categorias" value="{{c.INT_ID_CAT_COLECC}}">{{c.VAR_NOM_CAT}}
@@ -70,7 +72,7 @@
       </div>
 
       <div class="type-post">
-        <h2 class="text-center">Tipo de publicacion</h2>
+        <h2 class="text-center">Tipo de publicación</h2>
       </div>
 
       <div class="radio-type-post">

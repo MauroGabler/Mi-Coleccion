@@ -13,7 +13,10 @@ const consultar = async (params) => {
   let sel = `SELECT 
             p.int_id_publi, p.var_titulo_publi, p.var_des_publi, p.fecha_publi, p.usuario_int_id_usu, 
             p.cat_col_int_id_cat_colecc, p.img_publi, p.img_publi2, p.img_publi3, p.bool_evento, 
-            p.bool_discusion, p.bool_venta, p.bool_colecc, u.var_user
+            p.bool_discusion, p.bool_venta, p.bool_colecc, u.var_user, 
+              (SELECT COUNT(*)
+              FROM likes l
+              WHERE l.publicacion_int_id_publi = p.int_id_publi) AS megusta
             FROM publicacion p
             JOIN usuario u ON p.usuario_int_id_usu = u.int_id_usu
             ${where}`
@@ -34,7 +37,6 @@ const publicacionxusuario = async (params) => {
     let USUARIO_INT_ID_USU = params['USUARIO_INT_ID_USU']
     where += ` ${and} USUARIO_INT_ID_USU = ${USUARIO_INT_ID_USU} `
     and = 'AND'
-    
   }
 
   if (params.CAT_COL_INT_ID_CAT_COLECC) {
@@ -42,9 +44,17 @@ const publicacionxusuario = async (params) => {
     where += `${and} CAT_COL_INT_ID_CAT_COLECC = ${CAT_COL_INT_ID_CAT_COLECC}`
   }
 
-  let consulta = `SELECT *
-            FROM publicacion
-            ${where}`
+  let consulta = 
+    `SELECT
+    p.int_id_publi, p.var_titulo_publi, p.var_des_publi, p.fecha_publi, p.usuario_int_id_usu,
+    p.cat_col_int_id_cat_colecc, p.img_publi, p.img_publi2, p.img_publi3, p.bool_evento,
+    p.bool_discusion, p.bool_venta, p.bool_colecc, p.int_megusta,
+      (SELECT COUNT(*)
+      FROM likes l
+      WHERE l.publicacion_int_id_publi = p.int_id_publi) AS megusta
+    FROM publicacion
+    ${where}`
+
   respuesta['publicaciones'] = await cargar_consulta(consulta)
   return respuesta
 }

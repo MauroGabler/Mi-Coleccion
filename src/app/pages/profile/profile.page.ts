@@ -29,15 +29,12 @@ export class ProfilePage implements OnInit {
 
       if (this.router.getCurrentNavigation().extras.state) {
         const data = this.router.getCurrentNavigation().extras.state.usuario;
-        console.log(this.router.getCurrentNavigation().extras.state);
 
         const getUser = { var_user: data };
 
         this.api.getPerfilusuario(getUser).subscribe(resUsu => {
           this.usuario = resUsu.usuarios[0];
           this.nombreUsuario = this.usuario.VAR_USER;
-          console.log(this.usuario);
-
 
           const parametros = {
             USUARIO_INT_ID_USU: this.usuario.INT_ID_USU
@@ -68,7 +65,6 @@ export class ProfilePage implements OnInit {
     const storage = await Storage.get({ key: 'logueado' });
     const usuario = await JSON.parse(storage.value);
     this.usuarioVisitante = usuario;
-    console.log(this.usuarioVisitante);
   }
 
   seguirUsuario(usuarioSeguir) {
@@ -77,8 +73,7 @@ export class ProfilePage implements OnInit {
       INT_ID_SEGUIDO: usuarioSeguir
     };
 
-    this.api.seguirUsuario(parametros).subscribe(res => {
-      console.log(res);
+    this.api.seguirUsuario(parametros).subscribe(() => {
     });
   }
 
