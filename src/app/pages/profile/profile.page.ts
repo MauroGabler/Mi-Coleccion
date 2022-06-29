@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController } from '@ionic/angular';// Libreria mensaje Toas
-import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';  // IMPORTAR LIBRERIA DE RUTAS
+import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../servicios/api.service';
 import { Storage } from '@capacitor/storage';
 
@@ -21,8 +20,7 @@ export class ProfilePage implements OnInit {
     private api: ApiService,
     private router: Router,
     private activateRoute: ActivatedRoute
-  ) {
-  }
+  ) { }
 
   ngOnInit() {
     this.activateRoute.queryParams.subscribe(params => {
@@ -34,6 +32,7 @@ export class ProfilePage implements OnInit {
 
         this.api.getPerfilusuario(getUser).subscribe(resUsu => {
           this.usuario = resUsu.usuarios[0];
+
           this.nombreUsuario = this.usuario.VAR_USER;
 
           const parametros = {

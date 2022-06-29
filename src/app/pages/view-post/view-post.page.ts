@@ -116,15 +116,11 @@ export class ViewPostPage implements OnInit {
 
   // visitar perfil del usuario que publica
   visitarPerfil(idUsuario) {
-
     const navigationExtras: NavigationExtras = {
-      state: {
-        usuario: idUsuario
-      }
+      state: { usuario: idUsuario }
     };
-    this.router.navigate([`/profile/${idUsuario}`], navigationExtras);
+    this.router.navigate([`/tabs/profile/${idUsuario}`], navigationExtras);
   }
-
 
 }
 

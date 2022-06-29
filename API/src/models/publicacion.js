@@ -48,11 +48,11 @@ const publicacionxusuario = async (params) => {
     `SELECT
     p.int_id_publi, p.var_titulo_publi, p.var_des_publi, p.fecha_publi, p.usuario_int_id_usu,
     p.cat_col_int_id_cat_colecc, p.img_publi, p.img_publi2, p.img_publi3, p.bool_evento,
-    p.bool_discusion, p.bool_venta, p.bool_colecc, p.int_megusta,
+    p.bool_discusion, p.bool_venta, p.bool_colecc,
       (SELECT COUNT(*)
       FROM likes l
       WHERE l.publicacion_int_id_publi = p.int_id_publi) AS megusta
-    FROM publicacion
+    FROM publicacion p
     ${where}`
 
   respuesta['publicaciones'] = await cargar_consulta(consulta)
