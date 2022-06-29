@@ -10,8 +10,15 @@ const consultar = async (params) => {
     where += `WHERE INT_ID_PUBLI = ${INT_ID_PUBLI}`
   }
 
-  let sel = `SELECT *
-            FROM publicacion
+  let sel = `SELECT 
+            p.int_id_publi, p.var_titulo_publi, p.var_des_publi, p.fecha_publi, p.usuario_int_id_usu, 
+            p.cat_col_int_id_cat_colecc, p.img_publi, p.img_publi2, p.img_publi3, p.bool_evento, 
+            p.bool_discusion, p.bool_venta, p.bool_colecc, u.var_user, 
+              (SELECT COUNT(*)
+              FROM likes l
+              WHERE l.publicacion_int_id_publi = p.int_id_publi) AS megusta
+            FROM publicacion p
+            JOIN usuario u ON p.usuario_int_id_usu = u.int_id_usu
             ${where}`
 
   const res = await cargar_consulta(sel)
@@ -30,7 +37,6 @@ const publicacionxusuario = async (params) => {
     let USUARIO_INT_ID_USU = params['USUARIO_INT_ID_USU']
     where += ` ${and} USUARIO_INT_ID_USU = ${USUARIO_INT_ID_USU} `
     and = 'AND'
-    
   }
 
   if (params.CAT_COL_INT_ID_CAT_COLECC) {
@@ -38,9 +44,17 @@ const publicacionxusuario = async (params) => {
     where += `${and} CAT_COL_INT_ID_CAT_COLECC = ${CAT_COL_INT_ID_CAT_COLECC}`
   }
 
-  let consulta = `SELECT *
-            FROM publicacion
-            ${where}`
+  let consulta = 
+    `SELECT
+    p.int_id_publi, p.var_titulo_publi, p.var_des_publi, p.fecha_publi, p.usuario_int_id_usu,
+    p.cat_col_int_id_cat_colecc, p.img_publi, p.img_publi2, p.img_publi3, p.bool_evento,
+    p.bool_discusion, p.bool_venta, p.bool_colecc,
+      (SELECT COUNT(*)
+      FROM likes l
+      WHERE l.publicacion_int_id_publi = p.int_id_publi) AS megusta
+    FROM publicacion p
+    ${where}`
+
   respuesta['publicaciones'] = await cargar_consulta(consulta)
   return respuesta
 }
@@ -79,22 +93,26 @@ const guardar = async (params) => {
 
   if (!params?.var_titulo_publi) {
     bool_error = true
-    return respuesta.mensaje = 'No ha enviado el nombre del artículo'
+    respuesta.mensaje = 'No ha enviado el nombre del artículo'
+    return respuesta
   }
 
   if (!params?.usuario_int_id_usu) {
     bool_error = true
-    return respuesta.mensaje = 'No ha enviado el usuario asociado a la publicación'
+    respuesta.mensaje = 'No ha enviado el usuario asociado a la publicación'
+    return respuesta
   }
 
   if (!params?.cat_col_int_id_cat_colecc) {
     bool_error = true
-    return respuesta.mensaje = 'No ha enviado la categoria asociada a la publicación'
+    respuesta.mensaje = 'No ha enviado la categoria asociada a la publicación'
+    return respuesta
   }
 
   if (params?.bool_evento == undefined && params?.bool_discusion == undefined && params?.bool_venta == undefined && params?.bool_coleccion == undefined) {
     bool_error = true
-    return respuesta.mensaje = 'No ha enviado el tipo de publicación'
+    respuesta.mensaje = 'No ha enviado el tipo de publicación'
+    return respuesta
   } else {
 
     if (params?.bool_evento != undefined) {

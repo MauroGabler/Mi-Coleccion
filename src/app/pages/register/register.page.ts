@@ -78,8 +78,6 @@ export class RegisterPage implements OnInit {
             console.log('redirigiendo...');
 
             location.reload();
-            // this.segment.value = 'login';
-            // this.router.navigate('/menu-auth');
           }
         });
       }

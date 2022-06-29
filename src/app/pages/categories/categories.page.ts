@@ -21,45 +21,35 @@ export class CategoriesPage implements OnInit {
     private router: Router,
     private activateRoute: ActivatedRoute,
     private toast: ToastController,
-    private aRoute:ActivatedRoute) { 
+    private aRoute: ActivatedRoute) {
 
-    this.activateRoute.queryParams.subscribe(params=>{
-    if(this.router.getCurrentNavigation().extras.state)
-      {
-        this.datos_categoria = this.router.getCurrentNavigation().extras.state; 
-        console.log(this.datos_categoria)
-
-
-        
+    this.activateRoute.queryParams.subscribe(params => {
+      if (this.router.getCurrentNavigation().extras.state) {
+        this.datos_categoria = this.router.getCurrentNavigation().extras.state;
       }
       if (this.router.getCurrentNavigation().extras.state) {
-        let data = this.router.getCurrentNavigation().extras.state.usuario;
-        const getUser = {
-          var_user: data
-        }
+        const data = this.router.getCurrentNavigation().extras.state.usuario;
+        const getUser = { var_user: data };
+
         this.api.getPerfilusuario(getUser).subscribe(resultado => {
-          this.usuario = resultado.usuarios[0]
+          this.usuario = resultado.usuarios[0];
           this.nombreUsuario = this.usuario.VAR_USER;
-          console.log(this.nombreUsuario)
-        })
+        });
       }
     });
   }
 
   ngOnInit() {
-
     this.getPublicaciones();
-
   }
 
-  async getPublicaciones(){
+  async getPublicaciones() {
     const getPostCat = {
-      CAT_COL_INT_ID_CAT_COLECC : this.datos_categoria.idCategoria
-    }
+      CAT_COL_INT_ID_CAT_COLECC: this.datos_categoria.idCategoria
+    };
 
     this.api.getMisPublicaciones(getPostCat).subscribe(res => {
-      this.publicaciones = res.publicaciones
-      console.log(this.publicaciones)
+      this.publicaciones = res.publicaciones;
       return this.publicaciones;
     });
   }
@@ -73,19 +63,14 @@ export class CategoriesPage implements OnInit {
 
   irAPost(idPost) {
     const navigationExtras: NavigationExtras = {
-      state: {
-        idPost: idPost
-
-      }
+      state: { idPost: idPost }
     };
     this.router.navigate(['tabs/view-post/' + idPost], navigationExtras);
   }
 
   async meGusta(id) {
+    const params = { int_id_publi: id };
 
-    const params = {
-      int_id_publi: id
-    };
     this.api.guardarMeGusta(params).subscribe(res => {
       this.toastMsj('Te gusta!');
     });
