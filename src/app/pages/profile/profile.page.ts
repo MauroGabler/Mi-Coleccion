@@ -21,10 +21,11 @@ export class ProfilePage implements OnInit {
     private api: ApiService,
     private router: Router,
     private activateRoute: ActivatedRoute
-    ) {
+  ) {
   }
 
   ngOnInit() {
+    this.obtenerUsuario();
     this.activateRoute.queryParams.subscribe(params => {
 
       if (this.router.getCurrentNavigation().extras.state) {
@@ -71,6 +72,8 @@ export class ProfilePage implements OnInit {
     const storage = await Storage.get({ key: 'logueado' });
     const usuario = await JSON.parse(storage.value);
     this.usuarioVisitante = usuario;
+    console.log(this.usuarioVisitante);
+    
   }
 
   seguirUsuario(usuarioSeguir) {

@@ -31,6 +31,7 @@ export class TabsPage implements OnInit {
   }
 
   ngOnInit() {
+    this.obtenerUsuario();
   }
 
   cerrarSesion() {
@@ -48,6 +49,11 @@ export class TabsPage implements OnInit {
     };
 
     this.router.navigate([`tabs/profile/${nombreUsuario}`], navigationExtras);
+  }
+
+  async obtenerUsuario() {
+    const storage = await Storage.get({ key: 'logueado' });
+    this.usuario = await JSON.parse(storage.value);
   }
 
 }
