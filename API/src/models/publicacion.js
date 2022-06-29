@@ -23,11 +23,19 @@ const consultar = async (params) => {
 const publicacionxusuario = async (params) => {
 
   let respuesta = {}
-  let where = ''
+  let where = 'WHERE '
+  let and = ''
 
   if (params.USUARIO_INT_ID_USU) {
     let USUARIO_INT_ID_USU = params['USUARIO_INT_ID_USU']
-    where += `WHERE USUARIO_INT_ID_USU = ${USUARIO_INT_ID_USU}`
+    where += ` ${and} USUARIO_INT_ID_USU = ${USUARIO_INT_ID_USU} `
+    and = 'AND'
+    
+  }
+
+  if (params.CAT_COL_INT_ID_CAT_COLECC) {
+    let CAT_COL_INT_ID_CAT_COLECC = params['CAT_COL_INT_ID_CAT_COLECC']
+    where += `${and} CAT_COL_INT_ID_CAT_COLECC = ${CAT_COL_INT_ID_CAT_COLECC}`
   }
 
   let consulta = `SELECT *
@@ -36,6 +44,28 @@ const publicacionxusuario = async (params) => {
   respuesta['publicaciones'] = await cargar_consulta(consulta)
   return respuesta
 }
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Rescatar publicaciones x categorias
+  const publicacionxcategoria = async (params) => {
+    let respuesta = {};
+    let where = '';
+
+    if (params.CAT_COL_INT_ID_CAT_COLECC) {
+      let CAT_COL_INT_ID_CAT_COLECC = params['CAT_COL_INT_ID_CAT_COLECC']
+      where += `WHERE CAT_COL_INT_ID_CAT_COLECC = ${CAT_COL_INT_ID_CAT_COLECC}`
+    }
+
+    let consulta = `SELECT *
+                    FROM publicacion
+                    ${where}`
+                    console.log(consulta);
+    respuesta['publicaciones'] = await cargar_consulta(consulta)
+    return respuesta;
+
+  }
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 
 const guardar = async (params) => {
 
@@ -43,6 +73,9 @@ const guardar = async (params) => {
   let into = ''
   let values = ''
   let bool_error = false
+  let img_publi = params.IMG_PUBLI;
+  let img_publi2 = params.IMG_PUBLI2;
+  let img_publi3 = params.IMG_PUBLI3;
 
   if (!params?.var_titulo_publi) {
     bool_error = true
@@ -84,21 +117,21 @@ const guardar = async (params) => {
       values += `, ${params.bool_coleccion}`
     }
 
-    if (params?.img_publi1 != undefined) {
-      into += ', img_publi1'
-      values += `, ${params.img_publi1}`
-    }
+  //   if (params?.img_publi1 != undefined) {
+  //     into += ', img_publi1'
+  //     values += `, ${params.img_publi1}`
+  //   }
 
-    if (params?.img_publi2 != undefined) {
-      into += ', img_publi2'
-      values += `, ${params.img_publi2}`
-    }
+  //   if (params?.img_publi2 != undefined) {
+  //     into += ', img_publi2'
+  //     values += `, ${params.img_publi2}`
+  //   }
 
-    if (params?.img_publi3 != undefined) {
-      into += ', img_publi3'
-      values += `, ${params.img_publi3}`
-    }
-  }
+  //   if (params?.img_publi3 != undefined) {
+  //     into += ', img_publi3'
+  //     values += `, ${params.img_publi3}`
+  //   }
+   }
 
   if (!bool_error) {
 
@@ -109,14 +142,12 @@ const guardar = async (params) => {
     const id = res[0].ID
 
     const ins = `INSERT INTO publicacion
-                 (int_id_publi, var_titulo_publi, var_des_publi, fecha_publi, usuario_int_id_usu, cat_col_int_id_cat_colecc 
-                  ${into})
-                 VALUES
-                 (${id}, '${params.var_titulo_publi}', '${params.var_des_publi}', SYSDATE, ${params.usuario_int_id_usu}, ${params.cat_col_int_id_cat_colecc} 
-                  ${values})`
+              (int_id_publi, var_titulo_publi, var_des_publi, fecha_publi, usuario_int_id_usu, cat_col_int_id_cat_colecc,img_publi,img_publi2,img_publi3
+              ${into})
+              VALUES
+              (${id}, '${params.var_titulo_publi}', '${params.var_des_publi}', SYSDATE, ${params.usuario_int_id_usu}, ${params.cat_col_int_id_cat_colecc}, '${img_publi}', '${img_publi2}','${img_publi3}'
+              ${values})`
 
- // , , , , BOOL_EVENTO, BOOL_DISCUSION, BOOL_VENTA, BOOL_COLECC, BOOL_ACTIVA, , , IMG_PUBLI, IMG_PUBLI2, IMG_PUBLI3
- //INT_ID_PUBLI, VAR_TITULO_PUBLI, VAR_DES_PUBLI, FECHA_PUBLI, BOOL_EVENTO, BOOL_DISCUSION, BOOL_VENTA, BOOL_COLECC, BOOL_ACTIVA, USUARIO_INT_ID_USU, CAT_COL_INT_ID_CAT_COLECC, IMG_PUBLI, IMG_PUBLI2, IMG_PUBLI3
     await cargar_consulta(ins)
 
     respuesta.mensaje = 'Se ha guardado la publicación'
@@ -164,5 +195,6 @@ module.exports = {
   consultar,
   guardar,
   modificar,
-  publicacionxusuario
+  publicacionxusuario,
+  publicacionxcategoria
 }
