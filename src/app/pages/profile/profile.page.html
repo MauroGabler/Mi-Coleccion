@@ -12,7 +12,7 @@
 
       <div class="container-interaction">
         <div class="container-button">
-          <ion-button class="button-like">
+          <ion-button class="buttons-like">
             <ion-icon slot="icon-only" name="flame-outline"></ion-icon>
           </ion-button>
           <ion-button *ngIf="usuarioVisitante.VAR_USER !== usuario.VAR_USER" (click)="this.seguirUsuario(usuario.INT_ID_USU)">SEGUIR</ion-button>
@@ -104,7 +104,7 @@
         </div>
         <div class="container-button">
           <ion-item class="ion-item">
-            <ion-button class="button" slot="end" size="default">
+            <ion-button class="buttons-b" slot="end" size="default">
               <ion-icon slot="icon-only" name="flame-outline"></ion-icon>
             </ion-button>
           </ion-item>

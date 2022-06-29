@@ -51,7 +51,7 @@
     flex-direction: row;
 }
 
-.button-like{
+.buttons-like{
     font-size: 9px;
     --background: #E7ECEF;
     color: #22243D;
@@ -84,4 +84,8 @@
     height: 50%;
     width: 50%;
     object-fit: contain;
-   }
+}
+
+.buttons-b{
+    --background: #22243D;
+}

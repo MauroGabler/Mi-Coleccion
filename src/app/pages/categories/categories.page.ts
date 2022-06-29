@@ -69,8 +69,21 @@ export class CategoriesPage implements OnInit {
     this.router.navigate(['tabs/view-post/' + idPost], navigationExtras);
   }
 
+  // async meGusta(id) {
+  //   const params = { int_id_publi: id };
+
+  //   this.api.guardarMeGusta(params).subscribe(res => {
+  //     this.toastMsj('Te gusta!');
+  //   });
+
+  //   this.getPublicaciones();
+  // }
+
   async meGusta(id) {
-    const params = { int_id_publi: id };
+    const params = {
+      publicacion_int_id_publi: id,
+      usuario_int_id_usu: this.usuario.INT_ID_USU
+    };
 
     this.api.guardarMeGusta(params).subscribe(res => {
       this.toastMsj('Te gusta!');

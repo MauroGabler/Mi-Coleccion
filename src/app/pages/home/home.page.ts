@@ -93,8 +93,6 @@ export class HomePage implements OnInit {
     this.consultarPublicaciones();
   }
 
-  // ================================================================================
-  // ================================================================================
   async toastMsj(mensaje) {
     const toast = await this.toast.create({
       message: mensaje,
