@@ -142,14 +142,32 @@
 //.button-purchase{
 //    --background: #22243D;
 //}
+.bordes {
+    --border-style: none;
+}
+
+
+.ion-slides {
+    margin:  20px auto 20px;
+    width: 90vw;
+    border: #22243D 1px solid;
+}
+
+
 .img-slide {
     height: 50%;
     width: 50%;
     object-fit: contain;
-   }
+}
+
+.button-slides{
+    --background: #22243D;
+}
 
 .container-comment{
-    margin:30px
+    width: 90vw;
+    margin:  20px auto 20px;
+    border: #22243D 1px solid;
 }
 
 .description-post{
@@ -165,4 +183,15 @@
 .container-interaction{
     display: flex;
     flex-direction: row;
+}
+
+.comentar {
+    width: 90vw;
+    margin:  20px auto 20px;
+    border: #22243D 1px solid;
+}
+
+ion-chip {
+    --background: #22243D;
+    color: white;
 }

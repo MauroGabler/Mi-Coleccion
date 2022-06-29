@@ -49,6 +49,7 @@ export class ViewPostPage implements OnInit {
     });
   }
 
+  console
   ngOnInit() {
     this.getPerfilUsuario();
     this.getPublicaciones();
@@ -74,6 +75,7 @@ export class ViewPostPage implements OnInit {
 
     this.api.getPerfilusuario(getUser).subscribe(resUser => {
       this.usuario = resUser.usuarios[0];
+      console.log(this.usuario)
       return this.usuario;
     });
   }

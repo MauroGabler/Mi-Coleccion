@@ -22,9 +22,15 @@
               <ion-card-title class="card-title">
                 <a (click)="irAPost(p.INT_ID_PUBLI)" style="color:black">{{p.VAR_TITULO_PUBLI}}</a>
               </ion-card-title>
-              <p>
-                {{p.VAR_DES_PUBLI}}
-              </p>
+              <div *ngIf="p.NRO_PRECIO != null">
+                $ {{p.NRO_PRECIO}}
+              </div>
+              <div *ngIf="p.BOOL_EVENTO != 0">
+                EVENTO
+              </div>
+              <div *ngIf="p.BOOL_DISCUSION != 0">
+                DISCUSION
+              </div>
             </ion-card-header>
           </div>
           <div class="container-button">

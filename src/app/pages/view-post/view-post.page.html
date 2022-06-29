@@ -16,7 +16,7 @@
 
       <div class="container-interaction">
         <div class="container-button">
-          <ion-button class="button-slides button-chat" (click)="meGusta()">
+          <ion-button class="button-slides" (click)="meGusta()">
             <span>{{post.INT_MEGUSTA}}</span>
             <ion-icon slot="icon-only" name="flame"></ion-icon>
           </ion-button>
@@ -29,7 +29,7 @@
   <div class="container-comment">
     <ion-card>
       <div>
-        <ion-card-title class="ion-text-center">
+        <ion-card-title class="ion-text-center bordes">
           {{post.VAR_TITULO_PUBLI}}
         </ion-card-title>
       </div>
@@ -38,7 +38,10 @@
       <div class="container-post">
         <div class="container-chips">
           <ion-title>
-            Fecha de publicación:
+            <div *ngIf="post.NRO_PRECIO != null">
+              Precio : $ {{post.NRO_PRECIO}}
+            </div>
+            Publicado el:
             <ion-chip>
               {{post.FECHA_PUBLI | date: 'dd-MM-YYY' }}
             </ion-chip>
@@ -47,7 +50,7 @@
           <ion-title>
             Publicado por :
             <ion-chip>
-              <ion-label (click)="visitarPerfil(post.VAR_USER)">{{post.VAR_USER}}</ion-label>
+              <ion-label (click)="visitarPerfil(post.VAR_USER)">{{usuario.VAR_USER}}</ion-label>
             </ion-chip>
           </ion-title>
 
@@ -62,13 +65,13 @@
 
   </div>
 
-  <ion-card>
+  <ion-card class="comentar">
     <div class="description-post">
       <ion-item [counter]="true">
         <ion-label position="floating">Comenta</ion-label>
         <ion-textarea name="descripcion" type="text" [(ngModel)]="saveComentario.VAR_COMENT_DESC" inputmode="text"
           maxlength="200"></ion-textarea>
-        <ion-button slot="end" class="button-post" (click)="this.publicarComentario()">
+        <ion-button slot="end" class="button-post button-slides" (click)="this.publicarComentario()">
           Publicar
         </ion-button>
       </ion-item>
@@ -86,12 +89,12 @@
     </ion-card>
   </div>
 
-  <ion-card class="compra-segmento">
+  <!-- <ion-card class="compra-segmento">
     <div class="container-button-purchase" *ngIf="!post.BOOL_VENTA">
       <ion-button class="button-purchase">
         Comprar
       </ion-button>
     </div>
-  </ion-card>
+  </ion-card> -->
 
 </ion-content>

@@ -16,8 +16,9 @@ export class PostPage implements OnInit {
 
   tipoPublicacion: number;
   idUsuario: number;
-  precioInicial: number;
-  precioCompraYa: number;
+  precio: number;
+  // precioInicial: number;
+  // precioCompraYa: number;
   coleccionCompleta = false;
   esSubasta = false;
 
@@ -33,16 +34,17 @@ export class PostPage implements OnInit {
     IMG_PUBLI: '',
     IMG_PUBLI2: '',
     IMG_PUBLI3: '',
+    nro_precio: 0,
   };
 
-  venta = {
-    nro_precio: 0,
-    bool_ofertar: 0,
-    nro_precio_oferta_min: 0,
-    bool_subasta: 0,
-    nro_precio_compra_ya: 0,
-    publicacion_int_id_publi: 0
-  };
+  // venta = {
+  //   nro_precio: 0,
+  //   bool_ofertar: 0,
+  //   nro_precio_oferta_min: 0,
+  //   bool_subasta: 0,
+  //   nro_precio_compra_ya: 0,
+  //   publicacion_int_id_publi: 0
+  // };
 
   constructor(
     private api: ApiService,
@@ -106,18 +108,27 @@ export class PostPage implements OnInit {
     this.idUsuario = JSON.parse(dxUsuario.value).INT_ID_USU;
 
     this.publicacion.usuario_int_id_usu = this.idUsuario;
-
-    this.publicacion.IMG_PUBLI = this.url_server[0];
-    this.publicacion.IMG_PUBLI2 = this.url_server[1];
-    this.publicacion.IMG_PUBLI3 = this.url_server[2];
+    
+    if (this.url_server[0]) {
+      this.publicacion.IMG_PUBLI = this.url_server[0];
+    }
+    if (this.url_server[1]) {
+      this.publicacion.IMG_PUBLI2 = this.url_server[1];
+    }
+    if (this.url_server[2]) {
+      this.publicacion.IMG_PUBLI = this.url_server[2];
+    }
+    
 
     //console.log(this.publicacion.IMG_PUBLI)
 
 
     if (this.tipoPublicacion === 1) {
       esVenta = true;
-      this.venta.nro_precio = this.precioInicial;
-      this.venta.nro_precio_compra_ya = this.precioCompraYa;
+      this.publicacion.bool_venta = 1;
+      this.publicacion.nro_precio = this.precio;
+      // this.venta.nro_precio = this.precioInicial;
+      // this.venta.nro_precio_compra_ya = this.precioCompraYa;
     };
 
     if (this.tipoPublicacion === 2) { this.publicacion.bool_discusion = 1; }
@@ -125,15 +136,16 @@ export class PostPage implements OnInit {
 
     this.coleccionCompleta && (this.publicacion.bool_coleccion = 1);
 
+    console.log(this.publicacion)
     this.api.guardarPublicacion(this.publicacion).subscribe(msg => {
 
       this.toastMsj(msg.mensaje);
-      if (esVenta) {
+      // if (esVenta) {
 
-        this.api.guardarVenta(this.venta).subscribe(res => {
-          this.toastMsj(res.mensaje);
-        });
-      }
+      //   this.api.guardarVenta(this.venta).subscribe(res => {
+      //     this.toastMsj(res.mensaje);
+      //   });
+      // }
     });
 
     // this.router.navigate(['/tabs/home'])

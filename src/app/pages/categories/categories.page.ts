@@ -50,6 +50,7 @@ export class CategoriesPage implements OnInit {
 
     this.api.getMisPublicaciones(getPostCat).subscribe(res => {
       this.publicaciones = res.publicaciones;
+      console.log(this.publicaciones[2])
       return this.publicaciones;
     });
   }

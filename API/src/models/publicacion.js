@@ -13,7 +13,7 @@ const consultar = async (params) => {
   let sel = `SELECT 
             p.int_id_publi, p.var_titulo_publi, p.var_des_publi, p.fecha_publi, p.usuario_int_id_usu, 
             p.cat_col_int_id_cat_colecc, p.img_publi, p.img_publi2, p.img_publi3, p.bool_evento, 
-            p.bool_discusion, p.bool_venta, p.bool_colecc, u.var_user, 
+            p.bool_discusion, p.bool_venta, p.bool_colecc, p.nro_precio, u.var_user, 
               (SELECT COUNT(*)
               FROM likes l
               WHERE l.publicacion_int_id_publi = p.int_id_publi) AS megusta
@@ -48,7 +48,7 @@ const publicacionxusuario = async (params) => {
     `SELECT
     p.int_id_publi, p.var_titulo_publi, p.var_des_publi, p.fecha_publi, p.usuario_int_id_usu,
     p.cat_col_int_id_cat_colecc, p.img_publi, p.img_publi2, p.img_publi3, p.bool_evento,
-    p.bool_discusion, p.bool_venta, p.bool_colecc,
+    p.bool_discusion, p.bool_venta, p.bool_colecc, p.nro_precio,
       (SELECT COUNT(*)
       FROM likes l
       WHERE l.publicacion_int_id_publi = p.int_id_publi) AS megusta
@@ -60,26 +60,25 @@ const publicacionxusuario = async (params) => {
 }
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Rescatar publicaciones x categorias
-  const publicacionxcategoria = async (params) => {
-    let respuesta = {};
-    let where = '';
+const publicacionxcategoria = async (params) => {
+  let respuesta = {};
+  let where = '';
 
-    if (params.CAT_COL_INT_ID_CAT_COLECC) {
-      let CAT_COL_INT_ID_CAT_COLECC = params['CAT_COL_INT_ID_CAT_COLECC']
-      where += `WHERE CAT_COL_INT_ID_CAT_COLECC = ${CAT_COL_INT_ID_CAT_COLECC}`
-    }
-
-    let consulta = `SELECT *
-                    FROM publicacion
-                    ${where}`
-                    console.log(consulta);
-    respuesta['publicaciones'] = await cargar_consulta(consulta)
-    return respuesta;
-
+  if (params.CAT_COL_INT_ID_CAT_COLECC) {
+    let CAT_COL_INT_ID_CAT_COLECC = params['CAT_COL_INT_ID_CAT_COLECC']
+    where += `WHERE CAT_COL_INT_ID_CAT_COLECC = ${CAT_COL_INT_ID_CAT_COLECC}`
   }
 
-// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  let consulta = `SELECT *
+                  FROM publicacion
+                  ${where}`
+                  console.log(consulta);
+  respuesta['publicaciones'] = await cargar_consulta(consulta)
+  return respuesta;
 
+}
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 const guardar = async (params) => {
 
@@ -160,10 +159,10 @@ const guardar = async (params) => {
     const id = res[0].ID
 
     const ins = `INSERT INTO publicacion
-              (int_id_publi, var_titulo_publi, var_des_publi, fecha_publi, usuario_int_id_usu, cat_col_int_id_cat_colecc,img_publi,img_publi2,img_publi3
+              (int_id_publi, var_titulo_publi, var_des_publi, fecha_publi, usuario_int_id_usu, cat_col_int_id_cat_colecc,img_publi,img_publi2,img_publi3,nro_precio
               ${into})
               VALUES
-              (${id}, '${params.var_titulo_publi}', '${params.var_des_publi}', SYSDATE, ${params.usuario_int_id_usu}, ${params.cat_col_int_id_cat_colecc}, '${img_publi}', '${img_publi2}','${img_publi3}'
+              (${id}, '${params.var_titulo_publi}', '${params.var_des_publi}', SYSDATE, ${params.usuario_int_id_usu}, ${params.cat_col_int_id_cat_colecc}, '${img_publi}', '${img_publi2}','${img_publi3}','${params.nro_precio}'
               ${values})`
 
     await cargar_consulta(ins)

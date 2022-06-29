@@ -105,7 +105,11 @@
         </ion-list>
 
         <div class="type-sale" *ngIf="this.tipoPublicacion === 1">
-          <h2 class="text-center">¿Es subasta?</h2>
+          <div class="price inputs">
+            <ion-label position="floating">Precio inicial $</ion-label>
+            <ion-input name="price" type="number" [(ngModel)]="this.precio"></ion-input>
+          </div>
+          <!-- <h2 class="text-center">¿Es subasta?</h2>
 
           <ion-list style="display:flex;justify-content:center;">
             <ion-toggle (ionChange)="this.esSubasta = !this.esSubasta"></ion-toggle>
@@ -120,7 +124,7 @@
           <div class="price-buy-now inputs">
             <ion-label position="floating">Precio compra inmediata $</ion-label>
             <ion-input name="price-now" type="number" [(ngModel)]="this.precioCompraYa"></ion-input>
-          </div>
+          </div> -->
         </div>
         <div class="container-button-post">
           <ion-button class="button-post" (click)="this.publicarVenta()">

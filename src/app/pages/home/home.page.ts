@@ -17,6 +17,7 @@ export class HomePage implements OnInit {
 
   nombreUsuario: string;
   usuario: any = {};
+  usuarioPubli;
   publicaciones;
 
   constructor(
@@ -92,6 +93,8 @@ export class HomePage implements OnInit {
     this.consultarPublicaciones();
   }
 
+  // ================================================================================
+  // ================================================================================
   async toastMsj(mensaje) {
     const toast = await this.toast.create({
       message: mensaje,

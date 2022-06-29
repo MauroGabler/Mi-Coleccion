@@ -21,9 +21,21 @@
                 {{publicacion.VAR_TITULO_PUBLI}}
               </a>
             </ion-card-title>
-            <ion-item class="ion-item">
-              {{publicacion.VAR_DES_PUBLI}}
+            <div *ngIf="publicacion.NRO_PRECIO != null">
+              $ {{publicacion.NRO_PRECIO}}
+            </div>
+            <div *ngIf="publicacion.BOOL_EVENTO != 0">
+              EVENTO
+            </div>
+            <div *ngIf="publicacion.BOOL_DISCUSION != 0">
+              DISCUSION
+            </div>
+            <!-- <ion-item class="ion-item" *ngIf="publicacion.BOOL_EVENTO === 1">
+              EVENTO
             </ion-item>
+            <ion-item class="ion-item" *ngIf="publicacion.BOOL_DISCUSION === 1">
+              DISCUSION
+            </ion-item> -->
           </ion-card-header>
         </div>
         <div class="container-button">
