@@ -10,7 +10,6 @@ import axios from 'axios';
   styleUrls: ['./post.page.scss'],
 })
 export class PostPage implements OnInit {
-
   categorias = [];
   url_server: any[];
   respuesta: any;

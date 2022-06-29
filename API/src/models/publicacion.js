@@ -93,22 +93,26 @@ const guardar = async (params) => {
 
   if (!params?.var_titulo_publi) {
     bool_error = true
-    return respuesta.mensaje = 'No ha enviado el nombre del artículo'
+    respuesta.mensaje = 'No ha enviado el nombre del artículo'
+    return respuesta
   }
 
   if (!params?.usuario_int_id_usu) {
     bool_error = true
-    return respuesta.mensaje = 'No ha enviado el usuario asociado a la publicación'
+    respuesta.mensaje = 'No ha enviado el usuario asociado a la publicación'
+    return respuesta
   }
 
   if (!params?.cat_col_int_id_cat_colecc) {
     bool_error = true
-    return respuesta.mensaje = 'No ha enviado la categoria asociada a la publicación'
+    respuesta.mensaje = 'No ha enviado la categoria asociada a la publicación'
+    return respuesta
   }
 
   if (params?.bool_evento == undefined && params?.bool_discusion == undefined && params?.bool_venta == undefined && params?.bool_coleccion == undefined) {
     bool_error = true
-    return respuesta.mensaje = 'No ha enviado el tipo de publicación'
+    respuesta.mensaje = 'No ha enviado el tipo de publicación'
+    return respuesta
   } else {
 
     if (params?.bool_evento != undefined) {
