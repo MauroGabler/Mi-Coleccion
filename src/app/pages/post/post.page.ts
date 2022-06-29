@@ -120,7 +120,7 @@ export class PostPage implements OnInit {
 
         this.api.guardarVenta(this.venta).subscribe(res => {
           this.toastMsj(res.mensaje);
-          this.publicacion = {};
+          // this.publicacion = {};
           this.router.navigate(['tabs/home']);
         });
       }
