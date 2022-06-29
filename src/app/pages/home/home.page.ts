@@ -5,7 +5,6 @@ import { ApiService } from '../../servicios/api.service'; // Import de API
 import { Storage } from '@capacitor/storage';
 import { IonInfiniteScroll } from '@ionic/angular';
 
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -27,42 +26,28 @@ export class HomePage implements OnInit {
     private aRoute: ActivatedRoute,
     private chRef: ChangeDetectorRef,
     private activateRoute: ActivatedRoute
-    ) {
+  ) {
 
     this.activateRoute.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
-        let data = this.router.getCurrentNavigation().extras.state.usuario;
-        const getUser = {
-          var_user: data
-        }
+        const data = this.router.getCurrentNavigation().extras.state.usuario;
+        const getUser = { var_user: data };
         this.api.getPerfilusuario(getUser).subscribe(resultado => {
-          this.usuario = resultado.usuarios[0]
+          this.usuario = resultado.usuarios[0];
           this.nombreUsuario = this.usuario.VAR_USER;
-
-          //console.log("rescatando usuario TABS > resultado");
-          //console.log(resultado);
-          //console.log("rescatando usuario TABS > this.user");
-          //console.log(this.usuario);
-
-        })
+        });
       }
-
     });
-
-
   }
 
   ngOnInit() {
-
     this.consultarPublicaciones();
-    // this.obtenerUsuario();
+    this.obtenerUsuario();
   }
 
   consultarPublicaciones() {
-
     this.api.consultarPublicaciones().subscribe(res => {
       this.publicaciones = res;
-      // this.publicaciones = JSON.stringify(this.publicaciones);
     });
   }
 
@@ -90,23 +75,20 @@ export class HomePage implements OnInit {
 
   async obtenerUsuario() {
     const storage = await Storage.get({ key: 'logueado' });
-    const valores = await JSON.parse(storage.value);
-    // console.log(valores);
-    this.nombreUsuario = await valores.VAR_USER;
-
+    this.usuario = await JSON.parse(storage.value);
+    this.nombreUsuario = await this.usuario.VAR_USER;
   }
 
   async meGusta(id) {
-
     const params = {
-      int_id_publi: id
+      publicacion_int_id_publi: id,
+      usuario_int_id_usu: this.usuario.INT_ID_USU
     };
+
     this.api.guardarMeGusta(params).subscribe(res => {
       this.toastMsj('Te gusta!');
     });
 
-    // this.chRef.detectChanges();
-    // this.zone.run(() => {});
     this.consultarPublicaciones();
   }
 
@@ -119,16 +101,4 @@ export class HomePage implements OnInit {
     toast.present();
   }
 
-  // loadData(event) {
-  //   setTimeout(() => {
-  //     console.log('Listo');
-  //     event.target.complete();
-
-  //     // App logic to determine if all data is loaded
-  //     // and disable the infinite scroll
-  //     if (data.length === 1000) {
-  //       event.target.disabled = true;
-  //     }
-  //   }, 500);
-  // }
 }

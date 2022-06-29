@@ -34,35 +34,14 @@ export class ProfilePage implements OnInit {
         };
 
 
-<<<<<<< HEAD
-          this.api.getPerfilusuario(getUser).subscribe(resUsu =>
-            {
-              this.usuario = resUsu.usuarios[0]
-              this.nombreUsuario = this.usuario.VAR_USER
-=======
         this.api.getPerfilusuario(getUser).subscribe(resultado => {
           this.usuario = resultado.usuarios[0];
           this.nombreUsuario = this.usuario.VAR_USER;
->>>>>>> e2da38ac290e706fbcbe8260e65d5bc3f59e8e56
 
           const params = {
             USUARIO_INT_ID_USU: this.usuario.INT_ID_USU
           };
 
-<<<<<<< HEAD
-              this.api.getMisPublicaciones(params).subscribe((resPubli)=>
-              {
-                this.publicaciones = resPubli.publicaciones;
-                this.cantPublicaciones = resPubli.publicaciones.length;
-                //console.log("publicaciones: ")
-                //console.log(this.publicaciones)
-                //console.log(this.cantPublicaciones)
-                return this.publicaciones
-              })
-            })  
-        } //Fin if
-      }); //Fin ActivateRoute
-=======
           this.api.getMisPublicaciones(params).subscribe(res => {
 
             this.publicaciones = res.publicaciones;
@@ -75,7 +54,6 @@ export class ProfilePage implements OnInit {
         });
       } //Fin if
     }); //Fin ActivateRoute
->>>>>>> e2da38ac290e706fbcbe8260e65d5bc3f59e8e56
   } // fin NgOninit
 
   irAPost(idPost) {

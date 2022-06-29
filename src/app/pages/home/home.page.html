@@ -2,7 +2,7 @@
   <ion-item class="ion-item">
     <ion-label>
       <b>Hola </b>
-      <em>{{this.nombreUsuario}}! </em>
+      <em>{{this.nombreUsuario}}!<br> </em>
       <b>Bienvenido a mi colección!</b>
     </ion-label>
   </ion-item>
@@ -30,7 +30,7 @@
           <div class="container-button">
             <ion-item class="ion-item">
               <ion-button class="button" slot="end" size="default" (click)="meGusta(p.INT_ID_PUBLI)">
-                <span>{{p.INT_MEGUSTA}}</span>
+                <span>{{p.MEGUSTA}}</span>
                 <ion-icon slot="icon-only" name="flame-outline"></ion-icon>
               </ion-button>
             </ion-item>
