@@ -11,8 +11,8 @@ const consultar = async (params) => {
   }
 
   let sel = `SELECT
-            int_id_art, var_nom_art, venta_int_id_venta
-            FROM articulo
+            a.int_id_art, a.var_nom_art, a.venta_int_id_venta
+            FROM articulo a
             ${where}`
 
   const res = await cargar_consulta(sel)

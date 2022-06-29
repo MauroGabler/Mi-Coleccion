@@ -8,13 +8,14 @@ const consultar = async (params) => {
 
   if (params.int_id_cat_colecc) {
     let int_id_cat_colecc = params['int_id_cat_colecc']
-    where += `WHERE int_id_cat_coleccion = ${int_id_cat_colecc}`
+    where += `AND int_id_cat_colecc = ${int_id_cat_colecc}`
   }
 
-  let sel = `SELECT
-            *
-            FROM categoria_coleccion
-            ${where}`
+  let sel = 
+    `SELECT *
+    FROM categoria_coleccion
+    WHERE bool_activa = 1
+    ${where}`
 
   respuesta['categoria_coleccion'] = await cargar_consulta(sel)
 
@@ -50,9 +51,9 @@ const modificar = async (params) => {
   let respuesta = {}
   respuesta['bool_error'] = 0
   let set = ''
-  let int_id_cat_coleccion, var_nom_cat, bool_activa
+  let int_id_cat_colecc, var_nom_cat, bool_activa
 
-  params?.int_id_cat_coleccion ? (int_id_cat_coleccion = params.int_id_cat_coleccion) : (respuesta.bool_error = 1)
+  params?.int_id_cat_colecc ? (int_id_cat_colecc = params.int_id_cat_colecc) : (respuesta.bool_error = 1)
   params?.var_nom_cat ? (var_nom_cat = params.var_nom_cat) : (respuesta.bool_error = 1)
 
   if (params?.bool_activa) {
@@ -65,7 +66,7 @@ const modificar = async (params) => {
     let upd = `UPDATE categoria
                SET
                (var_nom_cat = ${var_nom_cat} ${set})
-               WHERE int_id_cat_coleccion = ${int_id_cat_coleccion}`
+               WHERE int_id_cat_colecc = ${int_id_cat_colecc}`
     cargar_consulta(upd)
 
     respuesta['mensaje'] = 'Se ha modificado la categoría'
