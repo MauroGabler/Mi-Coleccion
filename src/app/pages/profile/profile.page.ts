@@ -13,6 +13,7 @@ export class ProfilePage implements OnInit {
 
   usuario: any = {};
   nombreUsuario: string;
+  usuarioVisitante: any = {};
   publicaciones: any[];
   cantPublicaciones = 0;
 
@@ -66,5 +67,21 @@ export class ProfilePage implements OnInit {
     this.router.navigate(['tabs/view-post/' + idPost], navigationExtras)
   };
 
+  async obtenerUsuario() {
+    const storage = await Storage.get({ key: 'logueado' });
+    const usuario = await JSON.parse(storage.value);
+    this.usuarioVisitante = usuario;
+  }
+
+  seguirUsuario(usuarioSeguir) {
+    const parametros = {
+      INT_ID_SEGUIDOR: this.usuarioVisitante.INT_ID_USU,
+      INT_ID_SEGUIDO: usuarioSeguir
+    };
+    console.log(parametros)
+
+    this.api.seguirUsuario(parametros).subscribe(() => {
+    });
+  }
 
 } // fin

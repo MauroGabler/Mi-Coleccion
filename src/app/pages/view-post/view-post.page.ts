@@ -111,6 +111,14 @@ export class ViewPostPage implements OnInit {
     this.saveComentario.VAR_COMENT_DESC = '';
   }
 
+    // visitar perfil del usuario que publica
+    visitarPerfil(idUsuario) {
+      const navigationExtras: NavigationExtras = {
+        state: { usuario: idUsuario }
+      };
+      this.router.navigate([`/tabs/profile/${idUsuario}`], navigationExtras);
+    }
+
   async toastMsj(mensaje) {
     const toast = await this.toast.create({
       message: mensaje,

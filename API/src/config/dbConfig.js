@@ -2,11 +2,11 @@ const oracledb = require('oracledb')
 
 const password = 'oracle'
 // const password = 'admin'
-// const connectString = 'localhost:1521/XE'
+ const connectString = 'localhost:1521/XE'
 
 // seteo para mac
-oracledb.initOracleClient({libDir: '/Applications/InstantClientOracle'});
-const connectString = 'localhost:32118/XE'
+//oracledb.initOracleClient({libDir: '/Applications/InstantClientOracle'});
+//const connectString = 'localhost:32118/XE'
 
 const conectar = () => {
 
@@ -14,7 +14,7 @@ const conectar = () => {
 
     resolve(oracledb.getConnection({
       user: 'MI_COLECCION',
-      password,
+      password: 'password2',
       connectString
     }))
 

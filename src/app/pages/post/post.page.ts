@@ -18,6 +18,7 @@ export class PostPage implements OnInit {
   idUsuario: number;
   precioInicial: number;
   precioCompraYa: number;
+  // descripcionVenta = 'preuasne';
   coleccionCompleta = false;
   esSubasta = false;
 
@@ -51,7 +52,7 @@ export class PostPage implements OnInit {
   ) { }
 
   url_server: any[];
-  respuesta: any;
+  respuesta: any ;
 
   ngOnInit() {
     this.consultarCategorias();
@@ -59,30 +60,37 @@ export class PostPage implements OnInit {
     let array = [];
     this.url_server = array;
 
-    const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/micoleccion/image/upload";
+    const CLOUDINARY_URL="https://api.cloudinary.com/v1_1/micoleccion/image/upload";
     const preset = "t4bru0ez";
     const imageUploader = document.getElementById("file-input");
 
-    imageUploader.addEventListener('change', async (e: Event) => {
+    imageUploader.addEventListener('change', async(e:Event) =>{
       const file = (e.target as HTMLInputElement).files[0];
 
       const formData = new FormData();
-      formData.append('file', file);
-      formData.append('upload_preset', preset);
-      const res = await axios.post(CLOUDINARY_URL, formData, {
+      formData.append('file',file);
+      formData.append('upload_preset',preset);
+      const res = await axios.post(CLOUDINARY_URL,formData,{
         headers: {
-          'Content-Type': 'multipart/form-data'
+          'Content-Type' : 'multipart/form-data'
         }
       });
 
+      // console.log(this.url_server)
+
       if (array.length < 3) {
         array.push(res.data.secure_url);
-        if (array.length === 3) {
-          imageUploader.setAttribute('disabled', '');
+        if(array.length === 3){
+          imageUploader.setAttribute('disabled','');
         }
       }
+
     });
-  }
+
+  } // ng onit
+
+
+
 
   consultarCategorias() {
     this.api.consultarCategorias().subscribe(msg => {
@@ -91,6 +99,8 @@ export class PostPage implements OnInit {
   }
 
   async publicarVenta() {
+
+    // console.log(this.publicacion.var_des_publi);
     let esVenta = false;
     const dxUsuario = await Storage.get({ key: 'logueado' });
 
@@ -101,6 +111,9 @@ export class PostPage implements OnInit {
     this.publicacion.IMG_PUBLI = this.url_server[0];
     this.publicacion.IMG_PUBLI2 = this.url_server[1];
     this.publicacion.IMG_PUBLI3 = this.url_server[2];
+
+    //console.log(this.publicacion.IMG_PUBLI)
+
 
     if (this.tipoPublicacion === 1) {
       esVenta = true;
@@ -120,11 +133,12 @@ export class PostPage implements OnInit {
 
         this.api.guardarVenta(this.venta).subscribe(res => {
           this.toastMsj(res.mensaje);
-          // this.publicacion = {};
-          this.router.navigate(['tabs/home']);
         });
       }
     });
+
+    // this.router.navigate(['/tabs/home'])
+
   }
 
   async toastMsj(mensaje) {
